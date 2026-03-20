@@ -42,8 +42,8 @@ function startSkeletonGame(callback) {
     ss.currentIndex = 0;
     ss.highlight = null;
 
-    // Pick 8 random parts
-    ss.questions = shuffleArray([...SKELETON_PARTS]).slice(0, 8);
+    // Pick 8 parties jamais vues (utilise le tracker de app.js)
+    ss.questions = pickFreshQuestions(SKELETON_PARTS, 'corps', 'skeleton', 8);
 
     showScreen('screen-skeleton');
 

@@ -16,6 +16,50 @@ let currentLevel = 0;
 let totalLevels = 1;
 let allQuestionsPool = [];
 
+// ===== QUESTION TRACKER (jamais les mêmes entre sessions) =====
+// Stocke les index des questions déjà vues par matière+mode dans localStorage
+function getSeenKey(type, mode) { return `lulu-seen-${type}-${mode}`; }
+
+function getSeenQuestions(type, mode) {
+    try {
+        return JSON.parse(localStorage.getItem(getSeenKey(type, mode)) || '[]');
+    } catch { return []; }
+}
+
+function markQuestionsSeen(type, mode, indices) {
+    const seen = getSeenQuestions(type, mode);
+    const updated = [...new Set([...seen, ...indices])];
+    localStorage.setItem(getSeenKey(type, mode), JSON.stringify(updated));
+}
+
+function resetSeenQuestions(type, mode) {
+    localStorage.removeItem(getSeenKey(type, mode));
+}
+
+// Pioche des questions jamais vues. Si tout vu → reset et repart.
+function pickFreshQuestions(allQuestions, type, mode, count) {
+    let seen = getSeenQuestions(type, mode);
+
+    // Si toutes vues (ou presque), reset
+    if (seen.length >= allQuestions.length - 2) {
+        resetSeenQuestions(type, mode);
+        seen = [];
+    }
+
+    // Filtre les non-vues
+    const unseen = allQuestions
+        .map((q, i) => ({ q, i }))
+        .filter(item => !seen.includes(item.i));
+
+    // Shuffle et prend le nombre voulu
+    const picked = shuffleArray([...unseen]).slice(0, count);
+
+    // Marque comme vues
+    markQuestionsSeen(type, mode, picked.map(p => p.i));
+
+    return picked.map(p => p.q);
+}
+
 // Memo state
 let memoCards = [];
 let memoFlipped = [];
@@ -209,28 +253,29 @@ function startGame(type) {
     startQuiz(type);
 }
 
+function getQuestionPool(type) {
+    switch (type) {
+        case 'histoire': return QUESTIONS_HISTOIRE;
+        case 'corps': return QUESTIONS_CORPS;
+        case 'francais': return QUESTIONS_FRANCAIS;
+        case 'math': return QUESTIONS_MATH;
+        default: return [];
+    }
+}
+
 function startQuiz(type) {
     currentGame = type;
     currentMode = 'quiz';
 
-    let allQuestions;
-    switch (type) {
-        case 'histoire': allQuestions = QUESTIONS_HISTOIRE; break;
-        case 'corps': allQuestions = QUESTIONS_CORPS; break;
-        case 'francais': allQuestions = QUESTIONS_FRANCAIS; break;
-        case 'math': allQuestions = QUESTIONS_MATH; break;
-    }
-
-    allQuestionsPool = shuffleArray([...allQuestions]);
-    totalLevels = Math.ceil(allQuestionsPool.length / totalQuestions);
+    const pool = getQuestionPool(type);
+    totalLevels = Math.ceil(pool.length / totalQuestions);
     currentLevel = 0;
     startLevel();
 }
 
 function startLevel() {
-    const start = currentLevel * totalQuestions;
-    const end = Math.min(start + totalQuestions, allQuestionsPool.length);
-    currentQuestions = allQuestionsPool.slice(start, end);
+    const pool = getQuestionPool(currentGame);
+    currentQuestions = pickFreshQuestions(pool, currentGame, 'quiz', totalQuestions);
     currentQuestionIndex = 0;
     score = 0;
     streak = 0;
@@ -400,18 +445,11 @@ let bubbleState = {
     particles: [], afterBubbleCallback: null,
 };
 
-// Génère les questions du bubble depuis les vraies questions du quiz (toujours varié)
+// Génère les questions du bubble depuis le pool, jamais les mêmes entre sessions
 function getBubbleQuestions(gameType) {
-    let pool;
-    switch (gameType) {
-        case 'histoire': pool = QUESTIONS_HISTOIRE; break;
-        case 'corps': pool = QUESTIONS_CORPS; break;
-        case 'francais': pool = QUESTIONS_FRANCAIS; break;
-        case 'math': pool = QUESTIONS_MATH; break;
-        default: pool = QUESTIONS_MATH;
-    }
-    // Convertit les questions quiz en format balloon (réponse correcte toujours en index 0)
-    return shuffleArray([...pool]).slice(0, 8).map(q => ({
+    const pool = getQuestionPool(gameType);
+    const fresh = pickFreshQuestions(pool, gameType, 'bubble', 8);
+    return fresh.map(q => ({
         q: q.q.length > 40 ? q.q.slice(0, 38) + '…' : q.q,
         answers: [q.choices[q.correct], ...q.choices.filter((_, i) => i !== q.correct).slice(0, 3)],
         correct: 0,
