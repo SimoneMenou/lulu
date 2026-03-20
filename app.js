@@ -400,40 +400,29 @@ let bubbleState = {
     particles: [], afterBubbleCallback: null,
 };
 
-const BUBBLE_QUESTIONS = {
-    histoire: [
-        { q: "Capitale de la Belgique ?", answers: ["Bruxelles", "Paris", "Anvers", "Namur"], correct: 0 },
-        { q: "Indépendance belge ?", answers: ["1830", "1789", "1914", "1950"], correct: 0 },
-        { q: "Symbole national ?", answers: ["Lion", "Coq", "Aigle", "Ours"], correct: 0 },
-        { q: "Créateur des Schtroumpfs ?", answers: ["Peyo", "Hergé", "Franquin", "Morris"], correct: 0 },
-        { q: "Fleuve de Liège ?", answers: ["Meuse", "Escaut", "Seine", "Rhin"], correct: 0 },
-    ],
-    corps: [
-        { q: "Organe qui pompe le sang ?", answers: ["Cœur", "Poumons", "Cerveau", "Foie"], correct: 0 },
-        { q: "Plus grand organe ?", answers: ["Peau", "Foie", "Cerveau", "Intestin"], correct: 0 },
-        { q: "Combien d'os adulte ?", answers: ["206", "106", "306", "150"], correct: 0 },
-        { q: "Mesure l'humidité ?", answers: ["Hygromètre", "Thermomètre", "Baromètre", "Girouette"], correct: 0 },
-    ],
-    francais: [
-        { q: "Pluriel de cheval ?", answers: ["Chevaux", "Chevals", "Chevales", "Cheveaux"], correct: 0 },
-        { q: "Contraire de grand ?", answers: ["Petit", "Gros", "Large", "Haut"], correct: 0 },
-        { q: "Féminin d'acteur ?", answers: ["Actrice", "Acteuse", "Acteure", "Actresse"], correct: 0 },
-        { q: "Synonyme de joyeux ?", answers: ["Content", "Triste", "Fatigué", "Calme"], correct: 0 },
-    ],
-    math: [
-        { q: "25 + 17 = ?", answers: ["42", "32", "52", "43"], correct: 0 },
-        { q: "6 × 7 = ?", answers: ["42", "36", "48", "56"], correct: 0 },
-        { q: "Double de 35 ?", answers: ["70", "60", "65", "75"], correct: 0 },
-        { q: "Quart de 100 ?", answers: ["25", "50", "40", "20"], correct: 0 },
-        { q: "Faces d'un cube ?", answers: ["6", "4", "8", "12"], correct: 0 },
-    ],
-};
+// Génère les questions du bubble depuis les vraies questions du quiz (toujours varié)
+function getBubbleQuestions(gameType) {
+    let pool;
+    switch (gameType) {
+        case 'histoire': pool = QUESTIONS_HISTOIRE; break;
+        case 'corps': pool = QUESTIONS_CORPS; break;
+        case 'francais': pool = QUESTIONS_FRANCAIS; break;
+        case 'math': pool = QUESTIONS_MATH; break;
+        default: pool = QUESTIONS_MATH;
+    }
+    // Convertit les questions quiz en format balloon (réponse correcte toujours en index 0)
+    return shuffleArray([...pool]).slice(0, 8).map(q => ({
+        q: q.q.length > 40 ? q.q.slice(0, 38) + '…' : q.q,
+        answers: [q.choices[q.correct], ...q.choices.filter((_, i) => i !== q.correct).slice(0, 3)],
+        correct: 0,
+    }));
+}
 
 function startBubbleShooter(gameType, callback) {
     const bs = bubbleState;
     bs.afterBubbleCallback = callback;
     bs.score = 0; bs.level = 0; bs.locked = false;
-    bs.questions = shuffleArray([...(BUBBLE_QUESTIONS[gameType] || BUBBLE_QUESTIONS.math)]);
+    bs.questions = getBubbleQuestions(gameType);
     showScreen('screen-bubble');
     bs.canvas = document.getElementById('bubble-canvas');
     bs.ctx = bs.canvas.getContext('2d');
