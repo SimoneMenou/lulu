@@ -105,8 +105,14 @@ const SUBJECT_MODES = {
         { id: 'quiz', icon: '📖', label: 'Quiz', desc: 'Teste-toi !' },
     ],
     mix: [
+        { id: 'conjugaison', icon: '🎭', label: 'Conjugaison Aventure', desc: 'Complète avec le bon temps !' },
+        { id: 'bescherelle', icon: '📕', label: 'Bescherelle', desc: 'Trie : passé, présent ou futur ?' },
+        { id: 'dictee', icon: '✍️', label: 'Mini Dictée', desc: 'Les histoires de Mamande !' },
+        { id: 'speedcalc', icon: '⚡', label: 'Speed Calc', desc: 'Calcul mental chrono !' },
+        { id: 'skeleton', icon: '💀', label: 'Squelette', desc: 'Touche le bon organe ou os' },
+        { id: 'complete', icon: '💬', label: 'Complète la phrase', desc: 'Toutes les matières mélangées !' },
         { id: 'bubble', icon: '🎈', label: 'Ballons', desc: 'Toutes les matières mélangées !' },
-        { id: 'quiz', icon: '🎯', label: 'Quiz Mix', desc: 'Toutes les matières mélangées !' },
+        { id: 'quiz', icon: '🎯', label: 'Quiz Mix', desc: 'Le grand test final !' },
     ],
 };
 
