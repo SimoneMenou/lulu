@@ -323,6 +323,7 @@ button:focus-visible {
 .btn-sciences { background: linear-gradient(135deg, #1a2833, #1a5a6b); }
 .btn-mix { background: linear-gradient(135deg, #33061a, #6b1a5a); }
 .btn-memo { background: linear-gradient(135deg, #1a1a1a, #3d3d3d); }
+.btn-random { background: linear-gradient(135deg, #e94560, #7b2d8e); grid-column: 1 / -1; }
 
 /* ========== MADE WITH LOVE ========== */
 .made-with-love {
@@ -1465,6 +1466,7 @@ body.theme-paradis .btn-math { background: linear-gradient(135deg, #66BB6A, #2E7
 body.theme-paradis .btn-sciences { background: linear-gradient(135deg, #26C6DA, #00838F); }
 body.theme-paradis .btn-mix { background: linear-gradient(135deg, #FF7043, #D84315); }
 body.theme-paradis .btn-memo { background: linear-gradient(135deg, #78909C, #455A64); }
+body.theme-paradis .btn-random { background: linear-gradient(135deg, #E91E63, #9C27B0); }
 
 body.theme-paradis .game-header { background: white; border-bottom-color: #e8e8e8; }
 body.theme-paradis .btn-back { color: #555; border-color: #ddd; }

@@ -152,6 +152,17 @@ const SUBMENU_DIALOGUES = {
     ],
 };
 
+// ===== RANDOM MODE =====
+function startRandom() {
+    const subjects = ['histoire', 'corps', 'sciences', 'francais', 'math'];
+    const subject = subjects[Math.floor(Math.random() * subjects.length)];
+    const modes = SUBJECT_MODES[subject].filter(m => m.id !== 'fiches' && m.id !== 'formulas');
+    const mode = modes[Math.floor(Math.random() * modes.length)];
+    currentGame = subject;
+    currentMode = mode.id;
+    launchMode(subject, mode.id);
+}
+
 // ===== THEME =====
 let currentTheme = localStorage.getItem('lulu-theme') || 'blackmetal';
 
