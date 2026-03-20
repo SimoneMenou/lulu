@@ -26,6 +26,15 @@ const STORY_INTROS = {
         "Corbatin construit un château de bâtons dans le jardin. « Il me faut des calculs pour que ça tienne ! »",
         "Lulu vend des tickets pour son concert flamenco-metal dans le jardin. « Combien j'ai gagné ? Aide-moi à calculer ! »",
     ],
+    sciences: [
+        "Corbatin a trouvé un microscope géant dans le jardin ! « C'est quoi ce truc ? »",
+        "Lulu : « Les sciences, c'est comprendre pourquoi les choses sont comme elles sont ! »",
+        "Senior Corbatin observe les nuages... « Pourquoi il pleut ? Et pourquoi le ciel est bleu ? »",
+    ],
+    mix: [
+        "Lulu : « On mélange tout ! Le grand défi ! ¡Vamos! »",
+        "Corbatin : « Croâ ! Toutes les matières en même temps ! »",
+    ],
     memo: [
         "Lulu et Corbatin ont caché des trésors dans le jardin ! Retrouve les paires !",
         "Senior Corbatin a mélangé toutes les cartes ! « Lulu aide-moi à retrouver les paires ! »",
@@ -388,132 +397,6 @@ const QUESTIONS_CORPS = [
         choices: ["20", "28", "32", "40"],
         correct: 2,
         explanation: "Un adulte a 32 dents (avec les dents de sagesse). Les enfants ont 20 dents de lait."
-    },
-    // --- CEB extraits : Sciences ---
-    {
-        q: "Dans l'hémisphère nord, quel jour de l'année est le plus long ?",
-        hint: "Solstice = jour le plus long ou le plus court · Équinoxe = jour et nuit de même durée",
-        choices: ["L'équinoxe d'automne", "Le solstice d'hiver", "L'équinoxe de printemps", "Le solstice d'été"],
-        correct: 3,
-        explanation: "Le solstice d'été (vers le 21 juin) est le jour le plus long de l'année dans l'hémisphère nord."
-    },
-    {
-        q: "Dans l'hémisphère nord, quel jour est le plus court ?",
-        hint: "Solstice = jour le plus long ou le plus court · Équinoxe = jour et nuit de même durée",
-        choices: ["Le solstice d'hiver", "L'équinoxe d'automne", "Le solstice d'été", "L'équinoxe de printemps"],
-        correct: 0,
-        explanation: "Le solstice d'hiver (vers le 21 décembre) est le jour le plus court de l'année."
-    },
-    {
-        q: "Quand c'est l'été en Belgique, quelle saison est-ce en Australie ?",
-        choices: ["L'été aussi", "Le printemps", "L'hiver", "L'automne"],
-        correct: 2,
-        explanation: "Les saisons sont inversées entre les deux hémisphères : été au nord = hiver au sud !"
-    },
-    {
-        q: "Qu'est-ce que la moisson ?",
-        hint: "Céréales = blé, orge, maïs... les plantes dont on fait la farine",
-        choices: ["Planter des graines", "Récolter les céréales", "Arroser les champs", "Couper du bois"],
-        correct: 1,
-        explanation: "La moisson est le travail agricole qui consiste à récolter les céréales comme le blé ou l'orge."
-    },
-    {
-        q: "Pourquoi la forêt est-elle importante pour la planète ?",
-        choices: ["Elle produit du pétrole", "Elle réduit les gaz à effet de serre", "Elle augmente la température", "Elle empêche la pluie"],
-        correct: 1,
-        explanation: "La forêt absorbe le CO₂ et aide à réduire les gaz à effet de serre."
-    },
-    {
-        q: "Vers quel continent les oiseaux migrateurs de Belgique s'envolent-ils ?",
-        choices: ["L'Amérique", "L'Asie", "L'Afrique", "L'Océanie"],
-        correct: 2,
-        explanation: "Les oiseaux migrateurs de Belgique (hirondelle, cigogne...) migrent vers l'Afrique pour l'hiver."
-    },
-    {
-        q: "À quelle saison les oiseaux migrateurs quittent-ils la Belgique ?",
-        choices: ["Au printemps", "En été", "En automne", "En hiver"],
-        correct: 2,
-        explanation: "En automne, les oiseaux migrateurs quittent la Belgique pour rejoindre des pays plus chauds au sud."
-    },
-    // --- CEB 2010-2021 : Sciences ---
-    {
-        q: "Qu'est-ce que la pollinisation ?",
-        hint: "Étamines = partie mâle de la fleur · Pistil = partie femelle · Pollen = poudre jaune",
-        choices: ["La fabrication du pollen", "Le transport du pollen des étamines vers le pistil", "La transformation de la graine en fruit", "La formation des graines"],
-        correct: 1,
-        explanation: "La pollinisation, c'est quand le pollen voyage des étamines vers le pistil de la fleur. Les abeilles aident beaucoup !"
-    },
-    {
-        q: "Quelles articulations permettent la plus grande variété de mouvements ?",
-        hint: "Articulation = endroit où deux os se rejoignent et permettent le mouvement",
-        choices: ["Coude et genou", "Épaule et hanche", "Épaule et genou", "Coude et hanche"],
-        correct: 1,
-        explanation: "L'épaule et la hanche sont des articulations sphériques : mouvements dans toutes les directions !"
-    },
-    {
-        q: "Que se passe-t-il quand on inspire ?",
-        hint: "Diaphragme = muscle sous les poumons qui aide à respirer",
-        choices: ["Les poumons diminuent", "Le diaphragme remonte", "Les poumons se gonflent et le diaphragme s'abaisse", "La cage thoracique diminue"],
-        correct: 2,
-        explanation: "Quand on inspire, le diaphragme s'abaisse, les poumons se gonflent pour laisser entrer l'air !"
-    },
-    {
-        q: "Une bouteille « vide » contient en réalité...",
-        choices: ["Du vide total", "De l'air", "De la poussière", "De la vapeur d'eau"],
-        correct: 1,
-        explanation: "Une bouteille « vide » contient de l'air ! L'air est un gaz invisible qui est partout autour de nous."
-    },
-    {
-        q: "Quand on chauffe l'air dans une bouteille fermée avec un ballon, que se passe-t-il ?",
-        choices: ["Rien", "Le ballon gonfle car l'air se dilate", "Le ballon éclate", "La bouteille éclate"],
-        correct: 1,
-        explanation: "Sous l'effet de la chaleur, l'air se dilate (prend plus de place) et fait gonfler le ballon !"
-    },
-    {
-        q: "La fréquence cardiaque, c'est...",
-        hint: "Fréquence = combien de fois ça se répète · Cardiaque = qui concerne le cœur",
-        choices: ["La vitesse de course", "Le nombre de battements du cœur par minute", "La quantité de sang", "Le nombre de respirations"],
-        correct: 1,
-        explanation: "La fréquence cardiaque mesure combien de fois ton cœur bat en une minute. Au repos, environ 70-80 fois !"
-    },
-    {
-        q: "Quel type d'articulation est le coude ?",
-        hint: "Charnière = comme une porte, ne bouge que dans un sens · Sphérique = bouge dans tous les sens",
-        choices: ["Sphérique (tous les sens)", "Charnière (plier/tendre)", "Pivotante", "Glissante"],
-        correct: 1,
-        explanation: "Le coude est une articulation charnière : il plie et tend le bras, comme une porte sur ses gonds !"
-    },
-    {
-        q: "Quels éléments favorisent le développement des moisissures sur le pain ?",
-        choices: ["La lumière seule", "L'humidité et la chaleur", "L'oxygène seul", "Le type d'aliment seul"],
-        correct: 1,
-        explanation: "Les moisissures aiment la chaleur et l'humidité. C'est pour ça qu'on met le pain au frigo !"
-    },
-    {
-        q: "Quel instrument mesure l'humidité de l'air ?",
-        hint: "Hygro = humidité · Thermo = chaleur · Baro = pression · Mètre = mesurer",
-        choices: ["Un thermomètre", "Un hygromètre", "Un baromètre", "Une girouette"],
-        correct: 1,
-        explanation: "L'hygromètre mesure l'humidité. Le thermomètre = température, le baromètre = pression, la girouette = direction du vent."
-    },
-    {
-        q: "Quel instrument mesure la pression atmosphérique ?",
-        hint: "Pression atmosphérique = le poids de l'air qui nous entoure · Anémo = vent",
-        choices: ["Un thermomètre", "Un hygromètre", "Un baromètre", "Un anémomètre"],
-        correct: 2,
-        explanation: "Le baromètre mesure la pression atmosphérique. Quand la pression est haute, il fait généralement beau !"
-    },
-    {
-        q: "Pourquoi l'eau de mer est-elle salée ?",
-        choices: ["À cause des poissons", "Les rivières dissolvent les minéraux des roches", "On y a ajouté du sel", "À cause de la température"],
-        correct: 1,
-        explanation: "Les rivières dissolvent les minéraux des roches et déposent ces sels dans la mer depuis des millions d'années."
-    },
-    {
-        q: "Dans le cycle de vie d'une plante, quel est l'ordre correct ?",
-        choices: ["Germination, floraison, pollinisation, fécondation, fruit", "Floraison, germination, fécondation, pollinisation, fruit", "Pollinisation, germination, floraison, fruit", "Germination, pollinisation, floraison, fruit"],
-        correct: 0,
-        explanation: "La graine germe, la plante pousse et fleurit, le pollen est transporté, fécondation, puis le fruit se forme !"
     },
 ];
 
@@ -985,6 +868,76 @@ const MATH_FORMULAS = [
     { category: "Calcul", title: "Priorité des opérations", formula: "D'abord × et ÷ , puis + et −", example: "3 + 2 × 4 = 3 + 8 = 11 (pas 20 !)" },
     { category: "Calcul", title: "Moyenne", formula: "Moyenne = somme ÷ nombre de valeurs", example: "Ex : (8 + 12 + 10) ÷ 3 = 10" },
 ];
+
+// ===== QUESTIONS SCIENCES (séparées du corps humain) =====
+const QUESTIONS_SCIENCES = [
+    { q: "Dans l'hémisphère nord, quel jour de l'année est le plus long ?", hint: "Solstice = jour le plus long ou le plus court", choices: ["L'équinoxe d'automne", "Le solstice d'hiver", "L'équinoxe de printemps", "Le solstice d'été"], correct: 3, explanation: "Le solstice d'été (vers le 21 juin) est le jour le plus long." },
+    { q: "Dans l'hémisphère nord, quel jour est le plus court ?", hint: "Solstice = jour le plus long ou le plus court", choices: ["Le solstice d'hiver", "L'équinoxe d'automne", "Le solstice d'été", "L'équinoxe de printemps"], correct: 0, explanation: "Le solstice d'hiver (vers le 21 décembre) est le jour le plus court." },
+    { q: "Quand c'est l'été en Belgique, quelle saison est-ce en Australie ?", choices: ["L'été aussi", "Le printemps", "L'hiver", "L'automne"], correct: 2, explanation: "Les saisons sont inversées entre les deux hémisphères !" },
+    { q: "Qu'est-ce que la moisson ?", hint: "Céréales = blé, orge, maïs...", choices: ["Planter des graines", "Récolter les céréales", "Arroser les champs", "Couper du bois"], correct: 1, explanation: "La moisson = récolter les céréales comme le blé ou l'orge." },
+    { q: "Pourquoi la forêt est-elle importante pour la planète ?", choices: ["Elle produit du pétrole", "Elle réduit les gaz à effet de serre", "Elle augmente la température", "Elle empêche la pluie"], correct: 1, explanation: "La forêt absorbe le CO₂ et réduit les gaz à effet de serre." },
+    { q: "Vers quel continent les oiseaux migrateurs de Belgique s'envolent-ils ?", choices: ["L'Amérique", "L'Asie", "L'Afrique", "L'Océanie"], correct: 2, explanation: "Les oiseaux migrateurs de Belgique migrent vers l'Afrique pour l'hiver." },
+    { q: "À quelle saison les oiseaux migrateurs quittent-ils la Belgique ?", choices: ["Au printemps", "En été", "En automne", "En hiver"], correct: 2, explanation: "En automne, ils partent vers le sud." },
+    { q: "Qu'est-ce que la pollinisation ?", hint: "Étamines = partie mâle · Pistil = partie femelle · Pollen = poudre jaune", choices: ["La fabrication du pollen", "Le transport du pollen des étamines vers le pistil", "La transformation de la graine en fruit", "La formation des graines"], correct: 1, explanation: "Le pollen voyage des étamines vers le pistil. Les abeilles aident !" },
+    { q: "Une bouteille « vide » contient en réalité...", choices: ["Du vide total", "De l'air", "De la poussière", "De la vapeur d'eau"], correct: 1, explanation: "Une bouteille « vide » contient de l'air, un gaz invisible." },
+    { q: "Quand on chauffe l'air dans une bouteille fermée avec un ballon, que se passe-t-il ?", choices: ["Rien", "Le ballon gonfle car l'air se dilate", "Le ballon éclate", "La bouteille éclate"], correct: 1, explanation: "L'air se dilate (prend plus de place) sous l'effet de la chaleur." },
+    { q: "Quels éléments favorisent le développement des moisissures sur le pain ?", choices: ["La lumière seule", "L'humidité et la chaleur", "L'oxygène seul", "Le type d'aliment seul"], correct: 1, explanation: "Les moisissures aiment la chaleur et l'humidité." },
+    { q: "Quel instrument mesure l'humidité de l'air ?", hint: "Hygro = humidité · Thermo = chaleur · Baro = pression", choices: ["Un thermomètre", "Un hygromètre", "Un baromètre", "Une girouette"], correct: 1, explanation: "L'hygromètre mesure l'humidité." },
+    { q: "Quel instrument mesure la pression atmosphérique ?", hint: "Pression atmosphérique = le poids de l'air · Anémo = vent", choices: ["Un thermomètre", "Un hygromètre", "Un baromètre", "Un anémomètre"], correct: 2, explanation: "Le baromètre mesure la pression atmosphérique." },
+    { q: "Pourquoi l'eau de mer est-elle salée ?", choices: ["À cause des poissons", "Les rivières dissolvent les minéraux des roches", "On y a ajouté du sel", "À cause de la température"], correct: 1, explanation: "Les rivières déposent des sels dans la mer depuis des millions d'années." },
+    { q: "Dans le cycle de vie d'une plante, quel est l'ordre correct ?", choices: ["Germination, floraison, pollinisation, fécondation, fruit", "Floraison, germination, fécondation, pollinisation, fruit", "Pollinisation, germination, floraison, fruit", "Germination, pollinisation, floraison, fruit"], correct: 0, explanation: "Germination → floraison → pollinisation → fécondation → fruit !" },
+];
+
+// ===== FICHES RÉVISION PAR MATIÈRE =====
+const REVISION_FICHES = {
+    histoire: [
+        { title: "Indépendance belge", content: "1830 — Révolution contre les Pays-Bas", detail: "Premier roi : Léopold Ier" },
+        { title: "3 Régions", content: "Flamande · Wallonne · Bruxelles-Capitale", detail: "3 langues : français, néerlandais, allemand" },
+        { title: "Drapeau belge", content: "Noir · Jaune · Rouge (vertical)", detail: "Symbole national : le lion" },
+        { title: "Époques historiques", content: "Préhistoire → Antiquité → Moyen Âge → Temps modernes → Contemp.", detail: "Charlemagne = Moyen Âge · Ambiorix = Antiquité" },
+        { title: "Guerres mondiales", content: "1914-1918 (1re) · 1939-1945 (2e)", detail: "La Belgique a été envahie en 1914" },
+        { title: "Europe", content: "Traité de Rome 1957 → CEE → Union européenne", detail: "Brexit (Royaume-Uni) en 2020" },
+        { title: "BD belge", content: "Tintin (Hergé, 1929) · Schtroumpfs (Peyo, 1958)", detail: "Spirou (Franquin) · Lucky Luke (Morris)" },
+        { title: "Villes & Fleuves", content: "Meuse : Liège, Namur, Dinant", detail: "Port d'Anvers = plus grand de Belgique" },
+        { title: "Culture belge", content: "Magritte (surréalisme) · Horta (Art nouveau)", detail: "Eddy Merckx = « le Cannibale » (cyclisme)" },
+        { title: "Atomium", content: "Construit pour l'Expo universelle de 1958", detail: "Symbole de Bruxelles" },
+    ],
+    corps: [
+        { title: "Squelette", content: "206 os chez l'adulte · 300 chez le bébé", detail: "Fémur = os le plus long" },
+        { title: "Cœur", content: "Pompe le sang · ~100 000 battements/jour", detail: "Protégé par les côtes (cage thoracique)" },
+        { title: "Poumons", content: "Respiration : O₂ entre, CO₂ sort", detail: "~20 000 respirations par jour" },
+        { title: "Cerveau", content: "Contrôle tout : pensée, mouvement, émotions", detail: "Protégé par le crâne" },
+        { title: "Digestion", content: "Bouche → Estomac → Intestins", detail: "Les sucs gastriques digèrent les aliments" },
+        { title: "Articulations", content: "Sphérique : épaule, hanche (tous les sens)", detail: "Charnière : coude, genou (plier/tendre)" },
+        { title: "Peau", content: "Plus grand organe du corps (~2 m²)", detail: "Protège, régule la température" },
+        { title: "Dents", content: "Enfant : 20 dents de lait · Adulte : 32 dents", detail: "Incisives, canines, prémolaires, molaires" },
+        { title: "Muscles", content: "Ont besoin d'oxygène et de nourriture", detail: "Diaphragme = muscle de la respiration" },
+        { title: "Sang", content: "Artères (du cœur) · Veines (vers le cœur)", detail: "Capillaires = plus fins qu'un cheveu" },
+    ],
+    sciences: [
+        { title: "Saisons", content: "Solstice d'été (21 juin) = jour le plus long", detail: "Saisons inversées entre hémisphères nord et sud" },
+        { title: "Migration", content: "Oiseaux partent en automne vers l'Afrique", detail: "Hirondelle, cigogne, coucou..." },
+        { title: "Pollinisation", content: "Pollen va des étamines (♂) au pistil (♀)", detail: "Grâce aux abeilles, au vent, à l'eau" },
+        { title: "Cycle plante", content: "Germination → Floraison → Pollinisation → Fruit", detail: "La graine germe, la plante pousse, fleurit, fructifie" },
+        { title: "Air", content: "Gaz invisible · Se dilate quand chauffé", detail: "Une bouteille « vide » contient de l'air" },
+        { title: "Moisissures", content: "Se développent avec chaleur + humidité", detail: "Conserver au frigo pour éviter" },
+        { title: "Instruments météo", content: "Thermomètre (T°) · Hygromètre (humidité)", detail: "Baromètre (pression) · Anémomètre (vent)" },
+        { title: "Eau de mer", content: "Salée par les minéraux des roches", detail: "Apportés par les rivières depuis des millions d'années" },
+        { title: "Forêt", content: "Absorbe le CO₂ · Réduit effet de serre", detail: "Habitat pour des millions d'espèces" },
+    ],
+    francais: [
+        { title: "Classes de mots", content: "Nom · Verbe · Adjectif · Adverbe", detail: "Déterminant · Pronom · Conjonction · Préposition" },
+        { title: "Sujet du verbe", content: "QUI fait l'action ? → C'est le sujet", detail: "Le chat mange. → Sujet = Le chat" },
+        { title: "COD", content: "Le verbe + QUOI ? → COD", detail: "Lulu mange une frite → COD = une frite" },
+        { title: "Types de phrases", content: "Déclarative · Interrogative · Exclamative · Impérative", detail: "Impérative = donne un ordre (Viens ici !)" },
+        { title: "Temps de conjugaison", content: "Présent · Imparfait (-ais) · Futur (-rai)", detail: "Passé composé = avoir/être + participe passé" },
+        { title: "Être (présent)", content: "je suis · tu es · il est", detail: "nous sommes · vous êtes · ils sont" },
+        { title: "Avoir (présent)", content: "j'ai · tu as · il a", detail: "nous avons · vous avez · ils ont" },
+        { title: "Pluriels irréguliers", content: "cheval → chevaux · journal → journaux", detail: "animal → animaux · travail → travaux" },
+        { title: "Homonymes", content: "Mots qui se prononcent pareil, sens différent", detail: "ver / vert / verre / vers" },
+        { title: "Synonymes & Antonymes", content: "Synonyme = même sens (joyeux = content)", detail: "Antonyme = contraire (grand ≠ petit)" },
+    ],
+};
 
 // ===== MEMO CARDS (paires emoji / thème éducatif) =====
 const MEMO_THEMES = [

@@ -70,49 +70,72 @@ let memoLocked = false;
 // ===== SUBJECT MODES CONFIG =====
 const SUBJECT_MODES = {
     math: [
-        { id: 'formulas', icon: '📐', label: 'Fiches Formules', desc: 'Révise les formules et conversions' },
-        { id: 'speedcalc', icon: '⚡', label: 'Speed Calc', desc: 'Calcul mental chronométré — 30 secondes !' },
-        { id: 'bubble', icon: '🫧', label: 'Bubble Shooter', desc: 'Éclate les bulles avec la bonne réponse' },
-        { id: 'quiz', icon: '🎯', label: 'Quiz', desc: 'Teste-toi sur toutes les questions !' },
+        { id: 'fiches', icon: '📚', label: 'Fiches Révision', desc: 'Apprends avant de jouer !' },
+        { id: 'formulas', icon: '📐', label: 'Fiches Formules', desc: 'Toutes les formules et conversions' },
+        { id: 'speedcalc', icon: '⚡', label: 'Speed Calc', desc: 'Calcul mental chrono — 30 secondes !' },
+        { id: 'bubble', icon: '🎈', label: 'Ballons', desc: 'Éclate le bon ballon !' },
+        { id: 'quiz', icon: '🎯', label: 'Quiz', desc: 'Teste-toi !' },
     ],
     corps: [
+        { id: 'fiches', icon: '📚', label: 'Fiches Révision', desc: 'Apprends avant de jouer !' },
         { id: 'skeleton', icon: '💀', label: 'Squelette', desc: 'Touche le bon organe ou os' },
-        { id: 'bubble', icon: '🫧', label: 'Bubble Shooter', desc: 'Éclate les bulles avec la bonne réponse' },
-        { id: 'quiz', icon: '🫀', label: 'Quiz', desc: 'Teste-toi sur le corps humain !' },
+        { id: 'bubble', icon: '🎈', label: 'Ballons', desc: 'Éclate le bon ballon !' },
+        { id: 'quiz', icon: '🫀', label: 'Quiz', desc: 'Teste-toi !' },
+    ],
+    sciences: [
+        { id: 'fiches', icon: '📚', label: 'Fiches Révision', desc: 'Apprends avant de jouer !' },
+        { id: 'bubble', icon: '🎈', label: 'Ballons', desc: 'Éclate le bon ballon !' },
+        { id: 'quiz', icon: '🔬', label: 'Quiz', desc: 'Teste-toi !' },
     ],
     histoire: [
-        { id: 'bubble', icon: '🫧', label: 'Bubble Shooter', desc: 'Éclate les bulles avec la bonne réponse' },
-        { id: 'quiz', icon: '🏰', label: 'Quiz', desc: 'Teste-toi sur l\'histoire de Belgique !' },
+        { id: 'fiches', icon: '📚', label: 'Fiches Révision', desc: 'Apprends avant de jouer !' },
+        { id: 'bubble', icon: '🎈', label: 'Ballons', desc: 'Éclate le bon ballon !' },
+        { id: 'quiz', icon: '🏰', label: 'Quiz', desc: 'Teste-toi !' },
     ],
     francais: [
-        { id: 'bubble', icon: '🫧', label: 'Bubble Shooter', desc: 'Éclate les bulles avec la bonne réponse' },
-        { id: 'quiz', icon: '📖', label: 'Quiz', desc: 'Teste-toi en français !' },
+        { id: 'fiches', icon: '📚', label: 'Fiches Révision', desc: 'Apprends avant de jouer !' },
+        { id: 'bubble', icon: '🎈', label: 'Ballons', desc: 'Éclate le bon ballon !' },
+        { id: 'quiz', icon: '📖', label: 'Quiz', desc: 'Teste-toi !' },
+    ],
+    mix: [
+        { id: 'bubble', icon: '🎈', label: 'Ballons', desc: 'Toutes les matières mélangées !' },
+        { id: 'quiz', icon: '🎯', label: 'Quiz Mix', desc: 'Toutes les matières mélangées !' },
     ],
 };
 
 const SUBJECT_NAMES = {
     histoire: 'Histoire de Belgique',
     corps: 'Corps Humain',
+    sciences: 'Sciences',
     francais: 'Français',
     math: 'Maths',
+    mix: 'Mix Total',
 };
 
 const SUBMENU_DIALOGUES = {
     histoire: [
-        "🐦‍⬛ Corbatin a trouvé un vieux grimoire d'histoire ! Par quoi on commence ?",
-        "🥁 Lulu : « L'histoire de la Belgique, c'est rock ! Choisis ton mode ! »",
+        "🐦‍⬛ Corbatin a trouvé un vieux grimoire ! Par quoi on commence ?",
+        "🥁 Lulu : « Lis les fiches d'abord, puis teste-toi ! »",
     ],
     corps: [
-        "💀 Lulu : « Voyons ce qu'il y a sous la peau... Choisis ! »",
+        "💀 Lulu : « Lis les fiches pour apprendre, puis joue ! »",
         "🐦‍⬛ Corbatin se demande combien d'os il a... aide-le !",
     ],
+    sciences: [
+        "🔬 Corbatin a trouvé un microscope dans le jardin !",
+        "🥁 Lulu : « Les sciences, c'est comprendre le monde ! Commence par les fiches ! »",
+    ],
     francais: [
-        "📜 Lulu écrit une chanson mais il lui faut des bons mots ! Choisis !",
-        "🐦‍⬛ Corbatin veut apprendre à bien parler... croâ-rrectement !",
+        "📜 Lulu : « Révise les fiches puis teste-toi ! »",
+        "🐦‍⬛ Corbatin veut parler croâ-rrectement !",
     ],
     math: [
-        "🔮 Les maths, c'est magique ! Choisis ta potion !",
-        "🥁 Lulu : « Les maths, c'est comme le rythme — faut compter ! »",
+        "🔮 Lulu : « Lis les formules d'abord, puis entraîne-toi ! »",
+        "🥁 « Les maths, c'est comme le rythme — faut compter ! »",
+    ],
+    mix: [
+        "🎯 Toutes les matières mélangées ! Le grand défi !",
+        "🐦‍⬛ Corbatin : « Croâ ! On mélange tout ! »",
     ],
 };
 
@@ -136,7 +159,7 @@ function updateParadisEmojis() {
     const flowers = document.querySelectorAll('.flower');
     const sets = { paradis: ['🌻', '🌷', '🌼', '🌺'], blackmetal: ['🥀', '🦇', '🕸️', '🖤'] };
     flowers.forEach((f, i) => f.textContent = (sets[currentTheme] || sets.blackmetal)[i]);
-    const menuIcons = { paradis: ['🏰', '🫀', '📖', '🔢', '🧠'], blackmetal: ['🏚️', '💀', '📜', '🔮', '🃏'] };
+    const menuIcons = { paradis: ['🏰', '🫀', '📖', '🔬', '🔢', '🎯', '🧠'], blackmetal: ['🏚️', '💀', '📜', '🔬', '🔮', '🎯', '🃏'] };
     document.querySelectorAll('.btn-icon').forEach((el, i) => { if (menuIcons[currentTheme]?.[i]) el.textContent = menuIcons[currentTheme][i]; });
 }
 
@@ -202,6 +225,9 @@ function launchMode(type, modeId) {
         case 'quiz':
             startQuiz(type);
             break;
+        case 'fiches':
+            startFiches(type);
+            break;
         case 'formulas':
             startFormulas();
             break;
@@ -246,6 +272,32 @@ function startFormulas() {
     });
 }
 
+// ===== FICHES RÉVISION (toutes matières) =====
+function startFiches(type) {
+    currentMode = 'fiches';
+    showScreen('screen-formulas'); // réutilise l'écran formulas
+
+    const fiches = REVISION_FICHES[type];
+    const container = document.getElementById('formulas-container');
+    container.innerHTML = '';
+
+    if (!fiches || fiches.length === 0) {
+        container.innerHTML = '<p style="text-align:center;padding:20px;opacity:0.6">Pas encore de fiches pour cette matière.</p>';
+        return;
+    }
+
+    fiches.forEach(f => {
+        const card = document.createElement('div');
+        card.className = 'formula-card';
+        card.innerHTML = `
+            <div class="formula-title">${f.title}</div>
+            <div class="formula-content">${f.content}</div>
+            <div class="formula-example">${f.detail}</div>
+        `;
+        container.appendChild(card);
+    });
+}
+
 // ===== QUIZ (standalone) =====
 function startGame(type) {
     // Only for memo from home screen
@@ -257,8 +309,10 @@ function getQuestionPool(type) {
     switch (type) {
         case 'histoire': return QUESTIONS_HISTOIRE;
         case 'corps': return QUESTIONS_CORPS;
+        case 'sciences': return QUESTIONS_SCIENCES;
         case 'francais': return QUESTIONS_FRANCAIS;
         case 'math': return QUESTIONS_MATH;
+        case 'mix': return [...QUESTIONS_HISTOIRE, ...QUESTIONS_CORPS, ...QUESTIONS_SCIENCES, ...QUESTIONS_FRANCAIS, ...QUESTIONS_MATH];
         default: return [];
     }
 }

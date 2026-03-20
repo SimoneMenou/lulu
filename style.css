@@ -320,6 +320,8 @@ button:focus-visible {
 .btn-corps { background: linear-gradient(135deg, #33061a, #6b1a3a); }
 .btn-francais { background: linear-gradient(135deg, #0a1628, #1a3a6b); }
 .btn-math { background: linear-gradient(135deg, #0a2818, #1a6b3a); }
+.btn-sciences { background: linear-gradient(135deg, #1a2833, #1a5a6b); }
+.btn-mix { background: linear-gradient(135deg, #33061a, #6b1a5a); }
 .btn-memo { background: linear-gradient(135deg, #1a1a1a, #3d3d3d); }
 
 /* ========== MADE WITH LOVE ========== */
@@ -1129,7 +1131,9 @@ body.theme-paradis .btn-histoire { background: linear-gradient(135deg, #AB47BC, 
 body.theme-paradis .btn-corps { background: linear-gradient(135deg, #EF5350, #C62828); }
 body.theme-paradis .btn-francais { background: linear-gradient(135deg, #42A5F5, #1565C0); }
 body.theme-paradis .btn-math { background: linear-gradient(135deg, #66BB6A, #2E7D32); }
-body.theme-paradis .btn-memo { background: linear-gradient(135deg, #26C6DA, #00838F); }
+body.theme-paradis .btn-sciences { background: linear-gradient(135deg, #26C6DA, #00838F); }
+body.theme-paradis .btn-mix { background: linear-gradient(135deg, #FF7043, #D84315); }
+body.theme-paradis .btn-memo { background: linear-gradient(135deg, #78909C, #455A64); }
 
 body.theme-paradis .game-header { background: white; border-bottom-color: #e8e8e8; }
 body.theme-paradis .btn-back { color: #555; border-color: #ddd; }
