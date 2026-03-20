@@ -329,6 +329,15 @@ const QUESTIONS_HISTOIRE = [
     { q: "Pieter Brueghel est un célèbre artiste flamand. Quel type d'œuvres a-t-il créé ?", choices: ["Des sculptures", "Des monuments", "Des gravures", "Des peintures"], correct: 3, explanation: "Pieter Brueghel est un célèbre peintre flamand connu pour ses scènes de vie quotidienne." },
     { q: "Dans quelle région de Belgique se trouve Namur ?", choices: ["Région flamande", "Bruxelles-Capitale", "Région wallonne", "Communauté germanophone"], correct: 2, explanation: "Namur est le chef-lieu de la province de Namur, en Région wallonne." },
     { q: "Jean-Michel Folon était un artiste belge. Quel type d'artiste était-il ?", hint: "Aquarelliste = peintre qui utilise la peinture à l'eau", choices: ["Un compositeur", "Un marionnettiste", "Un aquarelliste", "Un inventeur"], correct: 2, explanation: "Folon était un artiste belge célèbre pour ses aquarelles." },
+    // --- Restantes extractions CEB ---
+    { q: "À quelle période historique le lancer de disque existait-il déjà ?", choices: ["Le Moyen Âge", "L'Antiquité", "Les Temps modernes", "Le 20e siècle"], correct: 1, explanation: "Le Discobole (sculpture du 5e siècle av. J.-C.) prouve que ça existait dans l'Antiquité." },
+    { q: "Quel continent a accueilli le plus de Jeux Olympiques d'été ?", choices: ["L'Afrique", "L'Asie", "L'Amérique", "L'Europe"], correct: 3, explanation: "L'Europe a accueilli le plus de J.O. d'été (Londres, Paris, Athènes...)." },
+    { q: "Marco Polo, marchand et explorateur, est né au...", choices: ["12e siècle", "13e siècle", "14e siècle", "16e siècle"], correct: 1, explanation: "Marco Polo est né en 1254, au 13e siècle." },
+    { q: "Magellan a découvert un passage entre l'Atlantique et le Pacifique au...", choices: ["13e siècle", "14e siècle", "15e siècle", "16e siècle"], correct: 3, explanation: "Magellan a découvert ce passage en 1520, au 16e siècle." },
+    { q: "Quelle période correspond au « temps des sociétés industrielles » ?", hint: "Sociétés industrielles = usines, chemins de fer, électricité", choices: ["L'Antiquité", "Le Moyen Âge", "Les Temps modernes", "L'Époque contemporaine"], correct: 3, explanation: "Les sociétés industrielles se développent à l'époque contemporaine (19e-20e siècle)." },
+    { q: "Pourquoi les oiseaux migrateurs préfèrent-ils survoler les terres ?", choices: ["C'est plus court", "C'est plus sûr (ils peuvent se poser)", "Il fait plus chaud", "C'est plus rapide"], correct: 1, explanation: "Au-dessus des terres, ils peuvent se poser en cas de fatigue." },
+    { q: "Qu'est-ce qu'un faire-part de décès ?", choices: ["Une invitation à une fête", "Un document qui annonce la mort de quelqu'un", "Une lettre d'amour", "Un bulletin scolaire"], correct: 1, explanation: "Un faire-part de décès informe de la mort d'une personne." },
+    { q: "Qu'est-ce que la Toussaint, célébrée le 1er novembre ?", choices: ["La fête nationale", "L'anniversaire du roi", "Une fête religieuse qui honore tous les saints", "La fin de l'année scolaire"], correct: 2, explanation: "Fête catholique célébrée le 1er novembre en l'honneur de tous les saints." },
 ];
 
 // ===== QUESTIONS CORPS HUMAIN & SCIENCES (Niveau CEB) =====
@@ -419,6 +428,12 @@ const QUESTIONS_CORPS = [
     { q: "Quel organe du système digestif relie la bouche à l'estomac ?", choices: ["L'intestin grêle", "Le pancréas", "L'œsophage", "Le foie"], correct: 2, explanation: "L'œsophage est le tube qui relie la bouche à l'estomac." },
     { q: "Quel type d'articulation est la hanche ?", choices: ["Charnière", "Sphérique", "Pivot", "Fixe"], correct: 1, explanation: "La hanche est sphérique, comme l'épaule : mouvements dans toutes les directions." },
     { q: "Que fait le diaphragme lors de l'expiration ?", choices: ["Il se tend et s'abaisse", "Il se relâche et remonte", "Il ne bouge pas", "Il se gonfle"], correct: 1, explanation: "À l'expiration, le diaphragme se relâche et remonte." },
+    { q: "Qu'est-ce que la gestation ?", hint: "Gestation = grossesse chez les animaux", choices: ["La croissance après la naissance", "Le développement du petit dans le ventre", "La mise au monde", "L'alimentation du bébé"], correct: 1, explanation: "La gestation = période où le petit se développe dans le ventre de la mère." },
+    { q: "Quel est le type d'articulation du genou ?", choices: ["Sphérique", "Charnière", "Pivot", "Coulissante"], correct: 1, explanation: "Le genou est une articulation charnière (comme une porte)." },
+    { q: "Quel est le type d'articulation de l'épaule ?", choices: ["Charnière", "Sphérique", "Pivot", "Fixe"], correct: 1, explanation: "L'épaule est sphérique : mouvements dans toutes les directions." },
+    { q: "Quel organe du corps bat environ 70 fois par minute au repos ?", choices: ["Le cerveau", "Les poumons", "Le cœur", "L'estomac"], correct: 2, explanation: "Le cœur bat environ 70-80 fois par minute au repos." },
+    { q: "Qu'est-ce que la fréquence respiratoire ?", choices: ["Le volume d'air dans les poumons", "Le nombre de cycles respiratoires par minute", "La vitesse de l'air dans les bronches", "Le nombre de battements du cœur"], correct: 1, explanation: "Un cycle = une inspiration + une expiration. La fréquence = combien par minute." },
+    { q: "Que se passe-t-il avec le volume de la cage thoracique quand on inspire ?", choices: ["Il diminue", "Il augmente", "Il ne change pas", "Il se vide"], correct: 1, explanation: "Le diaphragme s'abaisse et la cage thoracique augmente de volume." },
 ];
 
 // ===== QUESTIONS FRANÇAIS (Niveau CEB) =====
@@ -628,6 +643,14 @@ const QUESTIONS_FRANCAIS = [
     { q: "Qu'est-ce qu'un sommaire dans un livre ?", choices: ["Un glossaire", "La liste des chapitres et pages", "Un index", "Une bibliographie"], correct: 1, explanation: "Un sommaire (table des matières) liste les chapitres d'un livre." },
     { q: "Que signifie « rester sans descendance » ?", hint: "Descendance = les enfants, les petits", choices: ["Ne pas pouvoir descendre", "Ne pas perdre sa place", "Ne pas se faire battre", "Ne pas avoir d'enfants"], correct: 3, explanation: "La descendance = les enfants. Sans descendance = pas de petits." },
     { q: "Que signifie « apprivoiser » dans Le Petit Prince ?", choices: ["Capturer un animal", "Créer des liens, devenir amis", "Donner à manger", "Dresser un animal"], correct: 1, explanation: "Pour le renard, apprivoiser = créer des liens d'amitié et de confiance." },
+    // --- Restantes extractions CEB français ---
+    { q: "Qu'est-ce qu'un aquarelliste ?", hint: "Aquarelle = peinture à l'eau", choices: ["Un éleveur de poissons", "Un plongeur", "Un peintre qui utilise l'aquarelle", "Un spécialiste des aquariums"], correct: 2, explanation: "Un aquarelliste peint à l'aquarelle (peinture à l'eau)." },
+    { q: "Quel mot est un nom commun dans « Le dauphin mange des maquereaux » ?", choices: ["Le", "mange", "dauphin", "des"], correct: 2, explanation: "Dauphin est un nom commun (il désigne un animal)." },
+    { q: "Quel est le temps du verbe dans « Les glaciers fondaient lentement » ?", choices: ["Présent", "Passé composé", "Imparfait", "Futur simple"], correct: 2, explanation: "Fondaient = imparfait (terminaison -aient)." },
+    { q: "Quelle est la bonne orthographe du pluriel de « un journal » ?", choices: ["Des journals", "Des journaux", "Des journauxs", "Des journales"], correct: 1, explanation: "Les noms en -al font leur pluriel en -aux." },
+    { q: "Quel est l'infinitif du verbe « me nomme » dans « je me nomme Harry » ?", choices: ["Nommer", "Se nommer", "Nominer", "Renommer"], correct: 1, explanation: "« Je me nomme » vient de « se nommer » (verbe pronominal)." },
+    { q: "Les toiles de Magritte sont des « énigmes ». Que signifie ce mot ici ?", choices: ["Ses toiles apportent des réponses", "Ses toiles sont difficiles à comprendre", "Ses toiles font peur", "Ses toiles montrent les étoiles"], correct: 1, explanation: "Une énigme = quelque chose de mystérieux et difficile à comprendre." },
+    { q: "Victor Horta est célèbre en Belgique pour quel domaine ?", choices: ["La danse", "La musique", "L'architecture", "La peinture"], correct: 2, explanation: "Victor Horta est un architecte belge célèbre pour l'Art nouveau." },
 ];
 
 // ===== QUESTIONS MATHS (Niveau CEB - adapté dyscalculie) =====
@@ -986,6 +1009,35 @@ const QUESTIONS_MATH = [
     { q: "Le forfait vélo coûte 1 € + 0,15 €/min. Combien pour 45 minutes ?", choices: ["6,75 €", "7,75 €", "7,15 €", "8,75 €"], correct: 1, explanation: "1 + (45 × 0,15) = 1 + 6,75 = 7,75 €." },
     { q: "La direction achète 24 raquettes pour 96 €. Combien pour 10 raquettes de plus ?", choices: ["30 €", "40 €", "48 €", "96 €"], correct: 1, explanation: "Prix unitaire : 96 ÷ 24 = 4 €. 10 × 4 = 40 €." },
     { q: "Dans une enquête sur 120 élèves, 2/3 préfèrent le foot et 1/4 le tennis. Combien préfèrent la natation ?", choices: ["10", "15", "20", "25"], correct: 0, explanation: "Foot : 80. Tennis : 30. Natation : 120 - 80 - 30 = 10." },
+    // --- Restantes extractions CEB maths ---
+    { q: "Combien font 1,3 + 1,22 ?", choices: ["2,42", "2,52", "1,52", "2,32"], correct: 1, explanation: "1,3 + 1,22 = 2,52." },
+    { q: "Combien font 27,7 + 1,5 ?", choices: ["28,2", "29,2", "28,7", "29,7"], correct: 1, explanation: "27,7 + 1,5 = 29,2." },
+    { q: "Quel nombre suit immédiatement 12 099 ?", choices: ["12 100", "12 199", "12 090", "13 000"], correct: 0, explanation: "12 099 + 1 = 12 100." },
+    { q: "2,8 × 99 = (2,8 × 100) - ?. Que vaut le nombre manquant ?", hint: "Distributivité : a × (b-1) = a×b - a", choices: ["2,8", "28", "0,28", "280"], correct: 0, explanation: "2,8 × 99 = 2,8 × (100-1) = (2,8 × 100) - 2,8." },
+    { q: "Combien font 0,5 + 1/4 ?", choices: ["0,75", "0,6", "0,55", "1,25"], correct: 0, explanation: "0,5 = 2/4. Donc 2/4 + 1/4 = 3/4 = 0,75." },
+    { q: "Un peintre tapisse 48 m² en une journée. Combien en 6 jours ?", choices: ["240 m²", "288 m²", "192 m²", "336 m²"], correct: 1, explanation: "48 × 6 = 288 m²." },
+    { q: "Paul mange 1/3 d'une tablette de chocolat. Marie mange 1/4 du reste. Quelle fraction reste-t-il ?", choices: ["1/2", "5/12", "1/4", "1/6"], correct: 0, explanation: "Après Paul, il reste 2/3. Marie mange 1/4 de 2/3 = 1/6. Reste : 2/3 - 1/6 = 1/2." },
+    { q: "Un solide fait 2m × 1m × 1m. Si on double la longueur, que devient le volume ?", choices: ["Il double", "Il triple", "Il quadruple", "Il reste le même"], correct: 0, explanation: "Volume = L×l×h. Si L double, le volume double." },
+    { q: "Un solide fait 2m × 1m × 1m. Si on double la hauteur ET la profondeur ?", choices: ["Il double", "Il triple", "Il quadruple", "Il reste le même"], correct: 2, explanation: "Doubler 2 dimensions = volume × 4." },
+    { q: "Un parallélépipède fait 5m × 4m et son volume est 60 m³. Quelle est sa hauteur ?", choices: ["2 m", "3 m", "4 m", "5 m"], correct: 1, explanation: "h = 60 ÷ (5×4) = 60 ÷ 20 = 3 m." },
+    { q: "Un confiseur vend des pommes d'amour : 26, 35, 17, 19, 34, 53, 61. Quelle moyenne par jour ?", choices: ["30", "35", "38", "45"], correct: 1, explanation: "Total = 245. Moyenne = 245 ÷ 7 = 35." },
+    { q: "Un phoque mange 135 kg en 30 jours. Combien pour 3 phoques pendant 60 jours ?", choices: ["270 kg", "405 kg", "540 kg", "810 kg"], correct: 3, explanation: "1 phoque/60j = 270 kg. Pour 3 : 270 × 3 = 810 kg." },
+    { q: "Une murène mange 6 kg en 15 jours. Combien pour 60 jours ?", choices: ["12 kg", "18 kg", "24 kg", "30 kg"], correct: 2, explanation: "60 ÷ 15 = 4. Donc 6 × 4 = 24 kg." },
+    { q: "Pour une même distance, quand le moniteur fait 3 pas, Nora en fait 4. Le moniteur a fait 480 pas. Combien Nora ?", choices: ["360", "480", "640", "720"], correct: 2, explanation: "480 × 4/3 = 640 pas." },
+    { q: "Nora a marché : lundi 37 min, mardi 0, mercredi 25, jeudi 9, vendredi 0, samedi 13, dimanche 42. Moyenne par jour ?", choices: ["15 min", "18 min", "21 min", "25 min"], correct: 1, explanation: "Total = 126 min. 126 ÷ 7 = 18 min." },
+    { q: "Combien de jours entre le 29 juin et le 16 août ?", choices: ["46 jours", "48 jours", "49 jours", "50 jours"], correct: 1, explanation: "Juin : 1 jour. Juillet : 31. Août : 16. Total = 48 jours." },
+    { q: "Un quadrilatère avec 2 paires de côtés parallèles est-il toujours un losange ?", choices: ["Toujours", "Parfois", "Jamais", "Seulement si les côtés sont égaux"], correct: 1, explanation: "Parfois losange, parfois rectangle ou parallélogramme." },
+    { q: "Un quadrilatère avec 4 côtés égaux est-il toujours un carré ?", choices: ["Toujours", "Parfois", "Jamais", "Seulement si les angles sont droits"], correct: 1, explanation: "Parfois carré (angles droits), parfois losange." },
+    { q: "En utilisant les chiffres 4, 5 et 1, quel est le plus grand nombre possible ?", choices: ["541", "514", "451", "415"], correct: 0, explanation: "On place le plus grand chiffre en premier : 541." },
+    { q: "Pour mesurer une distance, Samuel fait 18 reports et Nicole 15. Qui a le plus long bâton ?", choices: ["Samuel", "Nicole", "Même longueur", "On ne peut pas savoir"], correct: 1, explanation: "Moins de reports = bâton plus long. Nicole a le plus long." },
+    { q: "Mia a 5 chansons : 3m10s, 4m13s, 2m55s, 3m43s, 3m23s. Quelle durée totale ?", choices: ["17 min 4 s", "17 min 14 s", "17 min 24 s", "17 min 34 s"], correct: 2, explanation: "Secondes : 10+13+55+43+23=144s = 2min24s. Minutes : 3+4+2+3+3=15. Total : 17 min 24 s." },
+    { q: "Pour un gâteau, il faut 250 g de sucre. Chaque sachet fait 5 g. Combien de sachets ?", choices: ["25", "40", "50", "100"], correct: 2, explanation: "250 ÷ 5 = 50 sachets." },
+    { q: "Un quart de kg de beurre, c'est combien en grammes ?", choices: ["25 g", "100 g", "250 g", "500 g"], correct: 2, explanation: "1/4 kg = 1000 ÷ 4 = 250 g." },
+    { q: "240 mg, c'est plus grand ou plus petit que 2 400 cg ?", choices: ["Plus grand", "Plus petit", "Égal", "On ne peut pas comparer"], correct: 1, explanation: "240 mg = 24 cg. 24 cg < 2 400 cg." },
+    { q: "Avec 2 carrés, 2 triangles et 3 rectangles, peut-on construire un prisme à base triangulaire ?", choices: ["Oui", "Non", "Seulement avec les rectangles", "Seulement avec les triangles"], correct: 0, explanation: "Un prisme triangulaire a 2 triangles + 3 rectangles. Oui !" },
+    { q: "3 classes de 25 élèves : Fatima a 32% des votes. Combien ont voté pour elle dans une classe ?", choices: ["6", "7", "8", "9"], correct: 2, explanation: "32% de 25 = 8 élèves." },
+    { q: "Un parcours fait 78 km. Arthur a fait 30%. Combien de km ?", choices: ["15,6 km", "23,4 km", "31,2 km", "39 km"], correct: 1, explanation: "30% de 78 = 23,4 km." },
+    { q: "Un parcours fait 78 km. Nora a fait 10%. Combien de km ?", choices: ["3,9 km", "7,8 km", "10 km", "15,6 km"], correct: 1, explanation: "10% de 78 = 7,8 km." },
 ];
 
 // ===== FICHES FORMULES MATHS =====
@@ -1046,6 +1098,22 @@ const QUESTIONS_SCIENCES = [
     { q: "Le dauphin est-il un poisson ?", choices: ["Oui", "Non, c'est un mammifère", "Non, c'est un reptile", "Oui, c'est un poisson de mer"], correct: 1, explanation: "Le dauphin est un mammifère marin de l'ordre des cétacés." },
     { q: "Quel instrument utilise-t-on pour mesurer un angle ?", choices: ["Une latte", "Un rapporteur", "Un compas", "Une équerre"], correct: 1, explanation: "Le rapporteur sert à mesurer les angles en degrés." },
     { q: "Pourquoi les glaciers fondent-ils plus vite au 21e siècle ?", choices: ["Ils fondent en vieillissant", "Il y avait plus d'eau avant", "Des éboulements les ont élargis", "Il fait plus chaud qu'avant"], correct: 3, explanation: "Le réchauffement climatique fait fondre les glaciers." },
+    // --- Restantes extractions CEB sciences ---
+    { q: "Quand on refroidit un liquide, que se passe-t-il ?", choices: ["Son volume augmente", "Son volume diminue", "Le volume ne change pas", "Le liquide devient plus lourd"], correct: 1, explanation: "Le refroidissement provoque une contraction (le volume diminue)." },
+    { q: "Quels sont les deux phénomènes observés quand on chauffe puis refroidit un liquide ?", hint: "Dilatation = augmentation de volume · Contraction = diminution", choices: ["Évaporation et dissolution", "Dilatation et contraction", "Compensation et condensation", "Évaporation et condensation"], correct: 1, explanation: "Chaleur = dilatation. Froid = contraction." },
+    { q: "Quel instrument mesure la vitesse du vent ?", choices: ["La girouette", "L'anémomètre", "Le baromètre", "L'hygromètre"], correct: 1, explanation: "L'anémomètre mesure la vitesse du vent (en km/h). La girouette indique la direction." },
+    { q: "Quel instrument indique la direction du vent ?", choices: ["L'anémomètre", "Le baromètre", "La girouette", "Le thermomètre"], correct: 2, explanation: "La girouette indique la direction du vent." },
+    { q: "Le loup appartient à quelle famille animale ?", choices: ["Les félidés", "Les canidés", "Les ursidés", "Les cervidés"], correct: 1, explanation: "Le loup est un canidé, comme le chien et le renard." },
+    { q: "Dans quel type d'eaux vit le dauphin bleu et blanc ?", choices: ["Eaux froides et profondes", "Eaux tropicales ou tempérées", "Eaux douces des rivières", "Eaux polaires"], correct: 1, explanation: "Le dauphin bleu et blanc vit dans les eaux tropicales ou tempérées." },
+    { q: "L'eau salée est-elle conductrice d'électricité ?", choices: ["Non, jamais", "Oui", "Seulement quand elle est chaude", "Seulement quand elle est froide"], correct: 1, explanation: "L'eau salée conduit l'électricité grâce aux sels minéraux dissous." },
+    { q: "Quand des glaçons flottant dans l'eau fondent, le niveau de l'eau...", choices: ["Monte", "Descend", "Reste identique", "Ça dépend de la taille des glaçons"], correct: 2, explanation: "Principe d'Archimède : les glaçons flottants déplacent exactement leur poids en eau." },
+    { q: "Quelle est la question après la fonte de glace posée SUR une surface au-dessus de l'eau ?", choices: ["Le niveau reste identique", "On ne peut pas observer", "Le niveau de l'eau monte", "Le niveau de l'eau descend"], correct: 2, explanation: "La glace continentale qui fond s'ajoute à l'eau → le niveau monte." },
+    { q: "Dans un circuit électrique, que faut-il pour que l'hélice tourne ?", choices: ["Piles déchargées + circuit fermé", "Piles déchargées + circuit ouvert", "Piles chargées + circuit fermé", "Piles chargées + circuit ouvert"], correct: 2, explanation: "Il faut de l'énergie (piles chargées) ET un circuit fermé." },
+    { q: "Les pentes raides en montagne rendent possible la production d'hydroélectricité. C'est un atout ou une contrainte ?", choices: ["Une contrainte", "Un danger", "Un atout", "Un problème écologique"], correct: 2, explanation: "Produire de l'électricité grâce à l'eau = un avantage (atout)." },
+    { q: "Les routes sinueuses et étroites en montagne, c'est un atout ou une contrainte ?", choices: ["Un atout", "Une contrainte", "Un avantage pour les touristes", "Une chance"], correct: 1, explanation: "Des routes difficiles = un inconvénient (contrainte)." },
+    { q: "Qu'est-ce que l'évaporation ?", choices: ["Liquide → solide", "Gaz → liquide", "Liquide → gaz", "Solide → liquide"], correct: 2, explanation: "L'évaporation = passage de l'état liquide à l'état gazeux." },
+    { q: "Qu'est-ce que la fusion ?", choices: ["Liquide → solide", "Gaz → liquide", "Liquide → gaz", "Solide → liquide"], correct: 3, explanation: "La fusion = passage de l'état solide à l'état liquide (ex : glace qui fond)." },
+    { q: "Qu'est-ce que la solidification ?", choices: ["Liquide → solide", "Gaz → liquide", "Liquide → gaz", "Solide → liquide"], correct: 0, explanation: "La solidification = passage de l'état liquide à l'état solide (ex : eau qui gèle)." },
 ];
 
 // ===== FICHES RÉVISION PAR MATIÈRE =====
