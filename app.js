@@ -353,14 +353,29 @@ function startQuiz(type) {
     currentMode = 'quiz';
 
     const pool = getQuestionPool(type);
+    const seen = getSeenQuestions(type, 'quiz');
+    const remaining = pool.length - seen.length;
     totalLevels = Math.ceil(pool.length / totalQuestions);
-    currentLevel = 0;
+    // Calcul du niveau actuel basé sur combien on a déjà vu
+    currentLevel = Math.floor(seen.length / totalQuestions);
+    if (currentLevel >= totalLevels) {
+        // Tout vu → reset et repart du niveau 1
+        resetSeenQuestions(type, 'quiz');
+        currentLevel = 0;
+    }
     startLevel();
 }
 
 function startLevel() {
     const pool = getQuestionPool(currentGame);
     currentQuestions = pickFreshQuestions(pool, currentGame, 'quiz', totalQuestions);
+
+    if (currentQuestions.length === 0) {
+        // Sécurité : si vide, reset
+        resetSeenQuestions(currentGame, 'quiz');
+        currentQuestions = pickFreshQuestions(pool, currentGame, 'quiz', totalQuestions);
+    }
+
     currentQuestionIndex = 0;
     score = 0;
     streak = 0;
@@ -957,9 +972,18 @@ function showResults(mode) {
 }
 
 function replayGame() {
-    if (currentMode === 'quiz' && currentLevel + 1 < totalLevels) {
-        currentLevel++;
-        startLevel();
+    if (currentMode === 'quiz') {
+        // Recalcule le niveau depuis les questions vues
+        const pool = getQuestionPool(currentGame);
+        const seen = getSeenQuestions(currentGame, 'quiz');
+        if (seen.length < pool.length) {
+            // Il reste des questions non vues → niveau suivant
+            currentLevel = Math.floor(seen.length / totalQuestions);
+            startLevel();
+        } else {
+            // Tout vu → relance depuis le début
+            startQuiz(currentGame);
+        }
     } else {
         launchMode(currentGame, currentMode);
     }
