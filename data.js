@@ -369,7 +369,7 @@ const QUESTIONS_CORPS = [
         explanation: "Les oreilles nous permettent d'entendre les sons et aussi de garder l'équilibre !"
     },
     {
-        q: "Les poumons servent à...",
+        q: "À quoi servent les poumons ?",
         choices: ["Digérer", "Respirer", "Voir", "Bouger les bras"],
         correct: 1,
         explanation: "Les poumons absorbent l'oxygène et rejettent le CO₂. On respire environ 20 000 fois par jour !"
@@ -589,7 +589,7 @@ const QUESTIONS_FRANCAIS = [
         explanation: "La « descendance », ce sont les enfants, les petits. « Sans descendance » = pas de petits."
     },
     {
-        q: "Un texte qui veut « donner du plaisir » est plutôt...",
+        q: "Quel type de texte a pour but de « donner du plaisir » au lecteur ?",
         choices: ["Un article de journal", "Une recette de cuisine", "Un conte ou un roman", "Un mode d'emploi"],
         correct: 2,
         explanation: "Un conte ou un roman est écrit pour le plaisir de lire, pour distraire !"
@@ -659,7 +659,7 @@ const QUESTIONS_MATH = [
         explanation: "2,5 + 1,5 = 4. Les décimales 0,5 + 0,5 = 1, et 2 + 1 = 3, donc 3 + 1 = 4."
     },
     {
-        q: "Périmètre d'un rectangle de 8 cm sur 3 cm ?",
+        q: "Quel est le périmètre d'un rectangle de 8 cm de long et 3 cm de large ?",
         hint: "Périmètre = le tour complet d'une figure (la longueur de tous les côtés)",
         choices: ["11 cm", "22 cm", "24 cm", "16 cm"],
         correct: 1,
@@ -710,7 +710,7 @@ const QUESTIONS_MATH = [
         explanation: "2020 - 1928 = 92 ans. Annie Cordy, chanteuse belge, a vécu environ 92 ans."
     },
     {
-        q: "En 1996, les J.O. comptaient 271 épreuves. En 2016, 306. Combien en plus ?",
+        q: "Les J.O. de 1996 comptaient 271 épreuves et ceux de 2016 en comptaient 306. Combien d'épreuves en plus ?",
         choices: ["25", "35", "45", "55"],
         correct: 1,
         explanation: "306 - 271 = 35 épreuves en plus !"
@@ -747,13 +747,13 @@ const QUESTIONS_MATH = [
     },
     // --- CEB 2010-2021 : Maths ---
     {
-        q: "Quelle unité pour la distance Bruxelles-Ostende ?",
+        q: "Quelle unité de mesure utilise-t-on pour la distance entre Bruxelles et Ostende ?",
         choices: ["mm", "m", "l", "km"],
         correct: 3,
         explanation: "Pour les grandes distances entre deux villes, on utilise le kilomètre (km)."
     },
     {
-        q: "33 cl, c'est environ la capacité de quoi ?",
+        q: "33 centilitres, c'est environ la capacité de quel objet ?",
         choices: ["Une cuillère à soupe", "Une piscine", "Une canette de soda", "Un seau d'eau"],
         correct: 2,
         explanation: "33 cl (33 centilitres), c'est la contenance classique d'une canette de soda !"
@@ -801,19 +801,19 @@ const QUESTIONS_MATH = [
         explanation: "Un quart de 960 = 960 ÷ 4 = 240 km."
     },
     {
-        q: "480 élèves, 360 font du sport. Quel pourcentage ?",
+        q: "Une école compte 480 élèves. 360 font du sport. Quel pourcentage cela représente-t-il ?",
         choices: ["50%", "60%", "75%", "80%"],
         correct: 2,
         explanation: "360 ÷ 480 = 0,75 soit 75%. Les trois quarts des élèves font du sport !"
     },
     {
-        q: "20% de 480 élèves pratiquent la natation. Combien d'élèves ?",
+        q: "Dans une école de 480 élèves, 20% pratiquent la natation. Combien d'élèves nagent ?",
         choices: ["48", "80", "96", "120"],
         correct: 2,
         explanation: "20% de 480 = 480 × 20 ÷ 100 = 96 élèves."
     },
     {
-        q: "800 perles dans des boîtes de 30. 26 boîtes remplies. Combien de perles restent ?",
+        q: "Lulu a 800 perles à ranger dans des boîtes de 30. Elle a rempli 26 boîtes. Combien de perles reste-t-il ?",
         choices: ["10", "20", "30", "40"],
         correct: 1,
         explanation: "26 × 30 = 780 perles. 800 - 780 = 20 perles restantes."
@@ -826,7 +826,7 @@ const QUESTIONS_MATH = [
         explanation: "Un triangle équilatéral a 3 axes de symétrie, un par sommet vers le milieu du côté opposé."
     },
     {
-        q: "72 élèves reçoivent 1 pomme. 4 pommes/kg, le kg coûte 1,50 €. Combien paie-t-on ?",
+        q: "72 élèves reçoivent chacun 1 pomme. Il y a 4 pommes par kg et le kg coûte 1,50 €. Combien paie-t-on ?",
         choices: ["18 €", "27 €", "36 €", "72 €"],
         correct: 1,
         explanation: "72 ÷ 4 = 18 kg. 18 × 1,50 = 27 €."
@@ -838,10 +838,87 @@ const QUESTIONS_MATH = [
         explanation: "100 m en 10 s = 10 m/s. En km/h : 10 × 3,6 = 36 km/h."
     },
     {
-        q: "Un tour de piste fait 400 m. Combien de tours pour 800 m ?",
+        q: "Un tour de piste fait 400 m. Combien de tours faut-il pour parcourir 800 m ?",
         choices: ["1 tour", "2 tours", "3 tours", "4 tours"],
         correct: 1,
         explanation: "800 ÷ 400 = 2 tours."
+    },
+    // --- Problèmes contextualisés ---
+    {
+        q: "Lulu vend des places pour son concert à 3 € chacune. Elle en vend 45. Combien gagne-t-elle ?",
+        choices: ["115 €", "125 €", "135 €", "145 €"],
+        correct: 2,
+        explanation: "45 × 3 = 135 €. Astuce : 40 × 3 = 120, 5 × 3 = 15, 120 + 15 = 135."
+    },
+    {
+        q: "Corbatin ramasse 156 noisettes en 3 jours. Combien en moyenne par jour ?",
+        choices: ["42", "48", "52", "56"],
+        correct: 2,
+        explanation: "156 ÷ 3 = 52 noisettes par jour."
+    },
+    {
+        q: "Mamande prépare 4 tartes. Chaque tarte nécessite 250 g de farine. Combien de farine au total ?",
+        choices: ["750 g", "900 g", "1 000 g", "1 200 g"],
+        correct: 2,
+        explanation: "4 × 250 = 1 000 g (soit 1 kg)."
+    },
+    {
+        q: "Un train part de Bruxelles à 9h15 et arrive à Liège à 10h27. Combien de temps dure le trajet ?",
+        choices: ["1h02", "1h12", "1h22", "1h27"],
+        correct: 1,
+        explanation: "De 9h15 à 10h15 = 1h, puis de 10h15 à 10h27 = 12 min. Total = 1h12."
+    },
+    {
+        q: "Lulu mesure 1,52 m. Corbatin (sur sa tête) ajoute 38 cm. Quelle hauteur totale ?",
+        choices: ["1,80 m", "1,88 m", "1,90 m", "1,92 m"],
+        correct: 2,
+        explanation: "1,52 m = 152 cm. 152 + 38 = 190 cm = 1,90 m."
+    },
+    {
+        q: "Une classe de 28 élèves part en excursion. Le bus coûte 196 €. Combien par élève ?",
+        choices: ["6 €", "7 €", "8 €", "9 €"],
+        correct: 1,
+        explanation: "196 ÷ 28 = 7 €. Astuce : 28 × 7 = 196."
+    },
+    {
+        q: "Lulu achète 3 baguettes à 1,20 € et 2 croissants à 1,50 €. Combien paie-t-elle ?",
+        choices: ["5,40 €", "5,60 €", "6,60 €", "7,20 €"],
+        correct: 2,
+        explanation: "3 × 1,20 = 3,60 et 2 × 1,50 = 3,00. Total = 3,60 + 3,00 = 6,60 €."
+    },
+    {
+        q: "Corbatin a lu 3/5 de son livre de 120 pages. Combien de pages a-t-il lues ?",
+        hint: "Pour calculer 3/5 de 120 : divise 120 par 5, puis multiplie par 3",
+        choices: ["60", "72", "80", "90"],
+        correct: 1,
+        explanation: "120 ÷ 5 = 24, puis 24 × 3 = 72 pages."
+    },
+    {
+        q: "Un jardin rectangulaire fait 12 m de long et 8 m de large. Quelle est son aire ?",
+        hint: "Aire du rectangle = Longueur × largeur",
+        choices: ["40 m²", "80 m²", "96 m²", "120 m²"],
+        correct: 2,
+        explanation: "Aire = 12 × 8 = 96 m²."
+    },
+    {
+        q: "Lulu a 50 € et dépense 30%. Combien lui reste-t-il ?",
+        hint: "30% de 50 = ce qu'elle dépense. Le reste = 50 moins ça.",
+        choices: ["15 €", "25 €", "35 €", "40 €"],
+        correct: 2,
+        explanation: "30% de 50 = 15 €. Reste : 50 - 15 = 35 €."
+    },
+    {
+        q: "Mamande fait une recette pour 4 personnes avec 200 g de beurre. Pour 6 personnes, combien de beurre ?",
+        choices: ["250 g", "280 g", "300 g", "350 g"],
+        correct: 2,
+        explanation: "200 g ÷ 4 = 50 g par personne. 50 × 6 = 300 g."
+    },
+    {
+        q: "Corbatin court à 8 km/h. Combien de temps met-il pour parcourir 4 km ?",
+        hint: "Temps = distance ÷ vitesse",
+        choices: ["20 min", "30 min", "45 min", "1 h"],
+        correct: 1,
+        explanation: "4 ÷ 8 = 0,5 heure = 30 minutes."
     },
 ];
 
@@ -879,7 +956,7 @@ const QUESTIONS_SCIENCES = [
     { q: "Vers quel continent les oiseaux migrateurs de Belgique s'envolent-ils ?", choices: ["L'Amérique", "L'Asie", "L'Afrique", "L'Océanie"], correct: 2, explanation: "Les oiseaux migrateurs de Belgique migrent vers l'Afrique pour l'hiver." },
     { q: "À quelle saison les oiseaux migrateurs quittent-ils la Belgique ?", choices: ["Au printemps", "En été", "En automne", "En hiver"], correct: 2, explanation: "En automne, ils partent vers le sud." },
     { q: "Qu'est-ce que la pollinisation ?", hint: "Étamines = partie mâle · Pistil = partie femelle · Pollen = poudre jaune", choices: ["La fabrication du pollen", "Le transport du pollen des étamines vers le pistil", "La transformation de la graine en fruit", "La formation des graines"], correct: 1, explanation: "Le pollen voyage des étamines vers le pistil. Les abeilles aident !" },
-    { q: "Une bouteille « vide » contient en réalité...", choices: ["Du vide total", "De l'air", "De la poussière", "De la vapeur d'eau"], correct: 1, explanation: "Une bouteille « vide » contient de l'air, un gaz invisible." },
+    { q: "Que contient en réalité une bouteille « vide » ?", choices: ["Du vide total", "De l'air", "De la poussière", "De la vapeur d'eau"], correct: 1, explanation: "Une bouteille « vide » contient de l'air, un gaz invisible." },
     { q: "Quand on chauffe l'air dans une bouteille fermée avec un ballon, que se passe-t-il ?", choices: ["Rien", "Le ballon gonfle car l'air se dilate", "Le ballon éclate", "La bouteille éclate"], correct: 1, explanation: "L'air se dilate (prend plus de place) sous l'effet de la chaleur." },
     { q: "Quels éléments favorisent le développement des moisissures sur le pain ?", choices: ["La lumière seule", "L'humidité et la chaleur", "L'oxygène seul", "Le type d'aliment seul"], correct: 1, explanation: "Les moisissures aiment la chaleur et l'humidité." },
     { q: "Quel instrument mesure l'humidité de l'air ?", hint: "Hygro = humidité · Thermo = chaleur · Baro = pression", choices: ["Un thermomètre", "Un hygromètre", "Un baromètre", "Une girouette"], correct: 1, explanation: "L'hygromètre mesure l'humidité." },
