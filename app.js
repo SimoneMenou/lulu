@@ -432,19 +432,17 @@ const BUBBLE_QUESTIONS = {
 function startBubbleShooter(gameType, callback) {
     const bs = bubbleState;
     bs.afterBubbleCallback = callback;
-    bs.score = 0; bs.level = 0;
+    bs.score = 0; bs.level = 0; bs.locked = false;
     bs.questions = shuffleArray([...(BUBBLE_QUESTIONS[gameType] || BUBBLE_QUESTIONS.math)]);
     showScreen('screen-bubble');
     bs.canvas = document.getElementById('bubble-canvas');
     bs.ctx = bs.canvas.getContext('2d');
     resizeBubbleCanvas();
     window.addEventListener('resize', resizeBubbleCanvas);
-    document.getElementById('bubble-story').textContent = "🥁 Éclate la bulle avec la bonne réponse !";
+    document.getElementById('bubble-story').textContent = "🎈 Touche le bon ballon pour l'éclater !";
     loadBubbleLevel();
-    bs.canvas.addEventListener('mousemove', bubbleAim);
-    bs.canvas.addEventListener('touchmove', bubbleTouchAim, { passive: false });
-    bs.canvas.addEventListener('click', bubbleShoot);
-    bs.canvas.addEventListener('touchend', bubbleShoot);
+    bs.canvas.addEventListener('click', handleBalloonTap);
+    bs.canvas.addEventListener('touchend', handleBalloonTouch);
 }
 
 function resizeBubbleCanvas() {
@@ -452,7 +450,6 @@ function resizeBubbleCanvas() {
     if (!c) return;
     const parent = c.parentElement;
     c.width = parent.getBoundingClientRect().width;
-    // Calculate available height: viewport minus header, story, question
     const header = parent.closest('.screen')?.querySelector('.game-header');
     const story = parent.querySelector('.story-panel');
     const question = parent.querySelector('.bubble-question');
@@ -464,38 +461,40 @@ function loadBubbleLevel() {
     const bs = bubbleState;
     if (bs.level >= bs.questions.length) { endBubbleShooter(); return; }
     const q = bs.questions[bs.level];
-    bs.question = q; bs.bubbles = []; bs.particles = []; bs.shooting = false; bs.projectile = null;
+    bs.question = q; bs.bubbles = []; bs.particles = []; bs.locked = false;
     document.getElementById('bubble-question-text').textContent = q.q;
     document.getElementById('bubble-score').textContent = `${bs.score} pts`;
-    document.getElementById('bubble-level').textContent = `Bulle ${bs.level + 1}`;
+    document.getElementById('bubble-level').textContent = `${bs.level + 1} / ${bs.questions.length}`;
 
     const W = bs.canvas.width;
     const H = bs.canvas.height;
-    // Responsive bubble size: smaller on mobile
-    const R = Math.min(38, Math.max(24, W / 11));
-    const allColors = ['#e94560', '#533483', '#7b2d8e', '#c62828', '#1565C0', '#00838F', '#F57C00', '#6A1B9A'];
+    // Responsive: ballons qui remplissent bien l'espace en grille 2×2
+    const R = Math.min(42, Math.max(28, Math.min(W / 7, H / 8)));
+    const allColors = ['#e94560', '#533483', '#7b2d8e', '#1565C0', '#00838F', '#F57C00', '#6A1B9A', '#c62828'];
     const colors = shuffleArray([...allColors]).slice(0, 4);
     const sa = q.answers.map((a, i) => ({ text: a, isCorrect: i === q.correct }));
     shuffleArray(sa);
 
-    // 2×2 grid layout, well spaced, in the top half of canvas
-    const cols = 2;
-    const rows = 2;
-    const padX = R + 15;
-    const cellW = (W - padX * 2) / (cols - 1 || 1);
-    const cellH = Math.min(R * 3, (H * 0.45) / (rows - 1 || 1));
-    const startY = R + 20;
+    // 2×2 grid, centered, well spaced
+    const gapX = Math.min(W * 0.35, R * 3.5);
+    const gapY = Math.min(H * 0.25, R * 3);
+    const cx = W / 2, cy = H * 0.4;
+
+    const positions = [
+        { x: cx - gapX / 2, y: cy - gapY / 2 },
+        { x: cx + gapX / 2, y: cy - gapY / 2 },
+        { x: cx - gapX / 2, y: cy + gapY / 2 },
+        { x: cx + gapX / 2, y: cy + gapY / 2 },
+    ];
 
     sa.forEach((ans, i) => {
-        const col = i % cols;
-        const row = Math.floor(i / cols);
+        const pos = positions[i];
         bs.bubbles.push({
-            x: padX + col * cellW + (Math.random() - 0.5) * 10,
-            y: startY + row * cellH + (Math.random() - 0.5) * 8,
+            x: pos.x, y: pos.y, baseX: pos.x, baseY: pos.y,
             r: R, text: ans.text, isCorrect: ans.isCorrect,
-            color: colors[i % colors.length],  // toutes les couleurs aléatoires, pas de vert = correct
-            vx: (Math.random() - 0.5) * 0.5, vy: (Math.random() - 0.5) * 0.3,
-            alive: true, wobble: Math.random() * Math.PI * 2,
+            color: colors[i],
+            wobble: Math.random() * Math.PI * 2,
+            alive: true, popping: false, popFrame: 0,
         });
     });
     if (bs.animFrame) cancelAnimationFrame(bs.animFrame);
@@ -511,122 +510,147 @@ function bubbleLoop() {
     grad.addColorStop(1, isDark ? '#1a1a2e' : '#C8E6C9');
     ctx.fillStyle = grad; ctx.fillRect(0, 0, W, H);
 
+    // Draw balloons
     bs.bubbles.forEach(b => {
-        if (!b.alive) return;
-        b.wobble += 0.02;
-        b.x += b.vx + Math.sin(b.wobble) * 0.3;
-        b.y += b.vy + Math.cos(b.wobble * 0.7) * 0.2;
-        // Keep bubbles in top 60% of canvas (leave room for launcher)
-        const maxY = H * 0.55;
-        if (b.x - b.r < 0 || b.x + b.r > W) b.vx *= -1;
-        if (b.y - b.r < 0 || b.y + b.r > maxY) b.vy *= -1;
-        b.x = Math.max(b.r, Math.min(W - b.r, b.x));
-        b.y = Math.max(b.r, Math.min(maxY - b.r, b.y));
+        if (!b.alive && !b.popping) return;
+
+        // Popping animation
+        if (b.popping) {
+            b.popFrame++;
+            const scale = 1 + b.popFrame * 0.08;
+            const alpha = Math.max(0, 1 - b.popFrame * 0.1);
+            if (alpha <= 0) { b.popping = false; return; }
+            ctx.save();
+            ctx.globalAlpha = alpha;
+            ctx.beginPath(); ctx.arc(b.baseX, b.baseY, b.r * scale, 0, Math.PI * 2);
+            ctx.fillStyle = b.popColor || b.color;
+            ctx.fill();
+            ctx.restore();
+            return;
+        }
+
+        // Gentle float wobble
+        b.wobble += 0.025;
+        b.x = b.baseX + Math.sin(b.wobble) * 4;
+        b.y = b.baseY + Math.cos(b.wobble * 0.8) * 3;
 
         ctx.save();
-        ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
-        ctx.fillStyle = b.color; ctx.globalAlpha = 0.9; ctx.fill();
-        ctx.strokeStyle = 'rgba(255,255,255,0.3)'; ctx.lineWidth = 2; ctx.stroke();
-        ctx.beginPath(); ctx.arc(b.x - b.r * 0.25, b.y - b.r * 0.25, b.r * 0.15, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(255,255,255,0.4)'; ctx.fill();
-        ctx.globalAlpha = 1; ctx.fillStyle = 'white';
-        // Adaptive font: measure and shrink if needed
-        let fontSize = Math.max(11, b.r * 0.42);
+
+        // Balloon string
+        ctx.beginPath();
+        ctx.moveTo(b.x, b.y + b.r);
+        ctx.quadraticCurveTo(b.x + 3, b.y + b.r + 15, b.x - 2, b.y + b.r + 25);
+        ctx.strokeStyle = isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.15)';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        // Balloon knot
+        ctx.beginPath();
+        ctx.arc(b.x, b.y + b.r + 2, 3, 0, Math.PI * 2);
+        ctx.fillStyle = b.color;
+        ctx.fill();
+
+        // Balloon body (slightly oval)
+        ctx.beginPath();
+        ctx.ellipse(b.x, b.y, b.r * 0.9, b.r, 0, 0, Math.PI * 2);
+        ctx.fillStyle = b.color;
+        ctx.globalAlpha = 0.92;
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Shine/highlight
+        ctx.beginPath();
+        ctx.ellipse(b.x - b.r * 0.25, b.y - b.r * 0.3, b.r * 0.18, b.r * 0.12, -0.5, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255,255,255,0.4)';
+        ctx.fill();
+
+        // Text
+        ctx.globalAlpha = 1;
+        ctx.fillStyle = 'white';
+        let fontSize = Math.max(12, b.r * 0.45);
         ctx.font = `800 ${fontSize}px 'Nunito', sans-serif`;
-        // Shrink font if text overflows bubble
-        while (ctx.measureText(b.text).width > b.r * 1.7 && fontSize > 9) {
+        while (ctx.measureText(b.text).width > b.r * 1.5 && fontSize > 10) {
             fontSize--;
             ctx.font = `800 ${fontSize}px 'Nunito', sans-serif`;
         }
         ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.shadowColor = 'rgba(0,0,0,0.3)';
+        ctx.shadowBlur = 3;
         ctx.fillText(b.text, b.x, b.y);
+        ctx.shadowBlur = 0;
+
         ctx.restore();
     });
 
-    // Launcher at bottom - responsive size
-    const lx = W / 2, ly = H - 25;
-    const launcherR = Math.min(16, W / 22);
-    if (!bs.shooting) {
-        ctx.save(); ctx.setLineDash([6, 6]);
-        ctx.strokeStyle = isDark ? 'rgba(233,69,96,0.3)' : 'rgba(0,0,0,0.15)';
-        ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(lx, ly);
-        const aimLen = Math.min(100, H * 0.2);
-        ctx.lineTo(lx + Math.cos(bs.aimAngle) * aimLen, ly + Math.sin(bs.aimAngle) * aimLen);
-        ctx.stroke(); ctx.restore();
-    }
-    ctx.beginPath(); ctx.arc(lx, ly, launcherR, 0, Math.PI * 2);
-    ctx.fillStyle = '#e94560'; ctx.fill();
-    ctx.strokeStyle = 'rgba(255,255,255,0.4)'; ctx.lineWidth = 2; ctx.stroke();
-    ctx.fillStyle = 'white'; ctx.font = `bold ${Math.max(12, launcherR)}px sans-serif`;
-    ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('▲', lx, ly - 1);
-
-    if (bs.projectile) {
-        const p = bs.projectile;
-        p.x += p.vx; p.y += p.vy;
-        if (p.x - p.r < 0 || p.x + p.r > W) p.vx *= -1;
-        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = '#e94560'; ctx.fill();
-        for (const b of bs.bubbles) {
-            if (!b.alive) continue;
-            const dx = p.x - b.x, dy = p.y - b.y;
-            if (Math.sqrt(dx * dx + dy * dy) < p.r + b.r) {
-                b.alive = false; bs.projectile = null; bs.shooting = false;
-                if (b.isCorrect) {
-                    bs.score += 2;
-                    createBubbleParticles(b.x, b.y, b.color); playSound('correct');
-                    showBubbleFeedback(true);
-                    setTimeout(() => { bs.level++; loadBubbleLevel(); }, 1200);
-                } else {
-                    createBubbleParticles(b.x, b.y, '#ef5350'); playSound('wrong');
-                    showBubbleFeedback(false);
-                    bs.questions.push(bs.questions[bs.level]); // report la question
-                    setTimeout(() => { bs.level++; loadBubbleLevel(); }, 1200);
-                }
-                break;
-            }
-        }
-        if (bs.projectile && p.y + p.r < 0) { bs.projectile = null; bs.shooting = false; }
-    }
-
+    // Particles
     bs.particles = bs.particles.filter(p => p.life > 0);
     bs.particles.forEach(p => {
-        p.x += p.vx; p.y += p.vy; p.vy += 0.1; p.life -= 0.02;
-        ctx.globalAlpha = p.life; ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        p.x += p.vx; p.y += p.vy; p.vy += 0.15; p.life -= 0.025;
+        ctx.globalAlpha = p.life;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fillStyle = p.color; ctx.fill(); ctx.globalAlpha = 1;
     });
+
     bs.animFrame = requestAnimationFrame(bubbleLoop);
 }
 
-function bubbleAim(e) {
-    const bs = bubbleState, rect = bs.canvas.getBoundingClientRect();
-    bs.aimAngle = Math.min(-0.15, Math.max(-Math.PI + 0.15,
-        Math.atan2(e.clientY - rect.top - (bs.canvas.height - 30), e.clientX - rect.left - bs.canvas.width / 2)));
+// Touch/click: directly tap a balloon
+function handleBalloonTouch(e) {
+    e.preventDefault();
+    const touch = e.changedTouches[0];
+    const rect = bubbleState.canvas.getBoundingClientRect();
+    processBalloonTap(touch.clientX - rect.left, touch.clientY - rect.top);
 }
-function bubbleTouchAim(e) { e.preventDefault(); bubbleAim({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY }); }
-function bubbleShoot(e) {
+
+function handleBalloonTap(e) {
+    const rect = bubbleState.canvas.getBoundingClientRect();
+    processBalloonTap(e.clientX - rect.left, e.clientY - rect.top);
+}
+
+function processBalloonTap(tapX, tapY) {
     const bs = bubbleState;
-    if (bs.shooting || bs.projectile) return;
-    if (e.clientX !== undefined) {
-        const rect = bs.canvas.getBoundingClientRect();
-        bs.aimAngle = Math.min(-0.15, Math.max(-Math.PI + 0.15,
-            Math.atan2(e.clientY - rect.top - (bs.canvas.height - 30), e.clientX - rect.left - bs.canvas.width / 2)));
+    if (bs.locked) return;
+
+    // Find tapped balloon
+    for (const b of bs.bubbles) {
+        if (!b.alive) continue;
+        const dx = tapX - b.x, dy = tapY - b.y;
+        if (Math.sqrt(dx * dx + dy * dy) < b.r + 10) { // generous touch zone
+            bs.locked = true;
+            b.alive = false;
+
+            if (b.isCorrect) {
+                bs.score += 2;
+                b.popping = true; b.popFrame = 0; b.popColor = '#66bb6a';
+                createBubbleParticles(b.x, b.y, b.color);
+                playSound('correct');
+                showBubbleFeedback(true);
+                setTimeout(() => { bs.level++; loadBubbleLevel(); }, 1100);
+            } else {
+                b.popping = true; b.popFrame = 0; b.popColor = '#ef5350';
+                createBubbleParticles(b.x, b.y, '#ef5350');
+                playSound('wrong');
+                showBubbleFeedback(false);
+                bs.questions.push(bs.questions[bs.level]);
+                setTimeout(() => { bs.level++; loadBubbleLevel(); }, 1100);
+            }
+            return;
+        }
     }
-    bs.shooting = true;
-    const projR = Math.min(10, bs.canvas.width / 35);
-    bs.projectile = { x: bs.canvas.width / 2, y: bs.canvas.height - 25, r: projR,
-        vx: Math.cos(bs.aimAngle) * 10, vy: Math.sin(bs.aimAngle) * 10 };
-    playSound('flip');
 }
+
 function createBubbleParticles(x, y, color) {
-    for (let i = 0; i < 15; i++) bubbleState.particles.push({
-        x, y, vx: (Math.random() - 0.5) * 8, vy: (Math.random() - 0.5) * 8 - 3,
-        size: Math.random() * 5 + 2, color, life: 1 });
+    for (let i = 0; i < 12; i++) bubbleState.particles.push({
+        x, y, vx: (Math.random() - 0.5) * 7, vy: (Math.random() - 0.5) * 7 - 2,
+        size: Math.random() * 4 + 2, color, life: 1 });
 }
 function showBubbleFeedback(correct) {
     const el = document.getElementById('bubble-feedback');
-    document.getElementById('bubble-feedback-icon').textContent = correct ? '🖤' : '💥';
+    document.getElementById('bubble-feedback-icon').textContent = correct ? '🎉' : '💥';
     document.getElementById('bubble-feedback-text').textContent = correct ? 'BRAVO !' : 'Raté !';
-    el.classList.remove('hidden'); setTimeout(() => el.classList.add('hidden'), 1000);
+    el.classList.remove('hidden'); setTimeout(() => el.classList.add('hidden'), 900);
 }
 function exitBubble() { cleanupBubble(); goBackToSubmenu(); }
 function endBubbleShooter() {
@@ -638,10 +662,8 @@ function endBubbleShooter() {
 function cleanupBubble() {
     const bs = bubbleState;
     if (bs.animFrame) cancelAnimationFrame(bs.animFrame);
-    bs.canvas?.removeEventListener('mousemove', bubbleAim);
-    bs.canvas?.removeEventListener('touchmove', bubbleTouchAim);
-    bs.canvas?.removeEventListener('click', bubbleShoot);
-    bs.canvas?.removeEventListener('touchend', bubbleShoot);
+    bs.canvas?.removeEventListener('click', handleBalloonTap);
+    bs.canvas?.removeEventListener('touchend', handleBalloonTouch);
     window.removeEventListener('resize', resizeBubbleCanvas);
 }
 
