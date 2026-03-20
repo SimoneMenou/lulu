@@ -555,17 +555,24 @@ let bubbleState = {
     particles: [], afterBubbleCallback: null,
 };
 
-// Sépare les questions en "courtes" (ballons) et "longues" (complète la phrase)
-function isShortAnswer(q) {
-    return q.choices.every(c => c.length <= 18);
+// Une question est "ballon-compatible" si :
+// - Réponses courtes (max 18 chars)
+// - Question courte (max 50 chars)
+// - Pas une complétion de phrase (pas de ... ou ___)
+function isBalloonFriendly(q) {
+    if (!q.choices.every(c => c.length <= 18)) return false;
+    if (q.q.length > 50) return false;
+    if (q.q.includes('...') || q.q.includes('___') || q.q.includes(' : ')) return false;
+    if (q.q.includes('Complète') || q.q.includes('Conjugue') || q.q.includes('Trouve le')) return false;
+    return true;
 }
 
-// Génère les questions du bubble : uniquement réponses courtes
+// Génère les questions du bubble : uniquement questions claires et réponses courtes
 function getBubbleQuestions(gameType) {
-    const pool = getQuestionPool(gameType).filter(isShortAnswer);
+    const pool = getQuestionPool(gameType).filter(isBalloonFriendly);
     const fresh = pickFreshQuestions(pool, gameType, 'bubble', 8);
     return fresh.map(q => ({
-        q: q.q.length > 42 ? q.q.slice(0, 40) + '…' : q.q,
+        q: q.q,
         answers: [q.choices[q.correct], ...q.choices.filter((_, i) => i !== q.correct).slice(0, 3)],
         correct: 0,
     }));
