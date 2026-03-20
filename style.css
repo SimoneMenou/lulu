@@ -794,19 +794,24 @@ body.theme-paradis .question-hint {
     border: 2px solid rgba(83, 52, 131, 0.35);
     transform: rotateY(180deg);
     padding: 4px;
+    flex-direction: column;
+    gap: 2px;
 }
 
-.memo-text {
-    font-size: clamp(0.6rem, 2.5vw, 0.85rem);
+.memo-emoji {
+    font-size: clamp(1.2rem, 5vw, 1.8rem);
+    line-height: 1;
+}
+.memo-label {
+    font-size: clamp(0.55rem, 2vw, 0.7rem);
     font-weight: 800;
     color: var(--bone);
     text-align: center;
-    line-height: 1.2;
-    word-break: break-word;
+    line-height: 1.1;
     overflow: hidden;
 }
 
-body.theme-paradis .memo-text { color: #333; }
+body.theme-paradis .memo-label { color: #333; }
 
 .memo-card.matched .memo-card-front {
     border-color: var(--correct);

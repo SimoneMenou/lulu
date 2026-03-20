@@ -488,18 +488,14 @@ function startMemo() {
     memoMatched = 0; memoMoves = 0; memoLocked = false; memoFlipped = [];
     const theme = MEMO_THEMES[Math.floor(Math.random() * MEMO_THEMES.length)];
     const cards = [];
-
-    // Match mode : carte A (texte a) + carte B (texte b) avec même id
     theme.pairs.forEach(p => {
-        cards.push({ id: p.id, text: p.a, uid: p.id + '_a', side: 'a' });
-        cards.push({ id: p.id, text: p.b, uid: p.id + '_b', side: 'b' });
+        cards.push({ ...p, uid: p.id + '_a' });
+        cards.push({ ...p, uid: p.id + '_b' });
     });
-
     memoCards = shuffleArray(cards);
     showScreen('screen-memo');
     updateMemoDisplay();
-    document.getElementById('memo-story').textContent =
-        `${theme.name} — Retrouve les paires !`;
+    document.getElementById('memo-story').textContent = `${theme.name} — Retrouve les paires !`;
     renderMemoGrid();
 }
 
@@ -513,7 +509,8 @@ function renderMemoGrid() {
             <div class="memo-card-inner">
                 <div class="memo-card-face memo-card-back"></div>
                 <div class="memo-card-face memo-card-front">
-                    <span class="memo-text">${card.text}</span>
+                    <span class="memo-emoji">${card.emoji}</span>
+                    <span class="memo-label">${card.label}</span>
                 </div>
             </div>`;
         el.addEventListener('click', () => handleMemoClick(i, el));
@@ -529,10 +526,7 @@ function handleMemoClick(index, el) {
     if (memoFlipped.length === 2) {
         memoMoves++; memoLocked = true;
         const [a, b] = memoFlipped;
-        const cardA = memoCards[a.index], cardB = memoCards[b.index];
-        // Match si même id mais cartes différentes (a≠b)
-        const isMatch = cardA.id === cardB.id && cardA.uid !== cardB.uid;
-        if (isMatch) {
+        if (memoCards[a.index].id === memoCards[b.index].id && a.index !== b.index) {
             setTimeout(() => {
                 a.el.classList.add('matched'); b.el.classList.add('matched');
                 memoMatched++; memoFlipped = []; memoLocked = false;
