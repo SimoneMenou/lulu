@@ -234,7 +234,13 @@ button:focus-visible {
     letter-spacing: 1px;
 }
 
-/* ========== THEME TOGGLE ========== */
+/* ========== TOGGLES ========== */
+.toggle-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
 .theme-toggle {
     background: rgba(30, 28, 55, 0.7);
     border: 2px solid rgba(233, 69, 96, 0.25);

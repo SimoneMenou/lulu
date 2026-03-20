@@ -163,6 +163,20 @@ function startRandom() {
     launchMode(subject, mode.id);
 }
 
+// ===== SOUND =====
+let soundEnabled = localStorage.getItem('lulu-sound') !== 'off';
+
+function toggleSound() {
+    soundEnabled = !soundEnabled;
+    localStorage.setItem('lulu-sound', soundEnabled ? 'on' : 'off');
+    updateSoundButton();
+}
+
+function updateSoundButton() {
+    document.getElementById('sound-icon').textContent = soundEnabled ? '🔊' : '🔇';
+    document.getElementById('sound-label').textContent = soundEnabled ? 'Son' : 'Muet';
+}
+
 // ===== THEME =====
 let currentTheme = localStorage.getItem('lulu-theme') || 'blackmetal';
 
@@ -1049,6 +1063,7 @@ function launchConfetti() {
 // ===== SOUNDS =====
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 function playSound(type) {
+    if (!soundEnabled) return;
     if (audioCtx.state === 'suspended') audioCtx.resume();
     const now = audioCtx.currentTime;
     switch (type) {
@@ -1078,6 +1093,7 @@ function shuffleArray(arr) {
 document.addEventListener('DOMContentLoaded', () => {
     if (currentTheme === 'paradis') document.body.classList.add('theme-paradis');
     updateThemeButton();
+    updateSoundButton();
     updateParadisEmojis();
     randomizeHomeDialogue();
 });
