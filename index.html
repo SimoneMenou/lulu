@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Aventures de Lulu & Senior Corbatin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- ÉCRAN D'ACCUEIL -->
+    <div id="screen-home" class="screen active">
+        <div class="garden-bg">
+            <div class="clouds">
+                <div class="cloud cloud-1"></div>
+                <div class="cloud cloud-2"></div>
+                <div class="cloud cloud-3"></div>
+            </div>
+            <div class="sun"></div>
+            <div class="garden-ground"></div>
+            <div class="flowers">
+                <div class="flower flower-1">🥀</div>
+                <div class="flower flower-2">🦇</div>
+                <div class="flower flower-3">🕸️</div>
+                <div class="flower flower-4">🖤</div>
+            </div>
+        </div>
+        <div class="home-content">
+            <h1 class="game-title">
+                <span class="title-line-1">Les Aventures de</span>
+                <span class="title-line-2">Lulu & Senior Corbatin</span>
+            </h1>
+            <div class="characters-home">
+                <div class="character lulu-home" aria-label="Lulu">
+                    <div class="character-sprite lulu-sprite">🥁</div>
+                    <span class="character-name">Lulu</span>
+                </div>
+                <div class="character corbatin-home" aria-label="Senior Corbatin">
+                    <div class="character-sprite corbatin-sprite">🐦‍⬛</div>
+                    <span class="character-name">Senior Corbatin</span>
+                </div>
+            </div>
+            <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()">
+                <span id="theme-icon">☀️</span> <span id="theme-label">Mode Paradis</span>
+            </button>
+            <div class="dialogue-bubble home-dialogue">
+                <p id="home-dialogue-text"></p>
+            </div>
+            <div class="menu-grid">
+                <button class="menu-btn btn-histoire" onclick="showSubmenu('histoire')">
+                    <span class="btn-icon">🏚️</span>
+                    <span class="btn-label">Histoire</span>
+                </button>
+                <button class="menu-btn btn-corps" onclick="showSubmenu('corps')">
+                    <span class="btn-icon">💀</span>
+                    <span class="btn-label">Corps Humain</span>
+                </button>
+                <button class="menu-btn btn-francais" onclick="showSubmenu('francais')">
+                    <span class="btn-icon">📜</span>
+                    <span class="btn-label">Français</span>
+                </button>
+                <button class="menu-btn btn-math" onclick="showSubmenu('math')">
+                    <span class="btn-icon">🔮</span>
+                    <span class="btn-label">Maths</span>
+                </button>
+                <button class="menu-btn btn-memo" onclick="startGame('memo')">
+                    <span class="btn-icon">🃏</span>
+                    <span class="btn-label">Jeu Mémo</span>
+                </button>
+            </div>
+            <p class="made-with-love">Fait avec amour par tata Menou</p>
+        </div>
+    </div>
+
+    <!-- ÉCRAN SOUS-MENU MATIÈRE -->
+    <div id="screen-submenu" class="screen">
+        <div class="game-header">
+            <button class="btn-back" onclick="goHome()">⬅ Jardin</button>
+            <h2 id="submenu-title" class="submenu-title">Maths</h2>
+        </div>
+        <div class="submenu-area">
+            <div class="story-panel">
+                <div class="story-characters">
+                    <div class="mini-char lulu-mini">🥁</div>
+                    <div class="mini-char corbatin-mini">🐦‍⬛</div>
+                </div>
+                <div class="story-dialogue">
+                    <p id="submenu-dialogue">Choisis ton mode !</p>
+                </div>
+            </div>
+            <div id="submenu-modes" class="submenu-grid"></div>
+        </div>
+    </div>
+
+    <!-- ÉCRAN QUIZ -->
+    <div id="screen-quiz" class="screen">
+        <div class="game-header">
+            <button class="btn-back" onclick="goBackToSubmenu()">⬅ Retour</button>
+            <div class="score-display">
+                <span class="score-stars" id="score-stars">0/20</span>
+                <span class="score-progress" id="score-progress">1 / 10</span>
+            </div>
+        </div>
+        <div class="quiz-area">
+            <div class="level-info" id="level-info">Niveau 1 / 4</div>
+            <div class="level-bar"><div class="level-bar-fill" id="level-bar-fill" style="width:0%"></div></div>
+            <div class="story-panel">
+                <div class="story-characters">
+                    <div class="mini-char lulu-mini">🥁</div>
+                    <div class="mini-char corbatin-mini">🐦‍⬛</div>
+                </div>
+                <div class="story-dialogue">
+                    <p id="story-text">...</p>
+                </div>
+            </div>
+            <div class="question-panel">
+                <h2 id="question-text" class="question-text">...</h2>
+                <p id="question-hint" class="question-hint"></p>
+                <div id="choices" class="choices-grid"></div>
+            </div>
+            <div id="feedback-panel" class="feedback-panel hidden">
+                <div class="feedback-content">
+                    <span id="feedback-icon" class="feedback-icon"></span>
+                    <p id="feedback-text"></p>
+                    <button id="btn-next" class="btn-next" onclick="nextQuestion()">Question suivante →</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ÉCRAN FICHES FORMULES (Maths) -->
+    <div id="screen-formulas" class="screen">
+        <div class="game-header">
+            <button class="btn-back" onclick="goBackToSubmenu()">⬅ Retour</button>
+            <h2 class="submenu-title">📐 Fiches Formules</h2>
+        </div>
+        <div class="formulas-area">
+            <div id="formulas-container" class="formulas-grid"></div>
+        </div>
+    </div>
+
+    <!-- ÉCRAN MÉMO -->
+    <div id="screen-memo" class="screen">
+        <div class="game-header">
+            <button class="btn-back" onclick="goHome()">⬅ Jardin</button>
+            <div class="score-display">
+                <span id="memo-moves">Coups : 0</span>
+                <span id="memo-pairs">Paires : 0 / 8</span>
+            </div>
+        </div>
+        <div class="memo-area">
+            <div class="story-panel">
+                <div class="story-characters">
+                    <div class="mini-char lulu-mini">🥁</div>
+                    <div class="mini-char corbatin-mini">🐦‍⬛</div>
+                </div>
+                <div class="story-dialogue">
+                    <p id="memo-story">...</p>
+                </div>
+            </div>
+            <div id="memo-grid" class="memo-grid"></div>
+        </div>
+    </div>
+
+    <!-- ÉCRAN SQUELETTE -->
+    <div id="screen-skeleton" class="screen">
+        <div class="game-header">
+            <button class="btn-back" onclick="exitSkeleton()">⬅ Retour</button>
+            <div class="score-display">
+                <span id="skeleton-score">0 pts</span>
+                <span id="skeleton-progress">1 / 8</span>
+            </div>
+        </div>
+        <div class="minigame-area">
+            <div class="minigame-prompt" id="skeleton-prompt">
+                <span class="prompt-icon">💀</span>
+                <span class="prompt-text" id="skeleton-question">Touche le bon endroit !</span>
+            </div>
+            <div class="skeleton-container">
+                <canvas id="skeleton-canvas"></canvas>
+            </div>
+            <div id="skeleton-feedback" class="mini-feedback hidden"></div>
+        </div>
+    </div>
+
+    <!-- ÉCRAN SPEED CALC -->
+    <div id="screen-speedcalc" class="screen">
+        <div class="game-header">
+            <button class="btn-back" onclick="exitSpeedCalc()">⬅ Retour</button>
+            <div class="score-display">
+                <span id="speed-score">0 pts</span>
+                <span id="speed-timer">⏱ 30s</span>
+            </div>
+        </div>
+        <div class="minigame-area">
+            <div class="minigame-prompt" id="speed-prompt">
+                <span class="prompt-icon">⚡</span>
+                <span class="prompt-text" id="speed-question">3 × 7 = ?</span>
+            </div>
+            <div class="speed-timer-bar">
+                <div class="speed-timer-fill" id="speed-timer-fill"></div>
+            </div>
+            <div class="speed-choices" id="speed-choices"></div>
+            <div class="speed-streak" id="speed-streak"></div>
+            <div id="speed-feedback" class="mini-feedback hidden"></div>
+        </div>
+    </div>
+
+    <!-- ÉCRAN BUBBLE SHOOTER -->
+    <div id="screen-bubble" class="screen">
+        <div class="game-header">
+            <button class="btn-back" onclick="exitBubble()">⬅ Retour</button>
+            <div class="score-display">
+                <span id="bubble-score">0 pts</span>
+                <span id="bubble-level">Bulle 1</span>
+            </div>
+        </div>
+        <div class="bubble-area">
+            <div class="story-panel">
+                <div class="story-characters">
+                    <div class="mini-char lulu-mini">🥁</div>
+                    <div class="mini-char corbatin-mini">🐦‍⬛</div>
+                </div>
+                <div class="story-dialogue">
+                    <p id="bubble-story">...</p>
+                </div>
+            </div>
+            <div class="bubble-question">
+                <h2 id="bubble-question-text" class="question-text">...</h2>
+            </div>
+            <canvas id="bubble-canvas"></canvas>
+            <div id="bubble-feedback" class="bubble-feedback hidden">
+                <span id="bubble-feedback-icon"></span>
+                <span id="bubble-feedback-text"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ÉCRAN RÉSULTATS -->
+    <div id="screen-results" class="screen">
+        <div class="results-content">
+            <div class="results-characters">
+                <div class="character-sprite lulu-sprite big-sprite">🥁</div>
+                <div class="character-sprite corbatin-sprite big-sprite">🐦‍⬛</div>
+            </div>
+            <h2 id="results-title" class="results-title">Bravo !</h2>
+            <div id="results-stars" class="results-stars"></div>
+            <p id="results-text" class="results-text">...</p>
+            <div class="results-dialogue">
+                <p id="results-dialogue-text">...</p>
+            </div>
+            <div class="results-buttons">
+                <button class="btn-result btn-replay" onclick="replayGame()">🔄 Rejouer</button>
+                <button class="btn-result btn-submenu" onclick="goBackToSubmenu()">📚 Autres modes</button>
+                <button class="btn-result btn-home" onclick="goHome()">🏚️ Jardin</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+    <script src="minigames.js"></script>
+</body>
+</html>
