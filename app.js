@@ -175,6 +175,8 @@ function toggleSound() {
 function updateSoundButton() {
     document.getElementById('sound-icon').textContent = soundEnabled ? '🔊' : '🔇';
     document.getElementById('sound-label').textContent = soundEnabled ? 'Son' : 'Muet';
+    const tb = document.getElementById('toolbar-sound');
+    if (tb) tb.textContent = soundEnabled ? '🔊' : '🔇';
 }
 
 // ===== THEME =====
@@ -191,6 +193,8 @@ function toggleTheme() {
 function updateThemeButton() {
     document.getElementById('theme-icon').textContent = currentTheme === 'blackmetal' ? '☀️' : '🌙';
     document.getElementById('theme-label').textContent = currentTheme === 'blackmetal' ? 'Mode Paradis' : 'Mode Black Metal';
+    const tb = document.getElementById('toolbar-theme');
+    if (tb) tb.textContent = currentTheme === 'blackmetal' ? '☀️' : '🌙';
 }
 
 function updateParadisEmojis() {
