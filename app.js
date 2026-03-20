@@ -604,15 +604,12 @@ let bubbleState = {
     particles: [], afterBubbleCallback: null,
 };
 
-// Une question est "ballon-compatible" si :
-// - Réponses courtes (max 18 chars)
-// - Question courte (max 50 chars)
-// - Pas une complétion de phrase (pas de ... ou ___)
+// Ballon-compatible : réponses courtes et pas de complétion
+// La question s'affiche AU-DESSUS des ballons (pas dedans) donc pas de limite de longueur
 function isBalloonFriendly(q) {
-    if (!q.choices.every(c => c.length <= 18)) return false;
-    if (q.q.length > 50) return false;
-    if (q.q.includes('...') || q.q.includes('___') || q.q.includes(' : ')) return false;
-    if (q.q.includes('Complète') || q.q.includes('Conjugue') || q.q.includes('Trouve le')) return false;
+    if (!q.choices.every(c => c.length <= 20)) return false;
+    if (q.q.includes('...') || q.q.includes('___')) return false;
+    if (q.q.includes('Complète') || q.q.includes('Conjugue')) return false;
     return true;
 }
 
