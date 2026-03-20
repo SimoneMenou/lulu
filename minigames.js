@@ -5,27 +5,26 @@
 // ============================================
 
 // ===== SQUELETTE INTERACTIF =====
+// zones = tableau de zones (gauche ET droite pour les parties symétriques)
 const SKELETON_PARTS = [
-    // { name, x, y } — coordonnées en % du canvas (0-1)
-    // Tête / Crâne
-    { name: "Crâne", zone: { x: 0.5, y: 0.08, r: 0.055 }, hint: "Protège le cerveau" },
-    { name: "Cerveau", zone: { x: 0.5, y: 0.07, r: 0.04 }, hint: "Organe de la pensée" },
-    // Tronc
-    { name: "Côtes", zone: { x: 0.5, y: 0.25, r: 0.07 }, hint: "Protègent le cœur et les poumons" },
-    { name: "Cœur", zone: { x: 0.46, y: 0.24, r: 0.035 }, hint: "Pompe le sang" },
-    { name: "Poumons", zone: { x: 0.54, y: 0.23, r: 0.05 }, hint: "Servent à respirer" },
-    { name: "Estomac", zone: { x: 0.48, y: 0.34, r: 0.04 }, hint: "Digère les aliments" },
-    { name: "Colonne vertébrale", zone: { x: 0.5, y: 0.32, r: 0.03 }, hint: "Soutient le corps" },
-    // Bras
-    { name: "Épaule", zone: { x: 0.35, y: 0.18, r: 0.03 }, hint: "Articulation du bras" },
-    { name: "Coude", zone: { x: 0.28, y: 0.32, r: 0.025 }, hint: "Articulation charnière" },
-    { name: "Main", zone: { x: 0.24, y: 0.48, r: 0.03 }, hint: "27 os dans chaque main !" },
-    // Jambes
-    { name: "Hanche", zone: { x: 0.43, y: 0.44, r: 0.035 }, hint: "Articulation sphérique" },
-    { name: "Fémur", zone: { x: 0.42, y: 0.55, r: 0.04 }, hint: "L'os le plus long du corps" },
-    { name: "Genou", zone: { x: 0.42, y: 0.64, r: 0.03 }, hint: "Articulation de la jambe" },
-    { name: "Tibia", zone: { x: 0.42, y: 0.74, r: 0.035 }, hint: "Os du devant de la jambe" },
-    { name: "Pied", zone: { x: 0.42, y: 0.88, r: 0.035 }, hint: "26 os dans chaque pied !" },
+    // Centre (une seule zone)
+    { name: "Crâne", zones: [{ x: 0.5, y: 0.08, r: 0.055 }], hint: "Protège le cerveau" },
+    { name: "Cerveau", zones: [{ x: 0.5, y: 0.07, r: 0.045 }], hint: "Organe de la pensée" },
+    { name: "Côtes", zones: [{ x: 0.42, y: 0.25, r: 0.06 }, { x: 0.58, y: 0.25, r: 0.06 }], hint: "Protègent le cœur et les poumons" },
+    { name: "Cœur", zones: [{ x: 0.46, y: 0.24, r: 0.04 }], hint: "Pompe le sang, légèrement à gauche" },
+    { name: "Poumons", zones: [{ x: 0.42, y: 0.23, r: 0.045 }, { x: 0.58, y: 0.23, r: 0.045 }], hint: "Un de chaque côté, servent à respirer" },
+    { name: "Estomac", zones: [{ x: 0.48, y: 0.34, r: 0.04 }], hint: "Digère les aliments" },
+    { name: "Colonne vertébrale", zones: [{ x: 0.5, y: 0.32, r: 0.03 }], hint: "Soutient tout le corps" },
+    // Bras (gauche + droite)
+    { name: "Épaule", zones: [{ x: 0.35, y: 0.18, r: 0.035 }, { x: 0.65, y: 0.18, r: 0.035 }], hint: "Articulation sphérique du bras" },
+    { name: "Coude", zones: [{ x: 0.28, y: 0.32, r: 0.03 }, { x: 0.72, y: 0.32, r: 0.03 }], hint: "Articulation charnière (plie/tend)" },
+    { name: "Main", zones: [{ x: 0.24, y: 0.48, r: 0.035 }, { x: 0.76, y: 0.48, r: 0.035 }], hint: "27 os dans chaque main !" },
+    // Jambes (gauche + droite)
+    { name: "Hanche", zones: [{ x: 0.43, y: 0.44, r: 0.04 }, { x: 0.57, y: 0.44, r: 0.04 }], hint: "Articulation sphérique" },
+    { name: "Fémur", zones: [{ x: 0.42, y: 0.55, r: 0.045 }, { x: 0.58, y: 0.55, r: 0.045 }], hint: "L'os le plus long du corps" },
+    { name: "Genou", zones: [{ x: 0.42, y: 0.64, r: 0.035 }, { x: 0.58, y: 0.64, r: 0.035 }], hint: "Articulation de la jambe" },
+    { name: "Tibia", zones: [{ x: 0.42, y: 0.74, r: 0.04 }, { x: 0.58, y: 0.74, r: 0.04 }], hint: "Os du devant de la jambe" },
+    { name: "Pied", zones: [{ x: 0.42, y: 0.88, r: 0.04 }, { x: 0.58, y: 0.88, r: 0.04 }], hint: "26 os dans chaque pied !" },
 ];
 
 let skeletonState = {
@@ -205,22 +204,28 @@ function drawSkeleton() {
         ctx.fill();
     });
 
-    // Draw highlight if answer was given
+    // Draw highlight on ALL zones if answer was given
     if (ss.highlight) {
         const h = ss.highlight;
-        ctx.beginPath();
-        ctx.arc(px(h.zone.x), py(h.zone.y), h.zone.r * W + 8, 0, Math.PI * 2);
-        ctx.fillStyle = h.correct ? 'rgba(102,187,106,0.3)' : 'rgba(239,83,80,0.3)';
-        ctx.fill();
-        ctx.strokeStyle = h.correct ? '#66bb6a' : '#ef5350';
-        ctx.lineWidth = 3;
-        ctx.stroke();
+        const color = h.correct ? 'rgba(102,187,106,0.3)' : 'rgba(239,83,80,0.3)';
+        const stroke = h.correct ? '#66bb6a' : '#ef5350';
 
-        // Label
+        h.zones.forEach(zone => {
+            ctx.beginPath();
+            ctx.arc(px(zone.x), py(zone.y), zone.r * W + 8, 0, Math.PI * 2);
+            ctx.fillStyle = color;
+            ctx.fill();
+            ctx.strokeStyle = stroke;
+            ctx.lineWidth = 3;
+            ctx.stroke();
+        });
+
+        // Label au-dessus de la première zone
+        const z0 = h.zones[0];
         ctx.fillStyle = isDark ? '#fff' : '#333';
         ctx.font = `bold ${Math.max(12, W * 0.04)}px 'Nunito', sans-serif`;
         ctx.textAlign = 'center';
-        ctx.fillText(h.name, px(h.zone.x), py(h.zone.y) - h.zone.r * H - 10);
+        ctx.fillText(h.name, px(z0.x), py(z0.y) - z0.r * H - 10);
     }
 }
 
@@ -257,15 +262,16 @@ function processSkeletonTap(tapX, tapY) {
     const nx = tapX / W;
     const ny = tapY / H;
 
-    // Check distance to target zone
-    const dx = nx - q.zone.x;
-    const dy = ny - q.zone.y;
-    const dist = Math.sqrt(dx * dx + dy * dy);
-    const hitRadius = q.zone.r + 0.04; // generous touch zone
+    // Check all zones for this part (gauche ET droite)
+    let isCorrect = false;
+    for (const zone of q.zones) {
+        const dx = nx - zone.x;
+        const dy = ny - zone.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < zone.r + 0.04) { isCorrect = true; break; }
+    }
 
-    const isCorrect = dist < hitRadius;
-
-    // Show highlight
+    // Show highlight on ALL zones of the part
     ss.highlight = { ...q, correct: isCorrect };
     drawSkeleton();
 
