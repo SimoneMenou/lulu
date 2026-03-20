@@ -97,7 +97,10 @@ const SUBJECT_MODES = {
     ],
     francais: [
         { id: 'fiches', icon: '📚', label: 'Fiches Révision', desc: 'Apprends avant de jouer !' },
-        { id: 'complete', icon: '💬', label: 'Complète la phrase', desc: 'Lulu et Corbatin te posent des questions !' },
+        { id: 'conjugaison', icon: '🎭', label: 'Conjugaison Aventure', desc: 'Complète avec le bon temps !' },
+        { id: 'bescherelle', icon: '📕', label: 'Bescherelle', desc: 'Trie : passé, présent ou futur ?' },
+        { id: 'dictee', icon: '✍️', label: 'Mini Dictée', desc: 'Les histoires de Mamande !' },
+        { id: 'complete', icon: '💬', label: 'Complète la phrase', desc: 'Questions de français !' },
         { id: 'bubble', icon: '🎈', label: 'Ballons', desc: 'Éclate le bon ballon !' },
         { id: 'quiz', icon: '📖', label: 'Quiz', desc: 'Teste-toi !' },
     ],
@@ -245,6 +248,24 @@ function launchMode(type, modeId) {
             startSkeletonGame((pts) => {
                 score = pts;
                 showResults('skeleton');
+            });
+            break;
+        case 'conjugaison':
+            startConjugaison((pts) => {
+                score = pts;
+                showResults('conjugaison');
+            });
+            break;
+        case 'bescherelle':
+            startBescherelle((pts) => {
+                score = pts;
+                showResults('bescherelle');
+            });
+            break;
+        case 'dictee':
+            startDictee((pts) => {
+                score = pts;
+                showResults('dictee');
             });
             break;
         case 'complete':
@@ -626,6 +647,26 @@ function exitComplete() {
     const cs = completeState;
     if (cs.callback) cs.callback(cs.score);
     else goBackToSubmenu();
+}
+
+// ===== CONJUGAISON AVENTURE (réutilise le mode complete avec données conjugaison) =====
+function startConjugaison(callback) {
+    const cs = completeState;
+    cs.callback = callback;
+    cs.score = 0;
+    cs.index = 0;
+    // Convertit les données conjugaison en format complete
+    const fresh = pickFreshQuestions(CONJUGAISON_AVENTURE, 'francais', 'conjugaison', 10);
+    cs.questions = fresh.map(c => ({
+        q: c.story,
+        choices: c.choices,
+        correct: c.correct,
+        hint: `Temps attendu : ${c.temps}`,
+        explanation: c.explanation,
+    }));
+
+    showScreen('screen-complete');
+    showComplete();
 }
 
 // ===== BALLONS =====

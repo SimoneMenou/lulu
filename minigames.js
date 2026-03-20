@@ -483,3 +483,160 @@ function exitSpeedCalc() {
     clearInterval(sp.timer);
     if (sp.callback) sp.callback(sp.score);
 }
+
+
+// ===== BESCHERELLE (trier passé / présent / futur) =====
+let beschState = { phrases: [], index: 0, score: 0, callback: null, locked: false };
+
+function startBescherelle(callback) {
+    const bs = beschState;
+    bs.callback = callback;
+    bs.score = 0;
+    bs.index = 0;
+    bs.locked = false;
+    bs.phrases = pickFreshQuestions(BESCHERELLE_PHRASES, 'francais', 'bescherelle', 10);
+
+    showScreen('screen-bescherelle');
+    showBeschPhrase();
+}
+
+function showBeschPhrase() {
+    const bs = beschState;
+    if (bs.index >= bs.phrases.length) {
+        setTimeout(() => {
+            if (bs.callback) bs.callback(bs.score);
+            else showResults('bescherelle');
+        }, 600);
+        return;
+    }
+
+    bs.locked = false;
+    const p = bs.phrases[bs.index];
+    document.getElementById('besch-phrase').textContent = p.phrase;
+    document.getElementById('besch-score').textContent = `${bs.score} pts`;
+    document.getElementById('besch-progress').textContent = `${bs.index + 1} / ${bs.phrases.length}`;
+    document.getElementById('besch-feedback').classList.add('hidden');
+
+    // Reset box highlights
+    document.querySelectorAll('.besch-box').forEach(b => {
+        b.classList.remove('correct', 'wrong');
+    });
+}
+
+function handleBeschTap(chosenTemps) {
+    const bs = beschState;
+    if (bs.locked) return;
+    bs.locked = true;
+
+    const p = bs.phrases[bs.index];
+    const isCorrect = chosenTemps === p.temps;
+
+    // Highlight boxes
+    document.querySelectorAll('.besch-box').forEach(b => {
+        if (b.dataset.temps === p.temps) b.classList.add('correct');
+        else if (b.dataset.temps === chosenTemps && !isCorrect) b.classList.add('wrong');
+    });
+
+    if (isCorrect) {
+        bs.score += 2;
+        playSound('correct');
+    } else {
+        playSound('wrong');
+        bs.phrases.push(p); // report
+    }
+
+    // Show indice
+    const fb = document.getElementById('besch-feedback');
+    fb.textContent = (isCorrect ? '✓ ' : '✗ ') + p.indice;
+    fb.className = 'besch-feedback-text ' + (isCorrect ? 'correct' : 'wrong');
+
+    setTimeout(() => {
+        bs.index++;
+        showBeschPhrase();
+    }, 1400);
+}
+
+function exitBescherelle() {
+    if (beschState.callback) beschState.callback(beschState.score);
+    else goBackToSubmenu();
+}
+
+
+// ===== MINI DICTÉE =====
+let dicteeState = { questions: [], index: 0, score: 0, callback: null };
+
+function startDictee(callback) {
+    const ds = dicteeState;
+    ds.callback = callback;
+    ds.score = 0;
+    ds.index = 0;
+    ds.questions = pickFreshQuestions(MINI_DICTEE, 'francais', 'dictee', 8);
+
+    showScreen('screen-dictee');
+    showDicteeQuestion();
+}
+
+function showDicteeQuestion() {
+    const ds = dicteeState;
+    if (ds.index >= ds.questions.length) {
+        setTimeout(() => {
+            if (ds.callback) ds.callback(ds.score);
+            else showResults('dictee');
+        }, 600);
+        return;
+    }
+
+    const q = ds.questions[ds.index];
+    document.getElementById('dictee-text').innerHTML = q.texte.replace('___', '<span class="dictee-blank">___</span>');
+    document.getElementById('dictee-score').textContent = `${ds.score} pts`;
+    document.getElementById('dictee-progress').textContent = `${ds.index + 1} / ${ds.questions.length}`;
+    document.getElementById('dictee-feedback').classList.add('hidden');
+
+    const choicesEl = document.getElementById('dictee-choices');
+    choicesEl.innerHTML = '';
+
+    const indexed = q.choices.map((c, i) => ({ text: c, isCorrect: i === q.correct }));
+    shuffleArray(indexed);
+
+    indexed.forEach(choice => {
+        const btn = document.createElement('button');
+        btn.className = 'dictee-btn';
+        btn.textContent = choice.text;
+        btn.addEventListener('click', () => handleDicteeAnswer(choice.isCorrect, btn, q));
+        choicesEl.appendChild(btn);
+    });
+}
+
+function handleDicteeAnswer(isCorrect, btn, q) {
+    const ds = dicteeState;
+    const btns = document.querySelectorAll('.dictee-btn');
+    btns.forEach(b => b.style.pointerEvents = 'none');
+
+    if (isCorrect) {
+        ds.score += 2;
+        btn.classList.add('correct');
+        playSound('correct');
+        // Fill in the blank with correct answer
+        const blank = document.querySelector('.dictee-blank');
+        if (blank) { blank.textContent = q.choices[q.correct]; blank.classList.add('filled'); }
+    } else {
+        btn.classList.add('wrong');
+        btns.forEach(b => { if (b.textContent === q.choices[q.correct]) b.classList.add('correct'); });
+        playSound('wrong');
+        ds.questions.push(q); // report
+    }
+
+    const fb = document.getElementById('dictee-feedback');
+    document.getElementById('dictee-feedback-text').textContent = q.explanation;
+    fb.classList.remove('hidden');
+}
+
+function nextDictee() {
+    dicteeState.index++;
+    showDicteeQuestion();
+}
+
+function exitDictee() {
+    if (dicteeState.callback) dicteeState.callback(dicteeState.score);
+    else goBackToSubmenu();
+}

@@ -933,6 +933,196 @@ body.theme-paradis .speed-btn:hover { border-color: #E91E63; background: #fef0f5
 body.theme-paradis .speed-timer-bar { background: #e0e0e0; }
 body.theme-paradis .speed-streak { color: #7B1FA2; }
 
+/* ========== BESCHERELLE ========== */
+.besch-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(180deg, var(--dark) 0%, var(--dark-purple) 100%);
+    padding: 16px 14px;
+    gap: 14px;
+}
+
+.besch-instruction {
+    font-weight: 800;
+    font-size: 0.9rem;
+    color: var(--pink);
+    text-align: center;
+}
+
+.besch-phrase-card {
+    background: rgba(25, 22, 50, 0.9);
+    border: 2px solid rgba(233, 69, 96, 0.25);
+    border-radius: var(--radius);
+    padding: 18px 16px;
+    width: 100%;
+    max-width: 400px;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.besch-phrase-text {
+    font-weight: 800;
+    font-size: 1.1rem;
+    line-height: 1.45;
+    color: var(--bone);
+    text-align: center;
+}
+
+.besch-boxes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.besch-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 18px 8px;
+    border: 3px solid rgba(83, 52, 131, 0.35);
+    border-radius: var(--radius);
+    background: rgba(30, 28, 55, 0.7);
+    color: var(--bone);
+    cursor: pointer;
+    transition: all 0.15s;
+    touch-action: manipulation;
+}
+.besch-box:hover { border-color: var(--magenta); background: rgba(233, 69, 96, 0.08); }
+.besch-box:active { transform: scale(0.96); }
+.besch-box.correct { border-color: var(--correct); background: rgba(102,187,106,0.15); }
+.besch-box.wrong { border-color: var(--wrong); background: rgba(239,83,80,0.15); }
+
+.besch-box-icon { font-size: 1.6rem; }
+.besch-box-label { font-weight: 900; font-size: 0.95rem; }
+
+.besch-feedback-text {
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 10px 14px;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 100%;
+}
+.besch-feedback-text.hidden { display: none; }
+.besch-feedback-text.correct { color: var(--correct); background: rgba(102,187,106,0.1); }
+.besch-feedback-text.wrong { color: var(--wrong); background: rgba(239,83,80,0.1); }
+
+body.theme-paradis .besch-area { background: linear-gradient(180deg, #fafafa, #f0f0f0); }
+body.theme-paradis .besch-phrase-card { background: white; border-color: #e0e0e0; }
+body.theme-paradis .besch-phrase-text { color: #333; }
+body.theme-paradis .besch-box { background: white; border-color: #e0e0e0; color: #333; }
+body.theme-paradis .besch-box:hover { border-color: #E91E63; }
+body.theme-paradis .besch-instruction { color: #7B1FA2; }
+
+/* ========== MINI DICTÉE ========== */
+.dictee-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(180deg, var(--dark) 0%, var(--dark-purple) 100%);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.dictee-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 14px 6px;
+    font-weight: 900;
+    font-size: 1rem;
+    color: var(--pink);
+}
+.dictee-icon { font-size: 1.4rem; }
+
+.dictee-text-card {
+    background: rgba(25, 22, 50, 0.9);
+    border: 2px solid rgba(233, 69, 96, 0.2);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin: 8px 14px;
+}
+.dictee-text {
+    font-weight: 700;
+    font-size: 1.05rem;
+    line-height: 1.55;
+    color: var(--bone);
+    font-style: italic;
+}
+.dictee-blank {
+    display: inline-block;
+    min-width: 60px;
+    border-bottom: 3px solid var(--magenta);
+    color: var(--magenta);
+    font-weight: 900;
+    font-style: normal;
+    padding: 0 4px;
+    text-align: center;
+}
+.dictee-blank.filled {
+    border-bottom-color: var(--correct);
+    color: var(--correct);
+}
+
+.dictee-choices {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    padding: 10px 14px;
+}
+
+.dictee-btn {
+    padding: 12px 10px;
+    border: 2px solid rgba(83, 52, 131, 0.35);
+    border-radius: var(--radius);
+    background: rgba(30, 28, 55, 0.75);
+    color: var(--bone);
+    font-weight: 800;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-align: center;
+    touch-action: manipulation;
+}
+.dictee-btn:hover { border-color: var(--magenta); }
+.dictee-btn:active { transform: scale(0.97); }
+.dictee-btn.correct { border-color: var(--correct); background: rgba(102,187,106,0.12); }
+.dictee-btn.wrong { border-color: var(--wrong); background: rgba(239,83,80,0.12); }
+
+.dictee-feedback {
+    padding: 10px 14px;
+    animation: slideUp 0.25s ease;
+}
+.dictee-feedback.hidden { display: none; }
+.dictee-feedback p {
+    background: rgba(25, 22, 50, 0.9);
+    border: 1px solid rgba(83, 52, 131, 0.25);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--pale);
+    margin-bottom: 10px;
+}
+
+body.theme-paradis .dictee-area { background: linear-gradient(180deg, #fafafa, #f0f0f0); }
+body.theme-paradis .dictee-header { color: #7B1FA2; }
+body.theme-paradis .dictee-text-card { background: white; border-color: #e0e0e0; }
+body.theme-paradis .dictee-text { color: #333; }
+body.theme-paradis .dictee-blank { border-bottom-color: #7B1FA2; color: #7B1FA2; }
+body.theme-paradis .dictee-btn { background: white; border-color: #e0e0e0; color: #333; }
+body.theme-paradis .dictee-btn:hover { border-color: #E91E63; }
+body.theme-paradis .dictee-feedback p { background: white; border-color: #e8e8e8; color: #333; }
+
 /* ========== COMPLÈTE LA PHRASE (Visual Novel) ========== */
 .complete-area {
     flex: 1;

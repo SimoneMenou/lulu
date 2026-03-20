@@ -981,3 +981,75 @@ const MEMO_THEMES = [
         ]
     }
 ];
+
+// ===== CONJUGAISON AVENTURE =====
+// Phrases à compléter avec le bon temps verbal, dans un contexte d'histoire
+const CONJUGAISON_AVENTURE = [
+    // Présent
+    { story: "Lulu est dans le jardin. Elle ___ de la batterie.", choices: ["jouait", "joue", "jouera", "a joué"], correct: 1, temps: "présent", explanation: "C'est maintenant → présent : elle joue." },
+    { story: "Corbatin ___ sur la branche et observe les étoiles.", choices: ["se perchait", "se perche", "se perchera", "s'est perché"], correct: 1, temps: "présent", explanation: "Il est en train de le faire → présent." },
+    { story: "Les enfants ___ leurs devoirs avant de jouer.", choices: ["faisaient", "font", "feront", "ont fait"], correct: 1, temps: "présent", explanation: "C'est une habitude actuelle → présent : ils font." },
+    { story: "Tu ___ très bien la guitare flamenca !", choices: ["jouais", "joues", "joueras", "as joué"], correct: 1, temps: "présent", explanation: "C'est vrai maintenant → présent : tu joues." },
+
+    // Imparfait
+    { story: "Quand Lulu était petite, elle ___ des chansons toute la journée.", choices: ["chante", "chantait", "chantera", "a chanté"], correct: 1, temps: "imparfait", explanation: "C'était une habitude dans le passé → imparfait : elle chantait." },
+    { story: "Avant, Corbatin ___ peur du noir.", choices: ["a", "avait", "aura", "a eu"], correct: 1, temps: "imparfait", explanation: "C'était vrai autrefois → imparfait : il avait." },
+    { story: "Tous les étés, ils ___ des vacances à la mer.", choices: ["passent", "passaient", "passeront", "ont passé"], correct: 1, temps: "imparfait", explanation: "Habitude répétée dans le passé → imparfait." },
+
+    // Futur simple
+    { story: "Demain, Lulu ___ un concert dans le jardin.", choices: ["donne", "donnait", "donnera", "a donné"], correct: 2, temps: "futur simple", explanation: "Demain = dans le futur → futur simple : elle donnera." },
+    { story: "L'année prochaine, nous ___ en Espagne.", choices: ["allons", "allions", "irons", "sommes allés"], correct: 2, temps: "futur simple", explanation: "L'année prochaine → futur simple : nous irons." },
+    { story: "Quand tu ___ grand, tu pourras voyager seul.", choices: ["es", "étais", "seras", "as été"], correct: 2, temps: "futur simple", explanation: "Quand tu seras (futur) → futur simple." },
+
+    // Passé composé
+    { story: "Hier, Corbatin ___ un trésor dans le jardin.", choices: ["trouve", "trouvait", "trouvera", "a trouvé"], correct: 3, temps: "passé composé", explanation: "Hier, action terminée → passé composé : il a trouvé." },
+    { story: "Ce matin, Lulu ___ un gâteau au chocolat.", choices: ["prépare", "préparait", "préparera", "a préparé"], correct: 3, temps: "passé composé", explanation: "Ce matin, c'est fini → passé composé." },
+    { story: "Les élèves ___ leur examen la semaine dernière.", choices: ["passent", "passaient", "passeront", "ont passé"], correct: 3, temps: "passé composé", explanation: "La semaine dernière → passé composé : ils ont passé." },
+
+    // Mélangés avec indices contextuels
+    { story: "En ce moment, Mamande ___ une histoire à ses enfants.", choices: ["racontait", "raconte", "racontera", "a raconté"], correct: 1, temps: "présent", explanation: "En ce moment → présent : elle raconte." },
+    { story: "Quand j'___ petit, je croyais que la lune me suivait.", choices: ["suis", "étais", "serai", "ai été"], correct: 1, temps: "imparfait", explanation: "Quand j'étais petit = souvenir → imparfait." },
+    { story: "Après les vacances, les enfants ___ à l'école.", choices: ["retournent", "retournaient", "retourneront", "sont retournés"], correct: 2, temps: "futur simple", explanation: "Après les vacances (pas encore) → futur simple." },
+];
+
+// ===== BESCHERELLE (trier les phrases par temps) =====
+const BESCHERELLE_PHRASES = [
+    // Présent
+    { phrase: "Lulu joue de la batterie.", temps: "present", indice: "joue = présent" },
+    { phrase: "Nous sommes en Belgique.", temps: "present", indice: "sommes = être au présent" },
+    { phrase: "Tu manges des frites.", temps: "present", indice: "manges = manger au présent" },
+    { phrase: "Les oiseaux chantent dans le jardin.", temps: "present", indice: "chantent = présent" },
+    { phrase: "Il fait beau aujourd'hui.", temps: "present", indice: "fait = faire au présent" },
+    { phrase: "Je lis un livre de Tintin.", temps: "present", indice: "lis = lire au présent" },
+    // Passé (imparfait + passé composé)
+    { phrase: "Corbatin dormait sur la branche.", temps: "passe", indice: "dormait = imparfait (-ait)" },
+    { phrase: "Hier, j'ai mangé une gaufre.", temps: "passe", indice: "ai mangé = passé composé" },
+    { phrase: "Nous avons visité Bruxelles.", temps: "passe", indice: "avons visité = passé composé" },
+    { phrase: "Quand j'étais petit, je jouais dehors.", temps: "passe", indice: "étais, jouais = imparfait (-ais)" },
+    { phrase: "Elle a chanté toute la soirée.", temps: "passe", indice: "a chanté = passé composé" },
+    { phrase: "Les chevaliers construisaient des châteaux.", temps: "passe", indice: "construisaient = imparfait (-aient)" },
+    { phrase: "Tu as réussi ton examen.", temps: "passe", indice: "as réussi = passé composé" },
+    // Futur
+    { phrase: "Demain, je partirai en vacances.", temps: "futur", indice: "partirai = futur simple (-rai)" },
+    { phrase: "Nous irons à la mer cet été.", temps: "futur", indice: "irons = aller au futur (-rons)" },
+    { phrase: "Tu seras un grand musicien.", temps: "futur", indice: "seras = être au futur (-ras)" },
+    { phrase: "Lulu donnera un concert vendredi.", temps: "futur", indice: "donnera = futur simple (-ra)" },
+    { phrase: "Les élèves finiront leurs devoirs.", temps: "futur", indice: "finiront = futur simple (-ront)" },
+    { phrase: "Il fera froid en hiver.", temps: "futur", indice: "fera = faire au futur (-ra)" },
+];
+
+// ===== MINI DICTÉE (histoires de Mamande) =====
+const MINI_DICTEE = [
+    { texte: "Mamande raconte : « Il était une fois une petite fille qui ___ dans un grand jardin. »", choices: ["jouais", "jouait", "jouer", "jouée"], correct: 1, explanation: "Elle jouait (imparfait, 3e personne) → -ait" },
+    { texte: "« Chaque soir, Mamande ___ des crêpes pour ses enfants. »", choices: ["prépare", "prépares", "prépart", "préparre"], correct: 0, explanation: "Elle prépare → 3e personne singulier, pas de -s" },
+    { texte: "« Les enfants ___ jouer dans la cour après l'école. »", choices: ["son allé", "sont allés", "sont allez", "son aller"], correct: 1, explanation: "Ils sont allés → sont (verbe être) + allés (avec -s car pluriel)" },
+    { texte: "« Lulu a ___ sa chambre avant de sortir. »", choices: ["rangé", "ranger", "rangée", "rangés"], correct: 0, explanation: "Lulu a rangé → participe passé avec avoir, pas d'accord (COD après)" },
+    { texte: "« Corbatin ___ de la branche et s'est fait mal. »", choices: ["et tombé", "est tomber", "est tombé", "ai tombé"], correct: 2, explanation: "Il est tombé → être + participe passé (tombé avec -é)" },
+    { texte: "« Il y ___ beaucoup de monde au marché. »", choices: ["avait", "avais", "avai", "aver"], correct: 0, explanation: "Il y avait → imparfait de avoir, 3e personne → -ait" },
+    { texte: "« Mamande ___ toujours dit : soyez gentils ! »", choices: ["à", "a", "as", "ah"], correct: 1, explanation: "Elle a dit → a (verbe avoir). À = préposition (à la maison)." },
+    { texte: "« Les frites ___ prêtes ! À table ! »", choices: ["son", "sont", "sons", "s'ont"], correct: 1, explanation: "Les frites sont → sont (verbe être). Son = son chapeau (possessif)." },
+    { texte: "« Lulu ___ sa guitare sur ___ lit. »", choices: ["a posé / son", "à posé / sont", "a poser / son", "a posé / sont"], correct: 0, explanation: "a posé (verbe) / son lit (possessif). À = préposition, sont = verbe être." },
+    { texte: "« C'___ une belle journée pour jouer dehors. »", choices: ["est", "es", "ai", "et"], correct: 0, explanation: "C'est → c'est (être). Et = conjonction (Lulu et Corbatin)." },
+    { texte: "« Mamande leur ___ de bien se couvrir. »", choices: ["a dit", "à dit", "a dis", "à dis"], correct: 0, explanation: "a dit → a (verbe avoir) + dit (participe passé de dire)" },
+    { texte: "« Les enfants ___ leurs manteaux et ___ partis. »", choices: ["on mis / son", "ont mis / sont", "on mit / sont", "ont mit / son"], correct: 1, explanation: "Ils ont mis (avoir) et sont partis (être). On = pronom, ont = verbe avoir." },
+];

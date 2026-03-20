@@ -244,6 +244,63 @@
         </div>
     </div>
 
+    <!-- ÉCRAN BESCHERELLE (trier les temps) -->
+    <div id="screen-bescherelle" class="screen">
+        <div class="game-header">
+            <button class="btn-back" onclick="exitBescherelle()">⬅ Retour</button>
+            <div class="score-display">
+                <span id="besch-score">0 pts</span>
+                <span id="besch-progress">1 / 10</span>
+            </div>
+        </div>
+        <div class="besch-area">
+            <div class="besch-instruction">Dans quelle boîte va cette phrase ?</div>
+            <div class="besch-phrase-card">
+                <p id="besch-phrase" class="besch-phrase-text">...</p>
+            </div>
+            <div class="besch-boxes">
+                <button class="besch-box" data-temps="passe" onclick="handleBeschTap('passe')">
+                    <span class="besch-box-icon">⏪</span>
+                    <span class="besch-box-label">Passé</span>
+                </button>
+                <button class="besch-box" data-temps="present" onclick="handleBeschTap('present')">
+                    <span class="besch-box-icon">⏺️</span>
+                    <span class="besch-box-label">Présent</span>
+                </button>
+                <button class="besch-box" data-temps="futur" onclick="handleBeschTap('futur')">
+                    <span class="besch-box-icon">⏩</span>
+                    <span class="besch-box-label">Futur</span>
+                </button>
+            </div>
+            <div id="besch-feedback" class="besch-feedback-text hidden"></div>
+        </div>
+    </div>
+
+    <!-- ÉCRAN MINI DICTÉE -->
+    <div id="screen-dictee" class="screen">
+        <div class="game-header">
+            <button class="btn-back" onclick="exitDictee()">⬅ Retour</button>
+            <div class="score-display">
+                <span id="dictee-score">0 pts</span>
+                <span id="dictee-progress">1 / 8</span>
+            </div>
+        </div>
+        <div class="dictee-area">
+            <div class="dictee-header">
+                <span class="dictee-icon">✍️</span>
+                <span>Mini Dictée de Mamande</span>
+            </div>
+            <div class="dictee-text-card">
+                <p id="dictee-text" class="dictee-text">...</p>
+            </div>
+            <div class="dictee-choices" id="dictee-choices"></div>
+            <div id="dictee-feedback" class="dictee-feedback hidden">
+                <p id="dictee-feedback-text"></p>
+                <button class="btn-next" onclick="nextDictee()">Suivant →</button>
+            </div>
+        </div>
+    </div>
+
     <!-- ÉCRAN COMPLÈTE LA PHRASE (Visual Novel) -->
     <div id="screen-complete" class="screen">
         <div class="game-header">
