@@ -18,7 +18,8 @@ let allQuestionsPool = [];
 
 // ===== QUESTION TRACKER (jamais les mêmes entre sessions) =====
 // Stocke les index des questions déjà vues par matière+mode dans localStorage
-function getSeenKey(type, mode) { return `lulu-seen-${type}-${mode}`; }
+// Clé unique PAR MATIÈRE (pas par mode) → une question vue dans un mode est vue partout
+function getSeenKey(type, mode) { return `lulu-seen-${type}`; }
 
 function getSeenQuestions(type, mode) {
     try {
@@ -605,6 +606,7 @@ function getBubbleQuestions(gameType) {
         q: q.q,
         answers: [q.choices[q.correct], ...q.choices.filter((_, i) => i !== q.correct).slice(0, 3)],
         correct: 0,
+        explanation: q.explanation || '',
     }));
 }
 
@@ -924,20 +926,21 @@ function processBalloonTap(tapX, tapY) {
             bs.locked = true;
             b.alive = false;
 
+            const currentQ = bs.questions[bs.level];
             if (b.isCorrect) {
                 bs.score += 2;
                 b.popping = true; b.popFrame = 0; b.popColor = '#66bb6a';
                 createBubbleParticles(b.x, b.y, b.color);
                 playSound('correct');
-                showBubbleFeedback(true);
-                setTimeout(() => { bs.level++; loadBubbleLevel(); }, 1100);
+                showBubbleFeedback(true, currentQ.explanation);
+                setTimeout(() => { bs.level++; loadBubbleLevel(); }, 2200);
             } else {
                 b.popping = true; b.popFrame = 0; b.popColor = '#ef5350';
                 createBubbleParticles(b.x, b.y, '#ef5350');
                 playSound('wrong');
-                showBubbleFeedback(false);
-                bs.questions.push(bs.questions[bs.level]);
-                setTimeout(() => { bs.level++; loadBubbleLevel(); }, 1100);
+                showBubbleFeedback(false, `C'était : ${currentQ.answers[0]}`);
+                bs.questions.push(currentQ);
+                setTimeout(() => { bs.level++; loadBubbleLevel(); }, 2200);
             }
             return;
         }
@@ -949,11 +952,11 @@ function createBubbleParticles(x, y, color) {
         x, y, vx: (Math.random() - 0.5) * 7, vy: (Math.random() - 0.5) * 7 - 2,
         size: Math.random() * 4 + 2, color, life: 1 });
 }
-function showBubbleFeedback(correct) {
+function showBubbleFeedback(correct, text) {
     const el = document.getElementById('bubble-feedback');
     document.getElementById('bubble-feedback-icon').textContent = correct ? '🎉' : '💥';
-    document.getElementById('bubble-feedback-text').textContent = correct ? 'BRAVO !' : 'Raté !';
-    el.classList.remove('hidden'); setTimeout(() => el.classList.add('hidden'), 900);
+    document.getElementById('bubble-feedback-text').textContent = correct ? `Oui ! ${text || ''}` : text || 'Raté !';
+    el.classList.remove('hidden'); setTimeout(() => el.classList.add('hidden'), 2000);
 }
 function exitBubble() { cleanupBubble(); goBackToSubmenu(); }
 function endBubbleShooter() {
