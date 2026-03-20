@@ -1572,33 +1572,6 @@ body.theme-paradis .btn-home { background: linear-gradient(135deg, #42A5F5, #1E8
     .game-header { padding-top: env(safe-area-inset-top, 10px); }
 }
 
-/* ========== HEADER CONTROLS (son + theme) ========== */
-.header-controls {
-    display: flex;
-    gap: 6px;
-}
-
-.header-ctrl-btn {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border: 2px solid rgba(83, 52, 131, 0.3);
-    background: rgba(30, 28, 55, 0.6);
-    font-size: 1.1rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.15s;
-}
-.header-ctrl-btn:hover { border-color: var(--magenta); }
-.header-ctrl-btn:active { transform: scale(0.9); }
-
-body.theme-paradis .header-ctrl-btn {
-    background: rgba(0,0,0,0.05);
-    border-color: rgba(0,0,0,0.1);
-}
-
 /* ========== SCROLLBAR ========== */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }

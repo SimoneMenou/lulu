@@ -175,10 +175,6 @@ function toggleSound() {
 function updateSoundButton() {
     document.getElementById('sound-icon').textContent = soundEnabled ? '🔊' : '🔇';
     document.getElementById('sound-label').textContent = soundEnabled ? 'Son' : 'Muet';
-    // Update all header sound buttons
-    document.querySelectorAll('.header-sound-btn').forEach(b => {
-        b.textContent = soundEnabled ? '🔊' : '🔇';
-    });
 }
 
 // ===== THEME =====
@@ -195,21 +191,8 @@ function toggleTheme() {
 function updateThemeButton() {
     document.getElementById('theme-icon').textContent = currentTheme === 'blackmetal' ? '☀️' : '🌙';
     document.getElementById('theme-label').textContent = currentTheme === 'blackmetal' ? 'Mode Paradis' : 'Mode Black Metal';
-    document.querySelectorAll('.header-theme-btn').forEach(b => {
-        b.textContent = currentTheme === 'blackmetal' ? '☀️' : '🌙';
-    });
 }
 
-// Injecte son + thème dans tous les game-headers
-function injectHeaderControls() {
-    document.querySelectorAll('.game-header').forEach(header => {
-        if (header.querySelector('.header-controls')) return;
-        const div = document.createElement('div');
-        div.className = 'header-controls';
-        div.innerHTML = `<button class="header-ctrl-btn header-sound-btn" onclick="toggleSound()">${soundEnabled ? '🔊' : '🔇'}</button><button class="header-ctrl-btn header-theme-btn" onclick="toggleTheme()">${currentTheme === 'blackmetal' ? '☀️' : '🌙'}</button>`;
-        header.appendChild(div);
-    });
-}
 
 function updateParadisEmojis() {
     const flowers = document.querySelectorAll('.flower');
@@ -1111,5 +1094,4 @@ document.addEventListener('DOMContentLoaded', () => {
     updateSoundButton();
     updateParadisEmojis();
     randomizeHomeDialogue();
-    injectHeaderControls();
 });
