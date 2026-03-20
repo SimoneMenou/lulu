@@ -69,12 +69,11 @@ let memoLocked = false;
 
 // ===== SUBJECT MODES CONFIG =====
 const SUBJECT_MODES = {
-    math: [
-        { id: 'formulas', icon: '📐', label: 'Fiches Formules', desc: 'Toutes les formules et conversions' },
-        { id: 'speedcalc', icon: '⚡', label: 'Speed Calc', desc: 'Calcul mental chrono — 30 secondes !' },
+    histoire: [
+        { id: 'fiches', icon: '📚', label: 'Fiches Révision', desc: 'Apprends avant de jouer !' },
         { id: 'complete', icon: '💬', label: 'Complète la phrase', desc: 'Lulu et Corbatin te posent des questions !' },
         { id: 'bubble', icon: '🎈', label: 'Ballons', desc: 'Éclate le bon ballon !' },
-        { id: 'quiz', icon: '🎯', label: 'Quiz', desc: 'Teste-toi !' },
+        { id: 'quiz', icon: '🏰', label: 'Quiz', desc: 'Teste-toi !' },
     ],
     corps: [
         { id: 'fiches', icon: '📚', label: 'Fiches Révision', desc: 'Apprends avant de jouer !' },
@@ -82,18 +81,6 @@ const SUBJECT_MODES = {
         { id: 'complete', icon: '💬', label: 'Complète la phrase', desc: 'Lulu et Corbatin te posent des questions !' },
         { id: 'bubble', icon: '🎈', label: 'Ballons', desc: 'Éclate le bon ballon !' },
         { id: 'quiz', icon: '🫀', label: 'Quiz', desc: 'Teste-toi !' },
-    ],
-    sciences: [
-        { id: 'fiches', icon: '📚', label: 'Fiches Révision', desc: 'Apprends avant de jouer !' },
-        { id: 'complete', icon: '💬', label: 'Complète la phrase', desc: 'Lulu et Corbatin te posent des questions !' },
-        { id: 'bubble', icon: '🎈', label: 'Ballons', desc: 'Éclate le bon ballon !' },
-        { id: 'quiz', icon: '🔬', label: 'Quiz', desc: 'Teste-toi !' },
-    ],
-    histoire: [
-        { id: 'fiches', icon: '📚', label: 'Fiches Révision', desc: 'Apprends avant de jouer !' },
-        { id: 'complete', icon: '💬', label: 'Complète la phrase', desc: 'Lulu et Corbatin te posent des questions !' },
-        { id: 'bubble', icon: '🎈', label: 'Ballons', desc: 'Éclate le bon ballon !' },
-        { id: 'quiz', icon: '🏰', label: 'Quiz', desc: 'Teste-toi !' },
     ],
     francais: [
         { id: 'fiches', icon: '📚', label: 'Fiches Révision', desc: 'Apprends avant de jouer !' },
@@ -103,6 +90,20 @@ const SUBJECT_MODES = {
         { id: 'complete', icon: '💬', label: 'Complète la phrase', desc: 'Questions de français !' },
         { id: 'bubble', icon: '🎈', label: 'Ballons', desc: 'Éclate le bon ballon !' },
         { id: 'quiz', icon: '📖', label: 'Quiz', desc: 'Teste-toi !' },
+    ],
+    sciences: [
+        { id: 'fiches', icon: '📚', label: 'Fiches Révision', desc: 'Apprends avant de jouer !' },
+        { id: 'complete', icon: '💬', label: 'Complète la phrase', desc: 'Lulu et Corbatin te posent des questions !' },
+        { id: 'bubble', icon: '🎈', label: 'Ballons', desc: 'Éclate le bon ballon !' },
+        { id: 'quiz', icon: '🔬', label: 'Quiz', desc: 'Teste-toi !' },
+    ],
+    math: [
+        { id: 'fiches', icon: '📚', label: 'Fiches Révision', desc: 'Apprends avant de jouer !' },
+        { id: 'formulas', icon: '📐', label: 'Fiches Formules', desc: 'Toutes les formules et conversions' },
+        { id: 'speedcalc', icon: '⚡', label: 'Speed Calc', desc: 'Calcul mental chrono — 30 secondes !' },
+        { id: 'complete', icon: '💬', label: 'Complète la phrase', desc: 'Lulu et Corbatin te posent des questions !' },
+        { id: 'bubble', icon: '🎈', label: 'Ballons', desc: 'Éclate le bon ballon !' },
+        { id: 'quiz', icon: '🎯', label: 'Quiz', desc: 'Teste-toi !' },
     ],
     mix: [
         { id: 'conjugaison', icon: '🎭', label: 'Conjugaison Aventure', desc: 'Complète avec le bon temps !' },

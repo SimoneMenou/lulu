@@ -1014,6 +1014,18 @@ const REVISION_FICHES = {
         { title: "Homonymes", content: "Mots qui se prononcent pareil, sens différent", detail: "ver / vert / verre / vers" },
         { title: "Synonymes & Antonymes", content: "Synonyme = même sens (joyeux = content)", detail: "Antonyme = contraire (grand ≠ petit)" },
     ],
+    math: [
+        { title: "Addition & Soustraction", content: "25 + 17 → décomposer : 25 + 15 + 2 = 42", detail: "100 - 37 → 100 - 40 + 3 = 63" },
+        { title: "Multiplication", content: "Tables de 2 à 11 à connaître par cœur", detail: "Astuce : 8 × 9 = 8 × 10 - 8 = 72" },
+        { title: "Division", content: "48 ÷ 6 = 8 (combien de fois 6 dans 48 ?)", detail: "Vérification : 8 × 6 = 48 ✓" },
+        { title: "Fractions", content: "3/4 = 3 ÷ 4 = 0,75 = 75%", detail: "Plus le dénominateur est grand, plus la part est petite" },
+        { title: "Pourcentages", content: "X% de N = N × X ÷ 100", detail: "20% de 80 = 80 × 20 ÷ 100 = 16" },
+        { title: "Périmètre", content: "Rectangle : P = (L + l) × 2", detail: "Carré : P = côté × 4 · Cercle : P = d × π" },
+        { title: "Aire", content: "Rectangle : L × l · Carré : c × c", detail: "Triangle : (b × h) ÷ 2 · Cercle : r × r × π" },
+        { title: "Conversions longueurs", content: "1 km = 1 000 m · 1 m = 100 cm · 1 cm = 10 mm", detail: "Pour convertir : × quand on descend, ÷ quand on monte" },
+        { title: "Conversions capacités", content: "1 L = 100 cL = 1 000 mL", detail: "33 cL = une canette · 1,5 L = une bouteille" },
+        { title: "Durées", content: "1 h = 60 min · 1 min = 60 s", detail: "14h20 + 1h45 = 15h20 + 45min = 16h05" },
+    ],
 };
 
 // ===== MEMO CARDS (paires emoji / thème éducatif) =====
