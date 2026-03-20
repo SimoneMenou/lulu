@@ -244,6 +244,34 @@
         </div>
     </div>
 
+    <!-- ÉCRAN COMPLÈTE LA PHRASE (Visual Novel) -->
+    <div id="screen-complete" class="screen">
+        <div class="game-header">
+            <button class="btn-back" onclick="exitComplete()">⬅ Retour</button>
+            <div class="score-display">
+                <span id="complete-score">0 pts</span>
+                <span id="complete-progress">1 / 8</span>
+            </div>
+        </div>
+        <div class="complete-area">
+            <div class="complete-scene">
+                <div class="complete-characters">
+                    <div class="complete-char" id="complete-speaker">🥁</div>
+                </div>
+                <div class="complete-dialogue">
+                    <div class="complete-name" id="complete-name">Lulu</div>
+                    <p class="complete-question" id="complete-question">...</p>
+                    <p class="complete-hint-text" id="complete-hint"></p>
+                </div>
+            </div>
+            <div class="complete-choices" id="complete-choices"></div>
+            <div id="complete-feedback" class="complete-feedback hidden">
+                <p id="complete-feedback-text"></p>
+                <button class="btn-next" onclick="nextComplete()">Suivant →</button>
+            </div>
+        </div>
+    </div>
+
     <!-- ÉCRAN RÉSULTATS -->
     <div id="screen-results" class="screen">
         <div class="results-content">

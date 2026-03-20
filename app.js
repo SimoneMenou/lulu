@@ -70,30 +70,34 @@ let memoLocked = false;
 // ===== SUBJECT MODES CONFIG =====
 const SUBJECT_MODES = {
     math: [
-        { id: 'fiches', icon: '📚', label: 'Fiches Révision', desc: 'Apprends avant de jouer !' },
         { id: 'formulas', icon: '📐', label: 'Fiches Formules', desc: 'Toutes les formules et conversions' },
         { id: 'speedcalc', icon: '⚡', label: 'Speed Calc', desc: 'Calcul mental chrono — 30 secondes !' },
+        { id: 'complete', icon: '💬', label: 'Complète la phrase', desc: 'Lulu et Corbatin te posent des questions !' },
         { id: 'bubble', icon: '🎈', label: 'Ballons', desc: 'Éclate le bon ballon !' },
         { id: 'quiz', icon: '🎯', label: 'Quiz', desc: 'Teste-toi !' },
     ],
     corps: [
         { id: 'fiches', icon: '📚', label: 'Fiches Révision', desc: 'Apprends avant de jouer !' },
         { id: 'skeleton', icon: '💀', label: 'Squelette', desc: 'Touche le bon organe ou os' },
+        { id: 'complete', icon: '💬', label: 'Complète la phrase', desc: 'Lulu et Corbatin te posent des questions !' },
         { id: 'bubble', icon: '🎈', label: 'Ballons', desc: 'Éclate le bon ballon !' },
         { id: 'quiz', icon: '🫀', label: 'Quiz', desc: 'Teste-toi !' },
     ],
     sciences: [
         { id: 'fiches', icon: '📚', label: 'Fiches Révision', desc: 'Apprends avant de jouer !' },
+        { id: 'complete', icon: '💬', label: 'Complète la phrase', desc: 'Lulu et Corbatin te posent des questions !' },
         { id: 'bubble', icon: '🎈', label: 'Ballons', desc: 'Éclate le bon ballon !' },
         { id: 'quiz', icon: '🔬', label: 'Quiz', desc: 'Teste-toi !' },
     ],
     histoire: [
         { id: 'fiches', icon: '📚', label: 'Fiches Révision', desc: 'Apprends avant de jouer !' },
+        { id: 'complete', icon: '💬', label: 'Complète la phrase', desc: 'Lulu et Corbatin te posent des questions !' },
         { id: 'bubble', icon: '🎈', label: 'Ballons', desc: 'Éclate le bon ballon !' },
         { id: 'quiz', icon: '🏰', label: 'Quiz', desc: 'Teste-toi !' },
     ],
     francais: [
         { id: 'fiches', icon: '📚', label: 'Fiches Révision', desc: 'Apprends avant de jouer !' },
+        { id: 'complete', icon: '💬', label: 'Complète la phrase', desc: 'Lulu et Corbatin te posent des questions !' },
         { id: 'bubble', icon: '🎈', label: 'Ballons', desc: 'Éclate le bon ballon !' },
         { id: 'quiz', icon: '📖', label: 'Quiz', desc: 'Teste-toi !' },
     ],
@@ -241,6 +245,12 @@ function launchMode(type, modeId) {
             startSkeletonGame((pts) => {
                 score = pts;
                 showResults('skeleton');
+            });
+            break;
+        case 'complete':
+            startComplete(type, (pts) => {
+                score = pts;
+                showResults('complete');
             });
             break;
         case 'bubble':
@@ -499,17 +509,126 @@ let bubbleState = {
     particles: [], afterBubbleCallback: null,
 };
 
-// Génère les questions du bubble depuis le pool, jamais les mêmes entre sessions
+// Sépare les questions en "courtes" (ballons) et "longues" (complète la phrase)
+function isShortAnswer(q) {
+    return q.choices.every(c => c.length <= 18);
+}
+
+// Génère les questions du bubble : uniquement réponses courtes
 function getBubbleQuestions(gameType) {
-    const pool = getQuestionPool(gameType);
+    const pool = getQuestionPool(gameType).filter(isShortAnswer);
     const fresh = pickFreshQuestions(pool, gameType, 'bubble', 8);
     return fresh.map(q => ({
-        q: q.q.length > 40 ? q.q.slice(0, 38) + '…' : q.q,
+        q: q.q.length > 42 ? q.q.slice(0, 40) + '…' : q.q,
         answers: [q.choices[q.correct], ...q.choices.filter((_, i) => i !== q.correct).slice(0, 3)],
         correct: 0,
     }));
 }
 
+// Génère les questions pour "Complète la phrase" : réponses longues
+function getCompleteQuestions(gameType) {
+    const pool = getQuestionPool(gameType).filter(q => !isShortAnswer(q));
+    return pickFreshQuestions(pool, gameType, 'complete', 8);
+}
+
+// ===== COMPLÈTE LA PHRASE (Visual Novel) =====
+let completeState = { questions: [], index: 0, score: 0, callback: null };
+
+const SPEAKERS = [
+    { name: 'Lulu', emoji: '🥁' },
+    { name: 'Corbatin', emoji: '🐦‍⬛' },
+];
+
+function startComplete(gameType, callback) {
+    const cs = completeState;
+    cs.callback = callback;
+    cs.score = 0;
+    cs.index = 0;
+    cs.questions = getCompleteQuestions(gameType);
+
+    // Si pas assez de questions longues, prend des courtes en complément
+    if (cs.questions.length < 4) {
+        const pool = getQuestionPool(gameType);
+        const extra = pickFreshQuestions(pool, gameType, 'complete', 8 - cs.questions.length);
+        cs.questions = [...cs.questions, ...extra];
+    }
+
+    showScreen('screen-complete');
+    showComplete();
+}
+
+function showComplete() {
+    const cs = completeState;
+    if (cs.index >= cs.questions.length) {
+        if (cs.callback) cs.callback(cs.score);
+        else showResults('complete');
+        return;
+    }
+
+    const q = cs.questions[cs.index];
+    const speaker = SPEAKERS[cs.index % SPEAKERS.length];
+
+    document.getElementById('complete-speaker').textContent = speaker.emoji;
+    document.getElementById('complete-name').textContent = speaker.name;
+    document.getElementById('complete-question').textContent = q.q;
+    document.getElementById('complete-hint').textContent = q.hint || '';
+    document.getElementById('complete-score').textContent = `${cs.score} pts`;
+    document.getElementById('complete-progress').textContent = `${cs.index + 1} / ${cs.questions.length}`;
+    document.getElementById('complete-feedback').classList.add('hidden');
+
+    const choicesEl = document.getElementById('complete-choices');
+    choicesEl.innerHTML = '';
+
+    // Shuffle choices but track correct
+    const indexed = q.choices.map((c, i) => ({ text: c, isCorrect: i === q.correct }));
+    shuffleArray(indexed);
+
+    indexed.forEach(choice => {
+        const btn = document.createElement('button');
+        btn.className = 'complete-btn';
+        btn.textContent = choice.text;
+        btn.addEventListener('click', () => handleComplete(choice.isCorrect, btn, q));
+        choicesEl.appendChild(btn);
+    });
+}
+
+function handleComplete(isCorrect, btn, q) {
+    const cs = completeState;
+    const btns = document.querySelectorAll('.complete-btn');
+    btns.forEach(b => b.classList.add('disabled'));
+
+    if (isCorrect) {
+        cs.score += 2;
+        btn.classList.add('correct');
+        playSound('correct');
+    } else {
+        btn.classList.add('wrong');
+        btns.forEach(b => {
+            if (b.textContent === q.choices[q.correct]) b.classList.add('correct');
+        });
+        playSound('wrong');
+        // Report la question
+        cs.questions.push(q);
+    }
+
+    const fb = document.getElementById('complete-feedback');
+    document.getElementById('complete-feedback-text').textContent = q.explanation;
+    fb.classList.remove('hidden');
+    fb.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function nextComplete() {
+    completeState.index++;
+    showComplete();
+}
+
+function exitComplete() {
+    const cs = completeState;
+    if (cs.callback) cs.callback(cs.score);
+    else goBackToSubmenu();
+}
+
+// ===== BALLONS =====
 function startBubbleShooter(gameType, callback) {
     const bs = bubbleState;
     bs.afterBubbleCallback = callback;
