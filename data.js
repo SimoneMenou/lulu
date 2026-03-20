@@ -1072,16 +1072,42 @@ const MEMO_THEMES = [
         ]
     },
     {
-        name: "Français",
+        name: "Temps de conjugaison",
         pairs: [
-            { id: "verbe", emoji: "🏃", label: "Verbe" },
-            { id: "nom", emoji: "📛", label: "Nom" },
-            { id: "adj", emoji: "🎨", label: "Adjectif" },
-            { id: "pronom", emoji: "👤", label: "Pronom" },
-            { id: "pluriel", emoji: "👥", label: "Pluriel" },
             { id: "present", emoji: "⏺️", label: "Présent" },
-            { id: "passe", emoji: "⏪", label: "Passé" },
-            { id: "futur", emoji: "⏩", label: "Futur" },
+            { id: "imparfait", emoji: "⏪", label: "Imparfait" },
+            { id: "futur", emoji: "⏩", label: "Futur simple" },
+            { id: "pc", emoji: "✅", label: "Passé composé" },
+            { id: "pqp", emoji: "⏮️", label: "Plus-que-parfait" },
+            { id: "fa", emoji: "⏭️", label: "Futur antérieur" },
+            { id: "cond", emoji: "❓", label: "Conditionnel" },
+            { id: "subj", emoji: "🤔", label: "Subjonctif" },
+        ]
+    },
+    {
+        name: "Opérations maths",
+        pairs: [
+            { id: "add", emoji: "➕", label: "Addition" },
+            { id: "sous", emoji: "➖", label: "Soustraction" },
+            { id: "mult", emoji: "✖️", label: "Multiplication" },
+            { id: "div", emoji: "➗", label: "Division" },
+            { id: "frac", emoji: "½", label: "Fraction" },
+            { id: "pct", emoji: "%", label: "Pourcentage" },
+            { id: "carre", emoji: "²", label: "Au carré" },
+            { id: "racine", emoji: "√", label: "Racine carrée" },
+        ]
+    },
+    {
+        name: "Sciences & Nature",
+        pairs: [
+            { id: "herbe", emoji: "🌱", label: "Germination" },
+            { id: "fleur", emoji: "🌸", label: "Pollinisation" },
+            { id: "arbre", emoji: "🌳", label: "Photosynthèse" },
+            { id: "goutte", emoji: "💧", label: "Cycle de l'eau" },
+            { id: "soleil", emoji: "☀️", label: "Solstice" },
+            { id: "thermo", emoji: "🌡️", label: "Température" },
+            { id: "vent", emoji: "🌬️", label: "Anémomètre" },
+            { id: "nuage", emoji: "🌧️", label: "Précipitations" },
         ]
     },
     {

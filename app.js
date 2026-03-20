@@ -994,6 +994,8 @@ function replayGame() {
             // Tout vu → relance depuis le début
             startQuiz(currentGame);
         }
+    } else if (currentMode === 'memo') {
+        startMemo();
     } else {
         launchMode(currentGame, currentMode);
     }
