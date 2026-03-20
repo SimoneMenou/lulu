@@ -315,34 +315,22 @@ function cleanupSkeleton() {
 }
 
 
-// ===== SPEED CALC =====
-const SPEED_OPS = [
-    // Tables de multiplication
-    ...(() => {
-        const ops = [];
-        for (let a = 2; a <= 12; a++) {
-            for (let b = 2; b <= 12; b++) {
-                ops.push({ q: `${a} × ${b}`, answer: a * b, type: 'mult' });
-            }
-        }
-        return ops;
-    })(),
-    // Additions
-    { q: '45 + 28', answer: 73 }, { q: '67 + 35', answer: 102 },
-    { q: '128 + 54', answer: 182 }, { q: '89 + 76', answer: 165 },
-    { q: '250 + 175', answer: 425 }, { q: '99 + 99', answer: 198 },
-    // Soustractions
-    { q: '100 - 37', answer: 63 }, { q: '85 - 29', answer: 56 },
-    { q: '200 - 78', answer: 122 }, { q: '150 - 63', answer: 87 },
-    // Doubles / Moitiés
-    { q: 'Double de 35', answer: 70 }, { q: 'Double de 48', answer: 96 },
-    { q: 'Moitié de 84', answer: 42 }, { q: 'Moitié de 66', answer: 33 },
-    { q: 'Moitié de 120', answer: 60 },
+// ===== SPEED CALC — Tables de multiplication avec niveaux =====
+// Niveaux progressifs : tables de plus en plus difficiles
+const SPEED_LEVELS = [
+    { name: "Niveau 1 — Tables de 2, 3, 4",      tables: [2, 3, 4],          maxB: 10, time: 35 },
+    { name: "Niveau 2 — Tables de 5, 6",          tables: [5, 6],             maxB: 10, time: 30 },
+    { name: "Niveau 3 — Tables de 7, 8",          tables: [7, 8],             maxB: 10, time: 30 },
+    { name: "Niveau 4 — Tables de 9, 10, 11",     tables: [9, 10, 11],        maxB: 11, time: 30 },
+    { name: "Niveau 5 — Toutes les tables !",      tables: [2,3,4,5,6,7,8,9,10,11], maxB: 11, time: 25 },
+    { name: "Niveau 6 — Mode BEAST",              tables: [6,7,8,9,11],       maxB: 11, time: 20 },
 ];
 
 let speedState = {
-    score: 0, streak: 0, timeLeft: 30, timer: null,
+    score: 0, streak: 0, gauge: 50, // jauge 0-100
+    level: 0, timer: null, tickInterval: null,
     currentQ: null, callback: null, active: false,
+    questionsAnswered: 0,
 };
 
 function startSpeedCalc(callback) {
@@ -350,36 +338,53 @@ function startSpeedCalc(callback) {
     sp.callback = callback;
     sp.score = 0;
     sp.streak = 0;
-    sp.timeLeft = 30;
+    sp.gauge = 50; // commence au milieu
+    sp.level = 0;
     sp.active = true;
+    sp.questionsAnswered = 0;
 
     showScreen('screen-speedcalc');
-
     document.getElementById('speed-streak').textContent = '';
     updateSpeedUI();
     nextSpeedQuestion();
 
-    // Countdown timer
-    sp.timer = setInterval(() => {
-        sp.timeLeft--;
+    // La jauge descend lentement toute seule (pression !)
+    sp.tickInterval = setInterval(() => {
+        if (!sp.active) return;
+        sp.gauge = Math.max(0, sp.gauge - 0.4);
         updateSpeedUI();
-        if (sp.timeLeft <= 0) {
-            endSpeedCalc();
-        }
-    }, 1000);
+        if (sp.gauge <= 0) endSpeedCalc();
+    }, 200);
+}
+
+function getSpeedLevel() {
+    return SPEED_LEVELS[Math.min(speedState.level, SPEED_LEVELS.length - 1)];
+}
+
+function generateSpeedQuestion() {
+    const lvl = getSpeedLevel();
+    const a = lvl.tables[Math.floor(Math.random() * lvl.tables.length)];
+    const b = 2 + Math.floor(Math.random() * (lvl.maxB - 1));
+    return { q: `${a} × ${b}`, answer: a * b };
 }
 
 function nextSpeedQuestion() {
     const sp = speedState;
     if (!sp.active) return;
 
-    // Pick random operation
-    const op = SPEED_OPS[Math.floor(Math.random() * SPEED_OPS.length)];
+    // Check level up every 8 bonnes réponses
+    const newLevel = Math.min(Math.floor(sp.score / 16), SPEED_LEVELS.length - 1); // 8 bonnes × 2pts = 16
+    if (newLevel > sp.level) {
+        sp.level = newLevel;
+        showMiniFeedback('speed-feedback', true, `⬆️ ${getSpeedLevel().name}`);
+    }
+
+    const op = generateSpeedQuestion();
     sp.currentQ = op;
 
     document.getElementById('speed-question').textContent = `${op.q} = ?`;
+    document.getElementById('speed-timer').textContent = getSpeedLevel().name;
 
-    // Generate 4 choices with the correct answer
     const choices = generateSpeedChoices(op.answer);
     const choicesEl = document.getElementById('speed-choices');
     choicesEl.innerHTML = '';
@@ -395,8 +400,14 @@ function nextSpeedQuestion() {
 
 function generateSpeedChoices(correct) {
     const choices = new Set([correct]);
+    // Réponses plausibles : tables proches
+    const nearby = [correct - 1, correct + 1, correct - correct % 10 + 10, correct + 7, correct - 7, correct + 3, correct - 3, correct + 9, correct - 9];
+    shuffleArray(nearby);
+    for (const n of nearby) {
+        if (n > 0 && n !== correct) choices.add(n);
+        if (choices.size >= 4) break;
+    }
     while (choices.size < 4) {
-        // Generate plausible wrong answers
         const offset = Math.floor(Math.random() * 20) - 10;
         const wrong = correct + (offset === 0 ? 1 : offset);
         if (wrong > 0) choices.add(wrong);
@@ -409,35 +420,38 @@ function handleSpeedAnswer(value, btn) {
     if (!sp.active || !sp.currentQ) return;
 
     const isCorrect = value === sp.currentQ.answer;
-
-    // Disable all buttons briefly
     const allBtns = document.querySelectorAll('.speed-btn');
     allBtns.forEach(b => b.style.pointerEvents = 'none');
 
     if (isCorrect) {
         sp.score += 2;
         sp.streak++;
+        sp.questionsAnswered++;
         btn.classList.add('correct');
         playSound('correct');
 
+        // Jauge monte : +8 de base, +2 bonus par streak
+        const bonus = Math.min(sp.streak, 5) * 2;
+        sp.gauge = Math.min(100, sp.gauge + 8 + bonus);
+
         // Streak display
-        if (sp.streak >= 5) {
+        if (sp.streak >= 7) {
+            document.getElementById('speed-streak').textContent = `🔥🔥🔥 INARRÊTABLE x${sp.streak} !!!`;
+        } else if (sp.streak >= 5) {
             document.getElementById('speed-streak').textContent = `🔥🔥 COMBO x${sp.streak} !!`;
         } else if (sp.streak >= 3) {
             document.getElementById('speed-streak').textContent = `🔥 Série de ${sp.streak} !`;
         } else {
             document.getElementById('speed-streak').textContent = '';
         }
-
-        // Bonus time for streaks
-        if (sp.streak >= 5 && sp.streak % 5 === 0) {
-            sp.timeLeft = Math.min(sp.timeLeft + 3, 30);
-        }
     } else {
         sp.streak = 0;
         btn.classList.add('wrong');
         playSound('wrong');
         document.getElementById('speed-streak').textContent = '';
+
+        // Jauge descend de 15
+        sp.gauge = Math.max(0, sp.gauge - 15);
 
         // Show correct answer
         allBtns.forEach(b => {
@@ -448,29 +462,34 @@ function handleSpeedAnswer(value, btn) {
     updateSpeedUI();
 
     setTimeout(() => {
-        if (sp.active) nextSpeedQuestion();
-    }, isCorrect ? 400 : 900);
+        if (sp.active) {
+            if (sp.gauge <= 0) endSpeedCalc();
+            else nextSpeedQuestion();
+        }
+    }, isCorrect ? 350 : 800);
 }
 
 function updateSpeedUI() {
     const sp = speedState;
     document.getElementById('speed-score').textContent = `${sp.score} pts`;
-    document.getElementById('speed-timer').textContent = `⏱ ${sp.timeLeft}s`;
 
     const fill = document.getElementById('speed-timer-fill');
-    const pct = (sp.timeLeft / 30) * 100;
+    const pct = sp.gauge;
     fill.style.width = pct + '%';
-    fill.className = 'speed-timer-fill' +
-        (sp.timeLeft <= 5 ? ' danger' : sp.timeLeft <= 10 ? ' warning' : '');
+
+    if (pct <= 20) fill.className = 'speed-timer-fill danger';
+    else if (pct <= 40) fill.className = 'speed-timer-fill warning';
+    else fill.className = 'speed-timer-fill';
 }
 
 function endSpeedCalc() {
     const sp = speedState;
     sp.active = false;
-    clearInterval(sp.timer);
+    clearInterval(sp.tickInterval);
 
+    const lvlName = getSpeedLevel().name;
     showMiniFeedback('speed-feedback', true,
-        `Terminé ! ${sp.score} points en 30 secondes !`);
+        `${sp.score} pts — ${sp.questionsAnswered} bonnes réponses !`);
 
     setTimeout(() => {
         if (sp.callback) sp.callback(sp.score);
@@ -480,7 +499,7 @@ function endSpeedCalc() {
 function exitSpeedCalc() {
     const sp = speedState;
     sp.active = false;
-    clearInterval(sp.timer);
+    clearInterval(sp.tickInterval);
     if (sp.callback) sp.callback(sp.score);
 }
 
