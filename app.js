@@ -450,8 +450,14 @@ function startBubbleShooter(gameType, callback) {
 function resizeBubbleCanvas() {
     const c = bubbleState.canvas;
     if (!c) return;
-    c.width = c.parentElement.getBoundingClientRect().width;
-    c.height = Math.max(300, window.innerHeight - 220);
+    const parent = c.parentElement;
+    c.width = parent.getBoundingClientRect().width;
+    // Calculate available height: viewport minus header, story, question
+    const header = parent.closest('.screen')?.querySelector('.game-header');
+    const story = parent.querySelector('.story-panel');
+    const question = parent.querySelector('.bubble-question');
+    const used = (header?.offsetHeight || 50) + (story?.offsetHeight || 0) + (question?.offsetHeight || 40) + 10;
+    c.height = Math.max(250, window.innerHeight - used);
 }
 
 function loadBubbleLevel() {
@@ -462,18 +468,33 @@ function loadBubbleLevel() {
     document.getElementById('bubble-question-text').textContent = q.q;
     document.getElementById('bubble-score').textContent = `${bs.score} pts`;
     document.getElementById('bubble-level').textContent = `Bulle ${bs.level + 1}`;
-    const W = bs.canvas.width, R = Math.min(55, W / 8);
-    const colors = ['#e94560', '#533483', '#7b2d8e', '#c62828', '#1a3a6b'];
+
+    const W = bs.canvas.width;
+    const H = bs.canvas.height;
+    // Responsive bubble size: smaller on mobile
+    const R = Math.min(38, Math.max(24, W / 11));
+    const allColors = ['#e94560', '#533483', '#7b2d8e', '#c62828', '#1565C0', '#00838F', '#F57C00', '#6A1B9A'];
+    const colors = shuffleArray([...allColors]).slice(0, 4);
     const sa = q.answers.map((a, i) => ({ text: a, isCorrect: i === q.correct }));
     shuffleArray(sa);
+
+    // 2×2 grid layout, well spaced, in the top half of canvas
+    const cols = 2;
+    const rows = 2;
+    const padX = R + 15;
+    const cellW = (W - padX * 2) / (cols - 1 || 1);
+    const cellH = Math.min(R * 3, (H * 0.45) / (rows - 1 || 1));
+    const startY = R + 20;
+
     sa.forEach((ans, i) => {
-        const cols = Math.min(4, sa.length), sp = W / (cols + 1);
+        const col = i % cols;
+        const row = Math.floor(i / cols);
         bs.bubbles.push({
-            x: sp * (i % cols + 1) + (Math.random() - 0.5) * 20,
-            y: 60 + Math.floor(i / cols) * R * 2.5 + (Math.random() - 0.5) * 15,
+            x: padX + col * cellW + (Math.random() - 0.5) * 10,
+            y: startY + row * cellH + (Math.random() - 0.5) * 8,
             r: R, text: ans.text, isCorrect: ans.isCorrect,
-            color: ans.isCorrect ? '#66bb6a' : colors[i % colors.length],
-            vx: (Math.random() - 0.5) * 0.8, vy: (Math.random() - 0.5) * 0.4,
+            color: colors[i % colors.length],  // toutes les couleurs aléatoires, pas de vert = correct
+            vx: (Math.random() - 0.5) * 0.5, vy: (Math.random() - 0.5) * 0.3,
             alive: true, wobble: Math.random() * Math.PI * 2,
         });
     });
@@ -495,10 +516,12 @@ function bubbleLoop() {
         b.wobble += 0.02;
         b.x += b.vx + Math.sin(b.wobble) * 0.3;
         b.y += b.vy + Math.cos(b.wobble * 0.7) * 0.2;
+        // Keep bubbles in top 60% of canvas (leave room for launcher)
+        const maxY = H * 0.55;
         if (b.x - b.r < 0 || b.x + b.r > W) b.vx *= -1;
-        if (b.y - b.r < 0 || b.y + b.r > H - 80) b.vy *= -1;
+        if (b.y - b.r < 0 || b.y + b.r > maxY) b.vy *= -1;
         b.x = Math.max(b.r, Math.min(W - b.r, b.x));
-        b.y = Math.max(b.r, Math.min(H - 80 - b.r, b.y));
+        b.y = Math.max(b.r, Math.min(maxY - b.r, b.y));
 
         ctx.save();
         ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
@@ -507,23 +530,34 @@ function bubbleLoop() {
         ctx.beginPath(); ctx.arc(b.x - b.r * 0.25, b.y - b.r * 0.25, b.r * 0.15, 0, Math.PI * 2);
         ctx.fillStyle = 'rgba(255,255,255,0.4)'; ctx.fill();
         ctx.globalAlpha = 1; ctx.fillStyle = 'white';
-        ctx.font = `bold ${Math.max(12, b.r * 0.38)}px 'Nunito', sans-serif`;
+        // Adaptive font: measure and shrink if needed
+        let fontSize = Math.max(11, b.r * 0.42);
+        ctx.font = `800 ${fontSize}px 'Nunito', sans-serif`;
+        // Shrink font if text overflows bubble
+        while (ctx.measureText(b.text).width > b.r * 1.7 && fontSize > 9) {
+            fontSize--;
+            ctx.font = `800 ${fontSize}px 'Nunito', sans-serif`;
+        }
         ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
         ctx.fillText(b.text, b.x, b.y);
         ctx.restore();
     });
 
-    const lx = W / 2, ly = H - 30;
+    // Launcher at bottom - responsive size
+    const lx = W / 2, ly = H - 25;
+    const launcherR = Math.min(16, W / 22);
     if (!bs.shooting) {
-        ctx.save(); ctx.setLineDash([8, 8]);
+        ctx.save(); ctx.setLineDash([6, 6]);
         ctx.strokeStyle = isDark ? 'rgba(233,69,96,0.3)' : 'rgba(0,0,0,0.15)';
         ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(lx, ly);
-        ctx.lineTo(lx + Math.cos(bs.aimAngle) * 120, ly + Math.sin(bs.aimAngle) * 120);
+        const aimLen = Math.min(100, H * 0.2);
+        ctx.lineTo(lx + Math.cos(bs.aimAngle) * aimLen, ly + Math.sin(bs.aimAngle) * aimLen);
         ctx.stroke(); ctx.restore();
     }
-    ctx.beginPath(); ctx.arc(lx, ly, 18, 0, Math.PI * 2);
+    ctx.beginPath(); ctx.arc(lx, ly, launcherR, 0, Math.PI * 2);
     ctx.fillStyle = '#e94560'; ctx.fill();
-    ctx.fillStyle = 'white'; ctx.font = 'bold 16px sans-serif';
+    ctx.strokeStyle = 'rgba(255,255,255,0.4)'; ctx.lineWidth = 2; ctx.stroke();
+    ctx.fillStyle = 'white'; ctx.font = `bold ${Math.max(12, launcherR)}px sans-serif`;
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('▲', lx, ly - 1);
 
     if (bs.projectile) {
@@ -578,7 +612,8 @@ function bubbleShoot(e) {
             Math.atan2(e.clientY - rect.top - (bs.canvas.height - 30), e.clientX - rect.left - bs.canvas.width / 2)));
     }
     bs.shooting = true;
-    bs.projectile = { x: bs.canvas.width / 2, y: bs.canvas.height - 30, r: 12,
+    const projR = Math.min(10, bs.canvas.width / 35);
+    bs.projectile = { x: bs.canvas.width / 2, y: bs.canvas.height - 25, r: projR,
         vx: Math.cos(bs.aimAngle) * 10, vy: Math.sin(bs.aimAngle) * 10 };
     playSound('flip');
 }
