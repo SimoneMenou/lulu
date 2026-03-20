@@ -321,6 +321,14 @@ const QUESTIONS_HISTOIRE = [
         correct: 1,
         explanation: "Victor Horta est célèbre pour ses bâtiments Art nouveau, avec des lignes courbes et beaucoup de lumière."
     },
+    // --- CEB 2010-2025 : nouvelles questions histoire/géo ---
+    { q: "Quels sont les pays voisins de la Belgique ?", choices: ["France, Allemagne, Pays-Bas, Luxembourg", "France, Allemagne, Pays-Bas, Suisse", "France, Angleterre, Pays-Bas, Luxembourg", "France, Allemagne, Italie, Luxembourg"], correct: 0, explanation: "La Belgique est entourée par la France, l'Allemagne, les Pays-Bas et le Luxembourg." },
+    { q: "Combien de provinces y a-t-il en Wallonie ?", choices: ["3", "4", "5", "6"], correct: 2, explanation: "La Wallonie compte 5 provinces : Brabant wallon, Hainaut, Liège, Luxembourg et Namur." },
+    { q: "Dans quelle province belge est né Adolphe Sax, inventeur du saxophone ?", choices: ["Brabant wallon", "Hainaut", "Namur", "Liège"], correct: 2, explanation: "Adolphe Sax est né à Dinant, dans la province de Namur." },
+    { q: "La date du 11 novembre est un jour férié en Belgique. À quel événement est-il lié ?", choices: ["La fête nationale", "L'Armistice de 1918", "La Toussaint", "La libération de 1944"], correct: 1, explanation: "Le 11 novembre commémore l'Armistice de 1918, la fin de la Première Guerre mondiale." },
+    { q: "Pieter Brueghel est un célèbre artiste flamand. Quel type d'œuvres a-t-il créé ?", choices: ["Des sculptures", "Des monuments", "Des gravures", "Des peintures"], correct: 3, explanation: "Pieter Brueghel est un célèbre peintre flamand connu pour ses scènes de vie quotidienne." },
+    { q: "Dans quelle région de Belgique se trouve Namur ?", choices: ["Région flamande", "Bruxelles-Capitale", "Région wallonne", "Communauté germanophone"], correct: 2, explanation: "Namur est le chef-lieu de la province de Namur, en Région wallonne." },
+    { q: "Jean-Michel Folon était un artiste belge. Quel type d'artiste était-il ?", hint: "Aquarelliste = peintre qui utilise la peinture à l'eau", choices: ["Un compositeur", "Un marionnettiste", "Un aquarelliste", "Un inventeur"], correct: 2, explanation: "Folon était un artiste belge célèbre pour ses aquarelles." },
 ];
 
 // ===== QUESTIONS CORPS HUMAIN & SCIENCES (Niveau CEB) =====
@@ -398,6 +406,19 @@ const QUESTIONS_CORPS = [
         correct: 2,
         explanation: "Un adulte a 32 dents (avec les dents de sagesse). Les enfants ont 20 dents de lait."
     },
+    // --- CEB 2010-2025 : nouvelles questions corps ---
+    { q: "Quel organe fait partie de l'appareil circulatoire ?", hint: "L'appareil circulatoire transporte le sang", choices: ["L'estomac", "Les poumons", "Le cœur", "L'intestin grêle"], correct: 2, explanation: "Le cœur est l'organe central de l'appareil circulatoire." },
+    { q: "Quelle maladie est liée à l'appareil circulatoire ?", hint: "Infarctus = quand le cœur ne reçoit plus assez de sang", choices: ["L'indigestion", "La bronchite", "L'infarctus", "La déchirure"], correct: 2, explanation: "L'infarctus est une maladie du cœur (appareil circulatoire)." },
+    { q: "Quelle maladie est liée à l'appareil respiratoire ?", choices: ["L'indigestion", "La bronchite", "L'infarctus", "La déchirure"], correct: 1, explanation: "La bronchite affecte les bronches (appareil respiratoire)." },
+    { q: "Quelle maladie est liée à l'appareil digestif ?", hint: "Indigestion = quand on a du mal à digérer", choices: ["L'infarctus", "La bronchite", "L'indigestion", "La déchirure"], correct: 2, explanation: "L'indigestion est un trouble de l'appareil digestif." },
+    { q: "Quel est le rôle de l'appareil locomoteur ?", hint: "Locomoteur = qui permet le mouvement", choices: ["Digérer les aliments", "Transporter le sang", "Permettre le mouvement", "Respirer l'air"], correct: 2, explanation: "L'appareil locomoteur (os + muscles) permet de bouger." },
+    { q: "Combien de sens possède l'être humain ?", choices: ["3", "4", "5", "6"], correct: 2, explanation: "5 sens : vue, ouïe, odorat, goût et toucher." },
+    { q: "Quel sens est lié au nez ?", choices: ["La vue", "Le toucher", "L'odorat", "Le goût"], correct: 2, explanation: "Le nez est l'organe de l'odorat." },
+    { q: "Par quel organe l'air passe-t-il avant d'arriver aux poumons ?", choices: ["L'œsophage", "La trachée", "L'estomac", "Le cœur"], correct: 1, explanation: "L'air passe par la trachée avant d'arriver aux bronches puis aux poumons." },
+    { q: "Après un effort physique, que se passe-t-il avec la fréquence cardiaque ?", choices: ["Elle diminue", "Elle augmente", "Elle reste la même", "Elle s'arrête"], correct: 1, explanation: "Le cœur bat plus vite pour fournir plus d'oxygène aux muscles." },
+    { q: "Quel organe du système digestif relie la bouche à l'estomac ?", choices: ["L'intestin grêle", "Le pancréas", "L'œsophage", "Le foie"], correct: 2, explanation: "L'œsophage est le tube qui relie la bouche à l'estomac." },
+    { q: "Quel type d'articulation est la hanche ?", choices: ["Charnière", "Sphérique", "Pivot", "Fixe"], correct: 1, explanation: "La hanche est sphérique, comme l'épaule : mouvements dans toutes les directions." },
+    { q: "Que fait le diaphragme lors de l'expiration ?", choices: ["Il se tend et s'abaisse", "Il se relâche et remonte", "Il ne bouge pas", "Il se gonfle"], correct: 1, explanation: "À l'expiration, le diaphragme se relâche et remonte." },
 ];
 
 // ===== QUESTIONS FRANÇAIS (Niveau CEB) =====
@@ -594,6 +615,19 @@ const QUESTIONS_FRANCAIS = [
         correct: 2,
         explanation: "Un conte ou un roman est écrit pour le plaisir de lire, pour distraire !"
     },
+    // --- CEB 2010-2025 : nouvelles questions français ---
+    { q: "Comment appelle-t-on un mot qui a le sens contraire d'un autre ?", hint: "Antonyme = mot contraire · Synonyme = même sens", choices: ["Un synonyme", "Un antonyme", "Un homonyme", "Un paronyme"], correct: 1, explanation: "Un antonyme est un mot de sens contraire (chaud ≠ froid)." },
+    { q: "Quel est le féminin de « conducteur » ?", choices: ["Conducteuse", "Conductrice", "Conducteure", "Conductresse"], correct: 1, explanation: "Conductrice, comme acteur/actrice." },
+    { q: "Quelle est la nature du mot « lentement » ?", hint: "Un adverbe modifie un verbe ou un adjectif", choices: ["Adjectif", "Nom", "Verbe", "Adverbe"], correct: 3, explanation: "Lentement est un adverbe (se termine en -ment)." },
+    { q: "Comment s'appelle un texte qui donne des instructions (recette, mode d'emploi) ?", hint: "Injonctif = qui donne des ordres", choices: ["Texte narratif", "Texte informatif", "Texte injonctif", "Texte descriptif"], correct: 2, explanation: "Un texte injonctif donne des ordres ou des instructions à suivre." },
+    { q: "Dans « Les élèves ont réalisé une expérience », quel est le temps du verbe ?", choices: ["Présent", "Passé composé", "Imparfait", "Plus-que-parfait"], correct: 1, explanation: "Ont réalisé = auxiliaire avoir au présent + participe passé = passé composé." },
+    { q: "Quel type de déterminant est « ces » dans « ces expériences » ?", hint: "Démonstratif = qui montre (ce, cet, cette, ces)", choices: ["Article défini", "Article indéfini", "Déterminant démonstratif", "Déterminant possessif"], correct: 2, explanation: "Ces est un déterminant démonstratif (il montre, il désigne)." },
+    { q: "Dans « Elle chauffe plus vite », quel comparatif est utilisé ?", choices: ["D'égalité", "De supériorité", "D'infériorité", "Superlatif"], correct: 1, explanation: "« Plus vite » = comparatif de supériorité." },
+    { q: "Dans le mot « indigestion », que signifie le préfixe « in- » ?", choices: ["Encore", "Bien", "Mal / pas", "Très"], correct: 2, explanation: "Le préfixe in- exprime la négation. Indigestion = mauvaise digestion." },
+    { q: "Que signifie « ne pas être friand de quelque chose » ?", hint: "Friand = qui aime beaucoup un aliment", choices: ["En manger beaucoup", "Ne pas trop aimer ça", "En avoir très envie", "Ne jamais en manger"], correct: 1, explanation: "Ne pas être friand = ne pas trop apprécier." },
+    { q: "Qu'est-ce qu'un sommaire dans un livre ?", choices: ["Un glossaire", "La liste des chapitres et pages", "Un index", "Une bibliographie"], correct: 1, explanation: "Un sommaire (table des matières) liste les chapitres d'un livre." },
+    { q: "Que signifie « rester sans descendance » ?", hint: "Descendance = les enfants, les petits", choices: ["Ne pas pouvoir descendre", "Ne pas perdre sa place", "Ne pas se faire battre", "Ne pas avoir d'enfants"], correct: 3, explanation: "La descendance = les enfants. Sans descendance = pas de petits." },
+    { q: "Que signifie « apprivoiser » dans Le Petit Prince ?", choices: ["Capturer un animal", "Créer des liens, devenir amis", "Donner à manger", "Dresser un animal"], correct: 1, explanation: "Pour le renard, apprivoiser = créer des liens d'amitié et de confiance." },
 ];
 
 // ===== QUESTIONS MATHS (Niveau CEB - adapté dyscalculie) =====
@@ -920,6 +954,38 @@ const QUESTIONS_MATH = [
         correct: 1,
         explanation: "4 ÷ 8 = 0,5 heure = 30 minutes."
     },
+    // --- CEB 2010-2025 : nouvelles questions maths ---
+    { q: "Quelle est la somme des angles d'un triangle ?", choices: ["90°", "180°", "270°", "360°"], correct: 1, explanation: "La somme des 3 angles de tout triangle vaut toujours 180°." },
+    { q: "42 × 99 : c'est à peu près combien ?", choices: ["142", "429", "4 200", "420"], correct: 2, explanation: "42 × 99 ≈ 42 × 100 = 4 200." },
+    { q: "Quel nombre entier précède immédiatement 20 000 ?", choices: ["19 990", "19 999", "19 900", "20 001"], correct: 1, explanation: "Le nombre juste avant 20 000 est 19 999." },
+    { q: "Comment écrire 0,15 sous forme de fraction ?", choices: ["15/100", "15/10", "1/5", "15/1000"], correct: 0, explanation: "0,15 = 15/100 = 3/20." },
+    { q: "Si 7,1 × 8,71 = 8,71 × ?, que vaut le nombre manquant ?", hint: "Commutativité : a × b = b × a", choices: ["8,71", "7,1", "1", "0"], correct: 1, explanation: "C'est la propriété de commutativité : a × b = b × a." },
+    { q: "Un peintre tapisse 48 m² par jour. Combien de jours pour 192 m² ?", choices: ["3 jours", "4 jours", "5 jours", "6 jours"], correct: 1, explanation: "192 ÷ 48 = 4 jours." },
+    { q: "Un paquet de lessive permet 66 lessives. Un paquet spécial offre 50% en plus. Combien de lessives ?", choices: ["82", "99", "76", "132"], correct: 1, explanation: "50% de 66 = 33. Donc 66 + 33 = 99 lessives." },
+    { q: "Un pack de 6 bouteilles d'eau de 1,5 L chacune. Combien de litres au total ?", choices: ["7,5 L", "9 L", "6 L", "12 L"], correct: 1, explanation: "6 × 1,5 = 9 litres." },
+    { q: "60 cl, c'est combien en ml ?", choices: ["6 ml", "60 ml", "600 ml", "6 000 ml"], correct: 2, explanation: "1 cl = 10 ml, donc 60 cl = 600 ml." },
+    { q: "175 cm, ça correspond à quoi ?", choices: ["La hauteur d'une marche", "La longueur d'une table", "La taille d'un adulte", "La profondeur d'un évier"], correct: 2, explanation: "175 cm = 1,75 m, c'est la taille moyenne d'un adulte." },
+    { q: "Que signifie le préfixe « hecto » dans les unités de mesure ?", choices: ["5 fois", "10 fois", "100 fois", "500 fois"], correct: 2, explanation: "Hecto = 100 fois. 1 hectolitre = 100 litres." },
+    { q: "Combien de litres représentent 5 hectolitres ?", choices: ["5", "10", "100", "500"], correct: 3, explanation: "5 × 100 = 500 litres." },
+    { q: "1 gramme, c'est combien de kilogrammes ?", choices: ["0,001 kg", "0,01 kg", "0,1 kg", "1 kg"], correct: 0, explanation: "1 g = 0,001 kg car 1 kg = 1 000 g." },
+    { q: "Combien d'axes de symétrie possède un cercle ?", choices: ["0", "1", "4", "Une infinité"], correct: 3, explanation: "Un cercle a une infinité d'axes de symétrie (chaque diamètre en est un)." },
+    { q: "Un quadrilatère avec 4 côtés égaux mais des angles différents, c'est quoi ?", hint: "Isométrique = de même longueur", choices: ["Un carré", "Un rectangle", "Un losange", "Un trapèze"], correct: 2, explanation: "Un losange a 4 côtés égaux mais ses angles ne sont pas tous égaux." },
+    { q: "Un prisme à base triangulaire a combien de faces ?", choices: ["3", "4", "5", "6"], correct: 2, explanation: "2 triangles (bases) + 3 rectangles (faces latérales) = 5 faces." },
+    { q: "Dans une classe de 25 élèves, Fatima a obtenu 32% des votes. Combien ont voté pour elle ?", choices: ["6", "7", "8", "9"], correct: 2, explanation: "32% de 25 = 0,32 × 25 = 8 élèves." },
+    { q: "Un parcours fait 78 km. Jules a parcouru 39 km. Quel pourcentage ?", choices: ["25%", "40%", "50%", "60%"], correct: 2, explanation: "39 ÷ 78 = 0,5 = 50%." },
+    { q: "Un flacon de 75 ml remplit 15 vaporisateurs. Quelle est la capacité d'un vaporisateur ?", choices: ["3 ml", "5 ml", "7,5 ml", "10 ml"], correct: 1, explanation: "75 ÷ 15 = 5 ml." },
+    { q: "Chez Dallas, les pommes de terre coûtent 28 € le sac de 15 kg. Combien pour 45 kg ?", choices: ["56 €", "70 €", "84 €", "90 €"], correct: 2, explanation: "45 ÷ 15 = 3 sacs. 3 × 28 = 84 €." },
+    { q: "Un dauphin mange 215 kg en 20 jours. Combien faut-il pour 4 dauphins pendant 60 jours ?", choices: ["1 290 kg", "2 580 kg", "3 225 kg", "3 870 kg"], correct: 1, explanation: "1 dauphin/60j = 215 × 3 = 645 kg. Pour 4 : 645 × 4 = 2 580 kg." },
+    { q: "Pour 45 m² de gravier, il faut 6 L de désherbant. Combien pour 135 m² ?", choices: ["12 L", "15 L", "18 L", "24 L"], correct: 2, explanation: "135 ÷ 45 = 3. Donc 6 × 3 = 18 litres." },
+    { q: "Les 40 élèves d'une classe vont voir un spectacle. Le bus coûte 120 € et le billet 6 € par élève. Combien par élève au total ?", choices: ["6 €", "9 €", "12 €", "3 €"], correct: 1, explanation: "Bus par élève : 120 ÷ 40 = 3. Total : 3 + 6 = 9 €." },
+    { q: "648 heures avant les J.O. Combien de jours ?", choices: ["25", "26", "27", "28"], correct: 2, explanation: "648 ÷ 24 = 27 jours." },
+    { q: "Pour un gâteau, il faut 250 g d'œufs. Un œuf pèse 50 g. Combien d'œufs ?", choices: ["3", "4", "5", "6"], correct: 2, explanation: "250 ÷ 50 = 5 œufs." },
+    { q: "Une douche classique consomme 15 L/min, une économique 6 L/min. Combien économise-t-on en 8 min ?", choices: ["48 L", "60 L", "72 L", "96 L"], correct: 2, explanation: "Classique : 120 L. Économique : 48 L. Économie : 72 L." },
+    { q: "Une boîte de 180 bonbons de 2,4 g chacun. Quelle masse totale en kg ?", choices: ["0,360 kg", "0,432 kg", "0,540 kg", "4,32 kg"], correct: 1, explanation: "180 × 2,4 = 432 g = 0,432 kg." },
+    { q: "Une croquette pèse 60 g et contient 40% de crevettes. Quelle masse de crevettes ?", choices: ["14,4 g", "20 g", "24 g", "28,8 g"], correct: 2, explanation: "40% de 60 = 24 g." },
+    { q: "Le forfait vélo coûte 1 € + 0,15 €/min. Combien pour 45 minutes ?", choices: ["6,75 €", "7,75 €", "7,15 €", "8,75 €"], correct: 1, explanation: "1 + (45 × 0,15) = 1 + 6,75 = 7,75 €." },
+    { q: "La direction achète 24 raquettes pour 96 €. Combien pour 10 raquettes de plus ?", choices: ["30 €", "40 €", "48 €", "96 €"], correct: 1, explanation: "Prix unitaire : 96 ÷ 24 = 4 €. 10 × 4 = 40 €." },
+    { q: "Dans une enquête sur 120 élèves, 2/3 préfèrent le foot et 1/4 le tennis. Combien préfèrent la natation ?", choices: ["10", "15", "20", "25"], correct: 0, explanation: "Foot : 80. Tennis : 30. Natation : 120 - 80 - 30 = 10." },
 ];
 
 // ===== FICHES FORMULES MATHS =====
@@ -963,6 +1029,23 @@ const QUESTIONS_SCIENCES = [
     { q: "Quel instrument mesure la pression atmosphérique ?", hint: "Pression atmosphérique = le poids de l'air · Anémo = vent", choices: ["Un thermomètre", "Un hygromètre", "Un baromètre", "Un anémomètre"], correct: 2, explanation: "Le baromètre mesure la pression atmosphérique." },
     { q: "Pourquoi l'eau de mer est-elle salée ?", choices: ["À cause des poissons", "Les rivières dissolvent les minéraux des roches", "On y a ajouté du sel", "À cause de la température"], correct: 1, explanation: "Les rivières déposent des sels dans la mer depuis des millions d'années." },
     { q: "Dans le cycle de vie d'une plante, quel est l'ordre correct ?", choices: ["Germination, floraison, pollinisation, fécondation, fruit", "Floraison, germination, fécondation, pollinisation, fruit", "Pollinisation, germination, floraison, fruit", "Germination, pollinisation, floraison, fruit"], correct: 0, explanation: "Germination → floraison → pollinisation → fécondation → fruit !" },
+    // --- CEB 2010-2025 : nouvelles questions sciences ---
+    { q: "Comment s'appelle l'organe reproducteur mâle de la fleur ?", choices: ["Le pistil", "Le pétale", "L'étamine", "Le sépale"], correct: 2, explanation: "L'étamine produit le pollen (organe mâle)." },
+    { q: "Comment s'appelle l'organe reproducteur femelle de la fleur ?", choices: ["L'étamine", "Le pétale", "Le pistil", "Le sépale"], correct: 2, explanation: "Le pistil est l'organe femelle. Le pollen doit y arriver pour la fécondation." },
+    { q: "Qu'est-ce qui transporte souvent le pollen d'une fleur à une autre ?", choices: ["La pluie", "Les abeilles et le vent", "Les racines", "Les feuilles"], correct: 1, explanation: "Les abeilles et le vent sont les principaux transporteurs de pollen." },
+    { q: "Quand un liquide augmente de volume sous l'effet de la chaleur, on dit qu'il se...", hint: "Dilater = augmenter de volume", choices: ["Contracte", "Dilate", "Évapore", "Condense"], correct: 1, explanation: "La dilatation = augmentation de volume sous l'effet de la chaleur." },
+    { q: "Sur une table mouillée, l'eau sèche toute seule. Quel changement d'état est-ce ?", choices: ["Solidification", "Condensation", "Évaporation", "Fusion"], correct: 2, explanation: "L'eau passe de liquide à gaz : c'est l'évaporation." },
+    { q: "L'eau existe sous combien d'états différents ?", choices: ["1", "2", "3", "4"], correct: 2, explanation: "Solide (glace), liquide (eau), gazeux (vapeur d'eau) = 3 états." },
+    { q: "Pourquoi les bâtiments sont-ils clairs dans les régions chaudes ?", choices: ["C'est plus joli", "Les couleurs claires absorbent moins la chaleur", "La peinture claire coûte moins cher", "Les couleurs foncées se décolorent"], correct: 1, explanation: "Les couleurs claires réfléchissent la lumière et gardent les bâtiments plus frais." },
+    { q: "Quand des glaçons flottant dans l'eau fondent, que se passe-t-il avec le niveau ?", choices: ["Il monte", "Il descend", "Il reste identique", "Ça dépend de la température"], correct: 2, explanation: "Quand des glaçons flottants fondent, le niveau reste identique (principe d'Archimède)." },
+    { q: "Dans un circuit électrique, que faut-il pour que le courant passe ?", choices: ["Des piles déchargées et un circuit fermé", "Des piles déchargées et un circuit ouvert", "Des piles chargées et un circuit fermé", "Des piles chargées et un circuit ouvert"], correct: 2, explanation: "Il faut des piles chargées ET un circuit fermé." },
+    { q: "L'eau salée conduit-elle l'électricité ?", choices: ["Non, jamais", "Oui", "Seulement quand elle est chaude", "Seulement quand elle est froide"], correct: 1, explanation: "L'eau salée est conductrice d'électricité, contrairement à l'eau pure." },
+    { q: "Quel sens est particulièrement développé chez le chien ?", choices: ["La vue", "L'ouïe", "L'odorat", "Le goût"], correct: 2, explanation: "Le chien a un odorat très développé, bien supérieur à celui de l'homme." },
+    { q: "Quel sens est particulièrement développé chez le faucon ?", choices: ["L'odorat", "L'ouïe", "Le toucher", "La vue"], correct: 3, explanation: "Le faucon a une vue exceptionnelle pour repérer ses proies de très loin." },
+    { q: "Le loup vit en groupe. Comment s'appelle ce groupe ?", choices: ["Un troupeau", "Une meute", "Une horde", "Un banc"], correct: 1, explanation: "Un groupe de loups = une meute." },
+    { q: "Le dauphin est-il un poisson ?", choices: ["Oui", "Non, c'est un mammifère", "Non, c'est un reptile", "Oui, c'est un poisson de mer"], correct: 1, explanation: "Le dauphin est un mammifère marin de l'ordre des cétacés." },
+    { q: "Quel instrument utilise-t-on pour mesurer un angle ?", choices: ["Une latte", "Un rapporteur", "Un compas", "Une équerre"], correct: 1, explanation: "Le rapporteur sert à mesurer les angles en degrés." },
+    { q: "Pourquoi les glaciers fondent-ils plus vite au 21e siècle ?", choices: ["Ils fondent en vieillissant", "Il y avait plus d'eau avant", "Des éboulements les ont élargis", "Il fait plus chaud qu'avant"], correct: 3, explanation: "Le réchauffement climatique fait fondre les glaciers." },
 ];
 
 // ===== FICHES RÉVISION PAR MATIÈRE =====
