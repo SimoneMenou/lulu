@@ -940,46 +940,121 @@ const REVISION_FICHES = {
 };
 
 // ===== MEMO CARDS (paires emoji / thème éducatif) =====
+// Mémo éducatif : chaque paire = carte A + carte B à retrouver
+// type "match" = les 2 cartes ont des textes différents à associer
 const MEMO_THEMES = [
     {
-        name: "Belgique",
+        name: "Capitales & Pays",
+        type: "match",
         pairs: [
-            { id: "frite", emoji: "🍟", label: "Frites" },
-            { id: "choco", emoji: "🍫", label: "Chocolat" },
-            { id: "gaufre", emoji: "🧇", label: "Gaufre" },
-            { id: "lion", emoji: "🦁", label: "Lion" },
-            { id: "saxo", emoji: "🎷", label: "Saxophone" },
-            { id: "diamant", emoji: "💎", label: "Diamant" },
-            { id: "bd", emoji: "📖", label: "BD" },
-            { id: "biere", emoji: "🍺", label: "Bière" },
+            { id: "be", a: "🇧🇪 Belgique", b: "Bruxelles" },
+            { id: "fr", a: "🇫🇷 France", b: "Paris" },
+            { id: "es", a: "🇪🇸 Espagne", b: "Madrid" },
+            { id: "de", a: "🇩🇪 Allemagne", b: "Berlin" },
+            { id: "it", a: "🇮🇹 Italie", b: "Rome" },
+            { id: "uk", a: "🇬🇧 Royaume-Uni", b: "Londres" },
+            { id: "nl", a: "🇳🇱 Pays-Bas", b: "Amsterdam" },
+            { id: "pt", a: "🇵🇹 Portugal", b: "Lisbonne" },
         ]
     },
     {
-        name: "Corps humain",
+        name: "Tables × 7",
+        type: "match",
         pairs: [
-            { id: "coeur", emoji: "❤️", label: "Cœur" },
-            { id: "cerveau", emoji: "🧠", label: "Cerveau" },
-            { id: "os", emoji: "🦴", label: "Os" },
-            { id: "oeil", emoji: "👁️", label: "Œil" },
-            { id: "poumon", emoji: "🫁", label: "Poumon" },
-            { id: "muscle", emoji: "💪", label: "Muscle" },
-            { id: "dent", emoji: "🦷", label: "Dent" },
-            { id: "oreille", emoji: "👂", label: "Oreille" },
+            { id: "7x2", a: "7 × 2", b: "14" },
+            { id: "7x3", a: "7 × 3", b: "21" },
+            { id: "7x4", a: "7 × 4", b: "28" },
+            { id: "7x5", a: "7 × 5", b: "35" },
+            { id: "7x6", a: "7 × 6", b: "42" },
+            { id: "7x8", a: "7 × 8", b: "56" },
+            { id: "7x9", a: "7 × 9", b: "63" },
+            { id: "7x11", a: "7 × 11", b: "77" },
         ]
     },
     {
-        name: "Rock & Musique",
+        name: "Tables × 8",
+        type: "match",
         pairs: [
-            { id: "guitar", emoji: "🎸", label: "Guitare" },
-            { id: "drums", emoji: "🥁", label: "Batterie" },
-            { id: "micro", emoji: "🎤", label: "Micro" },
-            { id: "note", emoji: "🎵", label: "Note" },
-            { id: "piano", emoji: "🎹", label: "Piano" },
-            { id: "head", emoji: "🎧", label: "Casque" },
-            { id: "vinyl", emoji: "💿", label: "Disque" },
-            { id: "star", emoji: "⭐", label: "Star" },
+            { id: "8x3", a: "8 × 3", b: "24" },
+            { id: "8x4", a: "8 × 4", b: "32" },
+            { id: "8x5", a: "8 × 5", b: "40" },
+            { id: "8x6", a: "8 × 6", b: "48" },
+            { id: "8x7", a: "8 × 7", b: "56" },
+            { id: "8x9", a: "8 × 9", b: "72" },
+            { id: "8x11", a: "8 × 11", b: "88" },
+            { id: "8x12", a: "8 × 12", b: "96" },
         ]
-    }
+    },
+    {
+        name: "Synonymes",
+        type: "match",
+        pairs: [
+            { id: "content", a: "Joyeux", b: "Content" },
+            { id: "beau", a: "Beau", b: "Joli" },
+            { id: "rapide", a: "Rapide", b: "Vite" },
+            { id: "grand", a: "Grand", b: "Immense" },
+            { id: "petit", a: "Petit", b: "Minuscule" },
+            { id: "parler", a: "Parler", b: "Dire" },
+            { id: "maison", a: "Maison", b: "Demeure" },
+            { id: "peur", a: "Peur", b: "Frayeur" },
+        ]
+    },
+    {
+        name: "Contraires",
+        type: "match",
+        pairs: [
+            { id: "gd", a: "Grand", b: "Petit" },
+            { id: "ch", a: "Chaud", b: "Froid" },
+            { id: "jo", a: "Jour", b: "Nuit" },
+            { id: "ra", a: "Rapide", b: "Lent" },
+            { id: "lo", a: "Lourd", b: "Léger" },
+            { id: "mo", a: "Monter", b: "Descendre" },
+            { id: "ou", a: "Ouvrir", b: "Fermer" },
+            { id: "tr", a: "Triste", b: "Joyeux" },
+        ]
+    },
+    {
+        name: "Organes & Fonctions",
+        type: "match",
+        pairs: [
+            { id: "coeur", a: "❤️ Cœur", b: "Pompe le sang" },
+            { id: "cerveau", a: "🧠 Cerveau", b: "Réfléchir" },
+            { id: "poumon", a: "🫁 Poumons", b: "Respirer" },
+            { id: "estomac", a: "🤢 Estomac", b: "Digérer" },
+            { id: "os", a: "🦴 Squelette", b: "Soutenir" },
+            { id: "peau", a: "🖐️ Peau", b: "Protéger" },
+            { id: "oeil", a: "👁️ Yeux", b: "Voir" },
+            { id: "oreille", a: "👂 Oreilles", b: "Entendre" },
+        ]
+    },
+    {
+        name: "Dates Belgique",
+        type: "match",
+        pairs: [
+            { id: "indep", a: "Indépendance", b: "1830" },
+            { id: "ww1", a: "1re Guerre", b: "1914" },
+            { id: "ww2", a: "2e Guerre", b: "1939" },
+            { id: "rome", a: "Traité de Rome", b: "1957" },
+            { id: "expo", a: "Expo Bruxelles", b: "1958" },
+            { id: "schtroumpf", a: "Schtroumpfs", b: "1958" },
+            { id: "tintin", a: "Tintin (1re)", b: "1929" },
+            { id: "brexit", a: "Brexit", b: "2020" },
+        ]
+    },
+    {
+        name: "Conversions",
+        type: "match",
+        pairs: [
+            { id: "km", a: "1 km", b: "1 000 m" },
+            { id: "m", a: "1 m", b: "100 cm" },
+            { id: "kg", a: "1 kg", b: "1 000 g" },
+            { id: "l", a: "1 L", b: "100 cL" },
+            { id: "h", a: "1 heure", b: "60 min" },
+            { id: "min", a: "1 min", b: "60 sec" },
+            { id: "cm", a: "1 cm", b: "10 mm" },
+            { id: "t", a: "1 tonne", b: "1 000 kg" },
+        ]
+    },
 ];
 
 // ===== CONJUGAISON AVENTURE =====

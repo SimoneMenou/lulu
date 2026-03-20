@@ -488,11 +488,18 @@ function startMemo() {
     memoMatched = 0; memoMoves = 0; memoLocked = false; memoFlipped = [];
     const theme = MEMO_THEMES[Math.floor(Math.random() * MEMO_THEMES.length)];
     const cards = [];
-    theme.pairs.forEach(p => { cards.push({ ...p, uid: p.id + '_a' }); cards.push({ ...p, uid: p.id + '_b' }); });
+
+    // Match mode : carte A (texte a) + carte B (texte b) avec même id
+    theme.pairs.forEach(p => {
+        cards.push({ id: p.id, text: p.a, uid: p.id + '_a', side: 'a' });
+        cards.push({ id: p.id, text: p.b, uid: p.id + '_b', side: 'b' });
+    });
+
     memoCards = shuffleArray(cards);
     showScreen('screen-memo');
     updateMemoDisplay();
-    document.getElementById('memo-story').textContent = STORY_INTROS.memo[Math.floor(Math.random() * STORY_INTROS.memo.length)];
+    document.getElementById('memo-story').textContent =
+        `${theme.name} — Retrouve les paires !`;
     renderMemoGrid();
 }
 
@@ -502,7 +509,13 @@ function renderMemoGrid() {
     memoCards.forEach((card, i) => {
         const el = document.createElement('div');
         el.className = 'memo-card';
-        el.innerHTML = `<div class="memo-card-inner"><div class="memo-card-face memo-card-back"></div><div class="memo-card-face memo-card-front"><span>${card.emoji}</span></div></div>`;
+        el.innerHTML = `
+            <div class="memo-card-inner">
+                <div class="memo-card-face memo-card-back"></div>
+                <div class="memo-card-face memo-card-front">
+                    <span class="memo-text">${card.text}</span>
+                </div>
+            </div>`;
         el.addEventListener('click', () => handleMemoClick(i, el));
         grid.appendChild(el);
     });
@@ -516,7 +529,10 @@ function handleMemoClick(index, el) {
     if (memoFlipped.length === 2) {
         memoMoves++; memoLocked = true;
         const [a, b] = memoFlipped;
-        if (memoCards[a.index].id === memoCards[b.index].id) {
+        const cardA = memoCards[a.index], cardB = memoCards[b.index];
+        // Match si même id mais cartes différentes (a≠b)
+        const isMatch = cardA.id === cardB.id && cardA.uid !== cardB.uid;
+        if (isMatch) {
             setTimeout(() => {
                 a.el.classList.add('matched'); b.el.classList.add('matched');
                 memoMatched++; memoFlipped = []; memoLocked = false;

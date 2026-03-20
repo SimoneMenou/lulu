@@ -793,7 +793,20 @@ body.theme-paradis .question-hint {
     background: rgba(30, 28, 55, 0.85);
     border: 2px solid rgba(83, 52, 131, 0.35);
     transform: rotateY(180deg);
+    padding: 4px;
 }
+
+.memo-text {
+    font-size: clamp(0.6rem, 2.5vw, 0.85rem);
+    font-weight: 800;
+    color: var(--bone);
+    text-align: center;
+    line-height: 1.2;
+    word-break: break-word;
+    overflow: hidden;
+}
+
+body.theme-paradis .memo-text { color: #333; }
 
 .memo-card.matched .memo-card-front {
     border-color: var(--correct);
