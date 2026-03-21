@@ -610,9 +610,14 @@ function getBubbleQuestions(gameType) {
     }));
 }
 
-// Génère les questions pour "Complète la phrase" : réponses longues
+// Questions dédiées "Complète la phrase" (phrases à trous)
 function getCompleteQuestions(gameType) {
-    const pool = getQuestionPool(gameType).filter(q => !isShortAnswer(q));
+    const dedicated = COMPLETE_QUESTIONS[gameType] || COMPLETE_QUESTIONS.mix || [];
+    if (dedicated.length > 0) {
+        return pickFreshQuestions(dedicated, gameType + '-complete', 'complete', 10);
+    }
+    // Fallback : questions longues du quiz
+    const pool = getQuestionPool(gameType).filter(q => !isBalloonFriendly(q));
     return pickFreshQuestions(pool, gameType, 'complete', 8);
 }
 
